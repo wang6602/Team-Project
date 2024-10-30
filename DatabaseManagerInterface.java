@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public interface DatabaseManagerInterface {
-
+    //Chat methods
     ArrayList<String> getChatIDs();
     ArrayList<String> readChat(String chatID);
     ArrayList<String> readEndChat(String chatID);
@@ -9,7 +9,7 @@ public interface DatabaseManagerInterface {
     void deleteText(String chatID, int messageID);
     void createChat(String chatName);
 
-
+    //User methods
     boolean createUser(String username, String password);
     boolean removeUser(String userID);
     boolean addUserToChat(String chatID, String userID);

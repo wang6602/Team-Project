@@ -1,3 +1,3 @@
-public class DatabaseManager {
+public class DatabaseManager implements DatabaseManagerInterface {
 
 }
