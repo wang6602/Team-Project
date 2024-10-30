@@ -1,20 +1,21 @@
 import java.util.ArrayList;
 
 public interface DatabaseManagerInterface {
-    public ArrayList<String> getChatID();
-    public ArrayList<String> readChat();
-    public ArrayList<String> readEndChat();
-    public void newText();
-    public void deleteText();
-    public void createChat();
-    public boolean createUser();
-    public boolean removeUser();
-    public boolean removeUserFromChat();
-    public boolean addUserToChat();
-    public ArrayList<> userLookup();
-    public ArrayList<> userViewer();
-    public void updateUser();
-    public boolean loginUser();
+
+    ArrayList<String> getChatIDs();
+    ArrayList<String> readChat(String chatID);
+    ArrayList<String> readEndChat(String chatID);
+    void addText(String chatID, String message);
+    void deleteText(String chatID, int messageID);
+    void createChat(String chatName);
 
 
+    boolean createUser(String username, String password);
+    boolean removeUser(String userID);
+    boolean addUserToChat(String chatID, String userID);
+    boolean removeUserFromChat(String chatID, String userID);
+    ArrayList<String> userLookup(String username);
+    ArrayList<String> userViewer(String userID);
+    void updateUser(String userID, String newInfo);
+    boolean loginUser(String username, String password);
 }
