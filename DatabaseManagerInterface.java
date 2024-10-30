@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public interface DatabaseManagerInterface {
     //Chat methods
-    ArrayList<String> getChatIDs();
+    ArrayList<String> getChatIDs(User user);
     ArrayList<String> readChat(String chatID);
     ArrayList<String> readEndChat(String chatID);
     void addText(String chatID, String message);
