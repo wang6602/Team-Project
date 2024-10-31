@@ -14,7 +14,7 @@ public interface DatabaseManagerInterface {
     boolean removeUser(String userID);
     boolean addUserToChat(String chatID, String userID);
     boolean removeUserFromChat(String chatID, String userID);
-    ArrayList<String> userLookup(String username);
+    ArrayList<User> userLookup(String username);
     ArrayList<String> userViewer(String userID);
     void updateUser(String userID, String newInfo);
     boolean loginUser(String username, String password);
