@@ -15,7 +15,6 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
 
                 if(currentLine.contains(userID)) {
                     chatIDs.add(currentLine.split(",")[0]);
-
                 }
                 currentLine = bfr.readLine();
             }
@@ -25,6 +24,8 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
             return null;
         }
     }
+
+
 
 
     public boolean removeUser(String userID){
