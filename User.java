@@ -7,7 +7,7 @@ public class User {
     private ArrayList<User> friends;
     private ArrayList<User> blocked;
     private ArrayList<String> chatIDs;
-hh
+
     public User(String username, String password) {
         this.username = username;
         this.userID = username;

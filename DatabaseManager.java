@@ -13,7 +13,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
             String currentLine;
             while(currentLine = bfr.readLine() != null) {
                 String currentLine = bfr.readLine();
-                if(currentLine.contains(userID))
+                if(currentLine.contains(userID)) {
+
+                }
             }
         } catch(Exception e) {
             e.printStackTrace();
