@@ -1,24 +1,28 @@
 import java.util.ArrayList;
 import java.io.*;
 
-public class DatabaseManager implements DatabaseManagerInterface {
-    public ArrayList<String> getChatIDs(User user) {
+//abstract is onlly temporrary
+public abstract class DatabaseManager implements DatabaseManagerInterface {
+    public ArrayList<String> getChatIDs(String userID) {
+
+        ArrayList<String> chatIDs = new ArrayList<>();
         try {
             File f = new File("chatIDs.txt");
-            if (f.exists() == false) {
-                f.createNewFile();
-            }
             FileReader fr = new FileReader(f);
             BufferedReader bfr = new BufferedReader(fr);
             String currentLine;
-            while(currentLine = bfr.readLine() != null) {
-                String currentLine = bfr.readLine();
+            while((currentLine = bfr.readLine()) != null) {
+
                 if(currentLine.contains(userID)) {
+                    chatIDs.add(currentLine.split(",")[0]);
 
                 }
+                currentLine = bfr.readLine();
             }
+            return chatIDs;
         } catch(Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 
