@@ -53,10 +53,6 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
     }
 
 
-    public ArrayList<String> readEndChat(String chatID) {
-        /*Only reads the latest text messages(End of the file) to save on processing power*/
-
-    }
 
 
 
