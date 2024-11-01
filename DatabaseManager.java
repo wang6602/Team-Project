@@ -28,11 +28,17 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
     public ArrayList<String> readChat(ArrayList<String> chatIDs) {
         ArrayList<String> Texts = new ArrayList<>();
         try {
-            File f = new File("TextHistory" + chatIDs + ".txt");
+            int chatIDLength = chatIDs.size();
+            for(int i = 0; i < chatIDLength; i++) {
+                File f = new File("TextHistory" + chatIDs.get(i) + ".txt");
+            }
             if(f.exists()) {
                 FileReader fr = new FileReader(f);
                 BufferedReader bfr = new BufferedReader(fr);
+                String line;
+                while(line != null) {
 
+                }
             } else {
                 f.createNewFile("TextHistory" + chatIDs + ".txt");
             }
