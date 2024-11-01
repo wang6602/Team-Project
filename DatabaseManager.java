@@ -54,19 +54,28 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public void newText(User currentUser, String chatID, String message) {
-        /*
-        Void newText(User currentUser, String chatID, String message)
-        Makes a connection to the given chatID, then adds a new line to
-        the database of UserID,message
-        Ensure that this method properly locks the file when writing to avoid concurrency issues if
-        multiple users are sending messages simultaneously,
-        likely using synchronized(obj)
-         */
-
+    synchronized(this) {
         try {
-            if()
+            File f = new File(chatID + ".txt");
+            if (f.exists()) {
+                FileOutputStream fos = new FileOutputStream(f);
+                PrintWriter pw = new PrintWriter(fos);
+                pw.println(currentUser.toString() + "," + message);
+            }
+            else {
+                f.createNewFile();
+                FileOutputStream fos = new FileOutputStream(f);
+                PrintWriter pw = new PrintWriter(fos);
+                pw.println(currentUser.toString() + "," + message);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            }
         }
     }
+
+
+
 
 
 
