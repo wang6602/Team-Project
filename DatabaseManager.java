@@ -25,6 +25,20 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
+    public ArrayList<String> readChat(ArrayList<String> chatIDs) {
+        ArrayList<String> Texts = new ArrayList<>();
+        try {
+            File f = new File("TextHistory" + chatIDs + ".txt");
+            if(f.exists()) {
+                FileReader fr = new FileReader(f);
+                BufferedReader bfr = new BufferedReader(fr);
+            } else {
+                f.createNewFile("TextHistory" + chatIDs + ".txt");
+            }
+
+        }
+    }
+
 
 
 
