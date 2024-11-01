@@ -52,6 +52,11 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
+    public void newText(User currentUser, String chatID, String message) {
+
+    }
+
+
 
 
 
