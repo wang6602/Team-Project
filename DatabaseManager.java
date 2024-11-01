@@ -30,7 +30,7 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
         try {
             int chatIDLength = chatIDs.size();
             for(int i = 0; i < chatIDLength; i++) {
-                File f = new File("TextHistory" + chatIDs.get(i) + ".txt");
+                File f = new File(chatIDs.get(i) + ".txt");
                 if(f.exists()) {
                     FileReader fr = new FileReader(f);
                     BufferedReader bfr = new BufferedReader(fr);
@@ -41,15 +41,8 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
                     }
                     return Texts;
                 } else {
-                    f.createNewFile();
-                    FileReader fr = new FileReader(f);
-                    BufferedReader bfr = new BufferedReader(fr);
-                    ArrayList<String> Texts = new ArrayList<>();
-                    String line;
-                    while(line == bfr.readLine() != null) {
-                        Texts.add(line);
+                    continue;
                     }
-                    return Texts;
                 }
             }
 
@@ -59,6 +52,11 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
+
+    public ArrayList<String> readEndChat(String chatID) {
+        /*Only reads the latest text messages(End of the file) to save on processing power*/
+
+    }
 
 
 
