@@ -25,7 +25,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println()
+        System.out.println(dm.loginUser("1", "1", "1"));
 
 
 
