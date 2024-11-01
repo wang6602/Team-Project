@@ -32,6 +32,7 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
             if(f.exists()) {
                 FileReader fr = new FileReader(f);
                 BufferedReader bfr = new BufferedReader(fr);
+
             } else {
                 f.createNewFile("TextHistory" + chatIDs + ".txt");
             }
