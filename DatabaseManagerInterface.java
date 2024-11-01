@@ -2,12 +2,12 @@ import java.util.ArrayList;
 
 public interface DatabaseManagerInterface {
     //Chat methods
-    ArrayList<String> getChatIDs(User user);
+    ArrayList<String> getChatIDs(String userID);
     ArrayList<String> readChat(String chatID);
     ArrayList<String> readEndChat(String chatID);
     void addText(String chatID, String message);
     void deleteText(String chatID, int messageID);
-    void createChat(String chatName);
+    void createChat(String[] userID);
 
     //User methods
     boolean createUser(String username, String password);
