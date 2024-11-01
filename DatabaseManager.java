@@ -42,6 +42,7 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
                     return Texts;
                 } else {
                     continue;
+                    //Shouldn't ever run the else statement
                     }
                 }
             }
@@ -53,7 +54,18 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public void newText(User currentUser, String chatID, String message) {
+        /*
+        Void newText(User currentUser, String chatID, String message)
+        Makes a connection to the given chatID, then adds a new line to
+        the database of UserID,message
+        Ensure that this method properly locks the file when writing to avoid concurrency issues if
+        multiple users are sending messages simultaneously,
+        likely using synchronized(obj)
+         */
 
+        try {
+            if()
+        }
     }
 
 
