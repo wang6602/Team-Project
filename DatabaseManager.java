@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.io.*;
 
 //abstract is onlly temporrary
-public abstract class DatabaseManager implements DatabaseManagerInterface {
+public class DatabaseManager /* implements DatabaseManagerInterface*/ {
     public ArrayList<String> getChatIDs(String userID) {
 
         ArrayList<String> chatIDs = new ArrayList<>();
@@ -69,19 +69,23 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
                 }
                 //looping through each user's friends
                 ArrayList<User> friends = tempUser.get(i).getFriends();
-                for(int j=0; j<friends.size(); j++){
-                    if(friends.get(j).getUserID().equals(userID)){
-                        friends.remove(j);
-                        j--;
+                if(friends != null) {
+                    for (int j = 0; j < friends.size(); j++) {
+                        if (friends.get(j).getUserID().equals(userID)) {
+                            friends.remove(j);
+                            j--;
+                        }
                     }
                 }
 
                 //looping through each user's blocked
                 ArrayList<User> blocked = tempUser.get(i).getBlocked();
-                for(int k=0; k<blocked.size(); k++){
-                    if(blocked.get(k).getUserID().equals(userID)){
-                        blocked.remove(k);
-                        k--;
+                if(blocked != null) {
+                    for (int k = 0; k < blocked.size(); k++) {
+                        if (blocked.get(k).getUserID().equals(userID)) {
+                            blocked.remove(k);
+                            k--;
+                        }
                     }
                 }
             }
@@ -98,22 +102,44 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
             File chat = new File("chatIDs.txt");
             FileReader fr = new FileReader(chat);
             BufferedReader bfr = new BufferedReader(fr);
+
+
+            ArrayList<String> chatIDLines = new ArrayList<>();
+            String currentLine = bfr.readLine();
+            while(currentLine!=null){
+                chatIDLines.add(currentLine);
+                currentLine = bfr.readLine();
+            }
+
+            for(int i = 0; i<chatIDLines.size(); i++){
+                 String[] line = chatIDLines.get(i).split(",");
+                 ArrayList<String> updateLine = new ArrayList<>();
+                 for (String item : line) {
+                     if(!item.equals(userID)){
+                         updateLine.add(item);
+                     } else{
+                         userFound = true;
+                     }
+                 }
+                 String ans = "";
+                 for(String temp : updateLine){
+                     ans+=temp+",";
+                 }
+                 if(updateLine.size() >=3) {
+                     chatIDLines.set(i, ans.substring(0, ans.length() - 1));
+                 }
+                 else {
+                     chatIDLines.remove(i);
+                     i--;
+                 }
+            }
+
             FileWriter fw = new FileWriter("chatIDs.txt");
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
 
-            String currentLine = bfr.readLine();
-            while(currentLine!=null){
-                if(currentLine.contains(userID)){
-                    String line = currentLine.replace(userID, "");
-                    String[] temp = line.split(",");
-                    if(!(temp.length <= 2)){
-                        pw.println(line);
-                    }
-
-                } else{
-                    pw.println(currentLine);
-                }
+            for(String s : chatIDLines){
+                pw.println(s);
             }
 
             pw.close();
@@ -137,29 +163,58 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
             FileReader fr = new FileReader(file);
             BufferedReader bfr = new BufferedReader(fr);
 
-            FileWriter fw = new FileWriter("chatIDs.txt");
+            ArrayList<String> chatIDLines = new ArrayList<>();
+
+            String current =  bfr.readLine();
+            while(current!=null){
+                chatIDLines.add(current);
+                current = bfr.readLine();
+            }
+
+            for(int i = 0; i<chatIDLines.size(); i++){
+                String[] line = chatIDLines.get(i).split(",");
+                ArrayList<String> updateLine = new ArrayList<>();
+
+                if(line[0].equals(chatID)) {
+                    for (String item : line) {
+                        if (!item.equals(userID)) {
+                            updateLine.add(item);
+                        } else{
+                            userDeleted = true;
+                        }
+                    }
+                } else{
+                    continue;
+                }
+
+                String ans = "";
+                for(String temp : updateLine){
+                    ans+=temp+",";
+                }
+                if(updateLine.size() >=3) {
+                    chatIDLines.set(i, ans.substring(0, ans.length() - 1));
+                }
+                else {
+                    chatIDLines.remove(i);
+                    i--;
+                }
+
+            }
+
+            FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
-
-
-            String currentLine = bfr.readLine();
-            while(currentLine!=null){
-                if(currentLine.contains(userID)){
-                    String line = currentLine.replace(userID, "");
-                    userDeleted = true;
-                    String[] temp = line.split(",");
-                    if((temp.length > 2)){
-                        pw.println(line);
-                    }
-
-                    currentLine = bfr.readLine();
-
-                } else{
-                    pw.println(currentLine);
-                }
+            for(String s : chatIDLines){
+                pw.println(s);
             }
+
             pw.close();
             bfr.close();
+
+
+
+
+
 
             return userDeleted;
 
@@ -176,28 +231,65 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
 
     public boolean addUserToChat(String userID, String chatID){
         boolean userAdded = false;
+        boolean existingUser = false;
         try {
+
+            File file1 = new File("userDatabase.txt");
+            FileInputStream fis = new FileInputStream(file1);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+
+            for(User user : users){
+                if(user.getUserID().equals(userID)){
+                    existingUser = true;
+                }
+            }
+            if(!existingUser){
+                return false;
+                //user needs to be created first!
+            }
+
+            ois.close();
+
             File file = new File("chatIDs.txt");
             FileReader fr = new FileReader(file);
             BufferedReader bfr = new BufferedReader(fr);
 
-            FileWriter fw = new FileWriter("chatIDs.txt");
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pw = new PrintWriter(bw);
-
-            //TODO: check if the user is blocked, and dont add him if he s
-            String line = bfr.readLine();
-            while(line!=null){
-                if(line.contains(userID)){
-                    String temp = line+=","+userID;
-                    pw.println(temp);
+            ArrayList<String> chatIDLines = new ArrayList<>();
+            String current =  bfr.readLine();
+            while(current!=null){
+                chatIDLines.add(current);
+                current = bfr.readLine();
+            }
+            for(int i = 0; i<chatIDLines.size(); i++){
+                String[] line = chatIDLines.get(i).split(",");
+                ArrayList<String> updateLine = new ArrayList<>();
+                if(line[0].equals(chatID)) {
+                    for (String item : line) {
+                        updateLine.add(item);
+                    }
+                    updateLine.add(userID);
                     userAdded = true;
-                } else{
-                    pw.println(line);
+                    String ans="";
+                    for(String temp : updateLine){
+                        ans += temp+",";
+                    }
+                    chatIDLines.set(i, ans.substring(0, ans.length() - 1));
+
                 }
             }
 
+            FileWriter fw = new FileWriter(file);
+            PrintWriter pw = new PrintWriter(fw);
+
+            for(String s : chatIDLines){
+                pw.println(s);
+            }
             pw.close();
+
+
+
+
             bfr.close();
             return userAdded;
 
@@ -257,6 +349,11 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
                 }
             }
 
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(users);
+            oos.close();
+
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -283,6 +380,9 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
         }
 
     }
+
+    //just for testing purposes
+
 
 
 
