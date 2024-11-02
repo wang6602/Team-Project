@@ -1,5 +1,5 @@
-import java.util.ArrayList;
 import java.io.*;
+import java.util.*;
 
 // Abstract is only temporary
 public abstract class DatabaseManager implements DatabaseManagerInterface {
@@ -60,22 +60,53 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public void deleteText(User currentUser, String chatID) {
+    public void deleteText(User currentUser, String chatID, int index) {
         // Make a connection with the file.
         // Run readChat to get an ArrayList<String> of all the messages.
         // Using the passed-in index, delete the corresponding line in the database.
         // Rewrite the entire database with the updated ArrayList values.
         synchronized (this) {
+            ArrayList<String> Texts = new ArrayList<>();
+            try {
+                    File f = new File(chatID + ".txt");
+                    if (f.exists()) {
+                        FileReader fr = new FileReader(f);
+                        BufferedReader bfr = new BufferedReader(fr);
+                        String line;
+                        while ((line = bfr.readLine()) != null) {
+                            Texts.add(line);
+                        }
+                        if(index < 0 || index >= Texts.size()) {
+                            return; //invalid index to delete
+                        }
+                        Texts.remove(index);
+                        bfr.close();
 
+                        try (BufferedWriter writer = new BufferedWriter(new FileWriter(f))) {
+                            for (String text : Texts) {
+                                writer.write(text);
+                                writer.newLine();
+                            }
+                        }
+                    }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
-
 
     public void createChat(String[] userID) {
         // Create a new entry in the ChatID database.
         // Assign a unique chatID for the group, then follow it with all the user IDs involved
         // (ChatID, UserID1, UserID2, UserID3...).
         // Create a new text file with the ChatID representing the actual chat.
+        synchronized (this) {
+            File f = new File("ChatIDs.txt");
+            FileOutputStream fos = new FileOutputStream(f);
+            PrintWriter pw = new PrintWriter(fos);
+
+        }
+
     }
 
 
