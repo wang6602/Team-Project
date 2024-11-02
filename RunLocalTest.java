@@ -83,8 +83,8 @@ public class RunLocalTest {
         // Test for sending a message
         @Test
         public void testSendMessage() {
-            dbManager.createChat("chat1", new String[]{"user1", "user2"});
-            dbManager.sendMessage("user1", "Hello", "chat1");
+            dbManager.createChat( new String[]{"user1", "user2"});
+            dbManager.newText("user1", "Hello", "chat1");
             ArrayList<String> chatMessages = dbManager.readChat("chat1");
             Assert.assertTrue("Chat should contain the sent message", chatMessages.contains("Hello"));
         }
@@ -92,9 +92,9 @@ public class RunLocalTest {
         // Test for viewing chat messages
         @Test
         public void testViewChat() {
-            dbManager.createChat("chat1", new String[]{"user1", "user2"});
-            dbManager.addText("chat1", "Hello");
-            ArrayList<String> chatMessages = dbManager.viewChat("chat1");
+            dbManager.createChat(new String[]{"user1", "user2"});
+            dbManager.newText("user1", "chat1", "Hello");
+            ArrayList<String> chatMessages = dbManager.readChat("chat1");
             Assert.assertNotNull("Messages should not be null", chatMessages);
             Assert.assertTrue("Messages should contain expected text", chatMessages.contains("Hello"));
         }
@@ -103,7 +103,7 @@ public class RunLocalTest {
         @Test
         public void testViewUser() {
             dbManager.createUser("user1", "pass1");
-            User user = dbManager.viewUser("user1");
+            User user = dbManager.userViewer().get(0);
             Assert.assertNotNull("User should not be null", user);
             Assert.assertEquals("User ID should match", "user1", user.getUserID());
         }
@@ -111,8 +111,8 @@ public class RunLocalTest {
         // Test for adding text to a chat
         @Test
         public void testAddText() {
-            dbManager.createChat("chat1", new String[]{"user1", "user2"});
-            dbManager.addText("chat1", "Hello, world!");
+            dbManager.createChat(new String[]{"user1", "user2"});
+            dbManager.newText("user1","chat1", "Hello, world!");
             ArrayList<String> chatMessages = dbManager.readChat("chat1");
             Assert.assertTrue("Message should be added to chat", chatMessages.contains("Hello, world!"));
         }
@@ -120,9 +120,9 @@ public class RunLocalTest {
         // Test for deleting text from a chat
         @Test
         public void testDeleteText() {
-            dbManager.createChat("chat1", new String[]{"user1", "user2"});
-            dbManager.addText("chat1", "Temporary message");
-            dbManager.deleteText("chat1", 0); // Assuming 0 is the message ID
+            dbManager.createChat(new String[]{"user1", "user2"});
+            dbManager.newText("user1", "chat1", "Temporary message");
+            dbManager.deleteText("chat1", 0); // Assuming 0 is the message index
             ArrayList<String> chatMessages = dbManager.readChat("chat1");
             Assert.assertFalse("Message should be deleted from chat", chatMessages.contains("Temporary message"));
         }
@@ -166,7 +166,7 @@ public class RunLocalTest {
         public void testReadChat() {
             ArrayList<String> chatIDs = new ArrayList<>();
             chatIDs.add("testChatID");
-            ArrayList<String> messages = dbManager.readChat(chatIDs);
+            ArrayList<String> messages = dbManager.readChat(chatIDs.get(0));
             Assert.assertNotNull("Messages should not be null", messages);
         }
 
@@ -175,7 +175,7 @@ public class RunLocalTest {
         public void testReadChatNonExistent() {
             ArrayList<String> chatIDs = new ArrayList<>();
             chatIDs.add("nonExistentChatID");
-            ArrayList<String> messages = dbManager.readChat(chatIDs);
+            ArrayList<String> messages = dbManager.readChat(chatIDs.get(0));
             Assert.assertTrue("Messages list should be empty for a non-existent chat", messages.isEmpty());
         }
     }

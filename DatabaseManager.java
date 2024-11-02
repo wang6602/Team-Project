@@ -48,7 +48,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public void newText(String currentUserID, String chatID, String message) {
-        synchronized (this) {
+
             try {
                 File f = new File(chatID + ".txt");
                 FileOutputStream fos = new FileOutputStream(f, true); // Append mode
@@ -58,42 +58,43 @@ public class DatabaseManager implements DatabaseManagerInterface {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+
     }
 
-    public void deleteText(String currentUserID, String chatID, int index) {
+    public void deleteText(String chatID, int index) {
         // Make a connection with the file.
         // Run readChat to get an ArrayList<String> of all the messages.
         // Using the passed-in index, delete the corresponding line in the database.
         // Rewrite the entire database with the updated ArrayList values.
-        synchronized (this) {
+
             ArrayList<String> Texts = new ArrayList<>();
             try {
-                    File f = new File(chatID + ".txt");
-                    if (f.exists()) {
-                        FileReader fr = new FileReader(f);
-                        BufferedReader bfr = new BufferedReader(fr);
-                        String line;
-                        while ((line = bfr.readLine()) != null) {
-                            Texts.add(line);
-                        }
-                        if(index < 0 || index >= Texts.size()) {
-                            return; //invalid index to delete method
-                        }
-                        Texts.remove(index);
-                        bfr.close();
-
-                        try (BufferedWriter writer = new BufferedWriter(new FileWriter(f))) {
-                            for (String text : Texts) {
-                                writer.write(text);
-                                writer.newLine();
-                            }
-                        }
+                File f = new File(chatID + ".txt");
+                if (f.exists()) {
+                    FileReader fr = new FileReader(f);
+                    BufferedReader bfr = new BufferedReader(fr);
+                    String line;
+                    while ((line = bfr.readLine()) != null) {
+                        Texts.add(line);
                     }
+                    if(index < 0 || index >= Texts.size()) {
+                        return; //invalid index to delete method
+                    }
+                    Texts.remove(index);
+                    bfr.close();
+
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(f));
+                    PrintWriter pw = new PrintWriter(writer);
+                        for (String text : Texts) {
+                            pw.println(text);
+                        }
+                    pw.close();
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+
     }
 
     public void createChat(String[] userID) {
