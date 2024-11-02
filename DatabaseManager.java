@@ -4,7 +4,7 @@ import java.util.*;
 // Abstract is only temporary
 public class DatabaseManager implements DatabaseManagerInterface {
 
-    public ArrayList<String> getChatIDs(String userID) {
+    public synchronized ArrayList<String> getChatIDs(String userID) {
         ArrayList<String> chatIDs = new ArrayList<>();
         try {
             File f = new File("chatIDs.txt");
@@ -24,7 +24,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public String getUsersinChat(String chatID) {
+    public synchronized String getUsersinChat(String chatID) {
         ArrayList<String> userIDs = new ArrayList<>();
         File file = new File("chatIDs.txt");
         try{
@@ -48,7 +48,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
 
 
 
-    public ArrayList<String> readChat(String chatID) {
+    public synchronized ArrayList<String> readChat(String chatID) {
         ArrayList<String> Texts = new ArrayList<>();
         try {
             File f = new File(chatID + ".txt");
@@ -69,7 +69,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public void newText(String currentUserID, String chatID, String message) {
+    public synchronized void newText(String currentUserID, String chatID, String message) {
 
             try {
                 File f = new File(chatID + ".txt");
@@ -83,7 +83,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
 
     }
 
-    public void deleteText(String chatID, int index) {
+    public synchronized void deleteText(String chatID, int index) {
             ArrayList<String> Texts = new ArrayList<>();
             try {
                 File f = new File(chatID + ".txt");
@@ -114,7 +114,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
 
     }
 
-    public void createChat(String[] userID) {
+    public synchronized void createChat(String[] userID) {
         // Create a new entry in the ChatID database.
         // Assign a unique chatID for the group, then follow it with all the user IDs involved
         // (ChatID, UserID1, UserID2, UserID3...).
@@ -140,14 +140,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
 
-    public boolean createUser(String username, String password) {
-        // Create a new user with the given username, password, and userID.
-        // Create a temporary Users ArrayList.
-        // Make a connection to the userDatabase file and retrieve an ArrayList of Users from that text file.
-        // Add the new user to the temporary ArrayList if the username is unique.
-        // If the username is not unique, return false.
-        // Write back to the database with the updated data.
-        // On success, return true.
+    public synchronized boolean createUser(String username, String password) {
         try {
             User newUser = new User(username, password);
             ArrayList<User> users = new ArrayList<>();
@@ -182,7 +175,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
 
     }
 
-    public boolean removeUser(String userID) {
+    public synchronized boolean removeUser(String userID) {
         boolean userFound = false;
         try {
             ArrayList<User> tempUser = new ArrayList<>();
@@ -248,7 +241,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public boolean removeUserFromChat(String userID, String chatID) {
+    public synchronized boolean removeUserFromChat(String userID, String chatID) {
         boolean userDeleted = false;
         try {
             File file = new File("chatIDs.txt");
@@ -282,7 +275,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public boolean addUserToChat(String userID, String chatID) {
+    public synchronized boolean addUserToChat(String userID, String chatID) {
         boolean userAdded = false;
         try {
             File file = new File("chatIDs.txt");
@@ -321,7 +314,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public ArrayList<User> userLookup(String name) {
+    public synchronized ArrayList<User> userLookup(String name) {
         ArrayList<User> ans = new ArrayList<>();
         try {
             File file = new File("userDatabase.txt");
@@ -342,7 +335,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public ArrayList<User> userViewer() {
+    public synchronized ArrayList<User> userViewer() {
         try {
             File file = new File("userDatabase.txt");
             FileInputStream fis = new FileInputStream(file);
@@ -356,7 +349,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public void updateUser(User user) {
+    public synchronized void updateUser(User user) {
         try {
             File file = new File("userDatabase.txt");
             FileInputStream fis = new FileInputStream(file);
@@ -381,7 +374,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public boolean loginUser(String username, String password, String userID) {
+    public synchronized boolean loginUser(String username, String password, String userID) {
         try {
             File file = new File("userDatabase.txt");
             FileInputStream fis = new FileInputStream(file);
@@ -403,7 +396,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public boolean updateUserProfilePicture(String userID, String base64){
+    public synchronized boolean updateUserProfilePicture(String userID, String base64){
         File file = new File("userDatabase.txt");
         try{
             FileInputStream fis = new FileInputStream(file);
@@ -425,7 +418,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public String getUserProfilePicture(String userID){
+    public synchronized String getUserProfilePicture(String userID){
         File file = new File("userDatabase.txt");
         try{
             FileInputStream fis = new FileInputStream(file);
@@ -445,7 +438,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public boolean clearUserProfilePicture(String userID){
+    public synchronized boolean clearUserProfilePicture(String userID){
         File file = new File("userDatabase.txt");
         try{
             FileInputStream fis = new FileInputStream(file);
@@ -467,7 +460,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
 
-    public boolean addFriend(String currentUserID, String friendID) {
+    public synchronized boolean addFriend(String currentUserID, String friendID) {
         File file = new File("userDatabase.txt");
 
         try {
@@ -513,7 +506,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public boolean blockFriend(String currentuserID, String friendID) {
+    public synchronized boolean blockFriend(String currentuserID, String friendID) {
         File file = new File("userDatabase.txt");
         try{
             FileInputStream fis = new FileInputStream(file);
