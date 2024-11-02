@@ -180,6 +180,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
             ArrayList < User > users = new ArrayList < > ();
 
             File databaseFile = new File("userDatabase.txt");
+            if(databaseFile.exists() == false) {
+                databaseFile.createNewFile();
+            }
             FileInputStream fis = new FileInputStream(databaseFile);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
