@@ -84,12 +84,16 @@ public class User implements Serializable {
         blocked.remove(user);
     }
 
+    //sets a new profile picture in base 64 format
     public void setProfilePicturebase64(String profilePicturebase64) {
         this.profilePicturebase64 = profilePicturebase64;
     }
+    //gets the String formatted base 64 picture
     public String getProfilePicturebase64() {
         return profilePicturebase64;
     }
+
+    //clears the base 64 pciture and sets it back to the defualt
     public void clearProfilePicturebase64() {
         profilePicturebase64 = null;
     }

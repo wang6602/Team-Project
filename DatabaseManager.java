@@ -25,7 +25,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public String getUsersinChat(String chatID) {
-        ArrayList<String> userIDs = new ArrayList<>();
+
         File file = new File("chatIDs.txt");
         try{
             FileReader fr = new FileReader(file);
