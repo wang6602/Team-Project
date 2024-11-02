@@ -385,4 +385,68 @@ public class DatabaseManager implements DatabaseManagerInterface {
             return false;
         }
     }
+
+    public boolean updateUserProfilePicture(String userID, String base64){
+        File file = new File("userDatabase.txt");
+        try{
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+            ois.close();
+            for (User user : users) {
+                if (user.getUserID().equals(userID)){
+                    user.setProfilePicturebase64(base64);
+                    return true;
+                }
+            }
+
+            return false;
+
+        } catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public String getUserProfilePicture(String userID){
+        File file = new File("userDatabase.txt");
+        try{
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+            ois.close();
+            for (User user : users) {
+                if (user.getUserID().equals(userID)){
+                    return user.getProfilePicturebase64();
+                }
+            }
+            return null;
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public boolean clearUserProfilePicture(String userID){
+        File file = new File("userDatabase.txt");
+        try{
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+            ois.close();
+            for (User user : users) {
+                if (user.getUserID().equals(userID)){
+                    user.clearProfilePicturebase64();
+                    return true;
+                }
+            }
+            return false;
+
+        } catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

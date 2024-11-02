@@ -17,4 +17,9 @@ public interface DatabaseManagerInterface {
     ArrayList<User> userViewer();
     void updateUser(User user);
     boolean loginUser(String username, String password, String userID);
+    boolean updateUserProfilePicture(String userID, String base64);
+    String getUserProfilePicture(String userID);
+    boolean clearUserProfilePicture(String userID);
+
+
 }

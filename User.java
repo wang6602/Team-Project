@@ -5,6 +5,7 @@ public class User implements Serializable {
     private String username;
     private String userID;
     private String password;
+    private String profilePicturebase64;
     private ArrayList<User> friends;
     private ArrayList<User> blocked;
     private ArrayList<String> chatIDs;
@@ -13,6 +14,17 @@ public class User implements Serializable {
         this.username = username;
         this.userID = username;
         this.password = password;
+        profilePicturebase64 = null;
+        friends = null;
+        blocked = null;
+        chatIDs = null;
+    }
+
+    public User(String username, String password, String profilePicturebase64) {
+        this.username = username;
+        this.userID = username;
+        this.password = password;
+        this.profilePicturebase64 = profilePicturebase64;
         friends = null;
         blocked = null;
         chatIDs = null;
@@ -71,4 +83,15 @@ public class User implements Serializable {
     public void removeBlocked (User user) {
         blocked.remove(user);
     }
+
+    public void setProfilePicturebase64(String profilePicturebase64) {
+        this.profilePicturebase64 = profilePicturebase64;
+    }
+    public String getProfilePicturebase64() {
+        return profilePicturebase64;
+    }
+    public void clearProfilePicturebase64() {
+        profilePicturebase64 = null;
+    }
+
 }
