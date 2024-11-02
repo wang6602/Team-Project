@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public interface DatabaseManagerInterface {
     //Chat methods
     ArrayList<String> getChatIDs(String userID);
+    String getUsersinChat(String chatID);
     ArrayList<String> readChat(String chatID);
     void deleteText(String chatID, int index);
     void createChat(String[] userID);
@@ -23,6 +24,7 @@ public interface DatabaseManagerInterface {
 
     boolean addFriend(String currentuserID, String friendID);
     boolean blockFriend(String currentuserID, String friendID);
+
 
 
 }

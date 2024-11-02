@@ -24,6 +24,28 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
+    public String getUsersinChat(String chatID) {
+        ArrayList<String> userIDs = new ArrayList<>();
+        File file = new File("chatIDs.txt");
+        try{
+            FileReader fr = new FileReader(file);
+            BufferedReader bfr = new BufferedReader(fr);
+            String currentLine = bfr.readLine();
+            while ((currentLine) != null) {
+                if (currentLine.contains(chatID)) {
+                    return currentLine.substring(currentLine.indexOf(",")+1);
+                }
+            }
+
+            return null;
+
+        } catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
 
 
     public ArrayList<String> readChat(String chatID) {
