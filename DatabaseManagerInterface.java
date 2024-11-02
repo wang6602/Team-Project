@@ -21,5 +21,8 @@ public interface DatabaseManagerInterface {
     String getUserProfilePicture(String userID);
     boolean clearUserProfilePicture(String userID);
 
+    boolean addFriend(String currentuserID, String friendID);
+    boolean blockFriend(String currentuserID, String friendID);
+
 
 }

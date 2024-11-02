@@ -449,4 +449,87 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
+
+    public boolean addFriend(String currentUserID, String friendID) {
+        File file = new File("userDatabase.txt");
+
+        try {
+            // Load the users from the file
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+            ois.close();
+
+            User currentUser = null;
+            User friendUser = null;
+
+            // Find the users with currentUserID and friendID
+            for (User user : users) {
+                if (user.getUsername().equals(currentUserID)) {
+                    currentUser = user;
+                } else if (user.getUsername().equals(friendID)) {
+                    friendUser = user;
+                }
+                if (currentUser != null && friendUser != null) {
+                    break; // Exit the loop early if both users are found
+                }
+            }
+
+            if (currentUser != null && friendUser != null) {
+                // Add friendUser to currentUser's friends list
+                currentUser.addFriends(friendUser);
+
+                // Save the updated users list back to the file
+                FileOutputStream fos = new FileOutputStream(file);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(users);
+                oos.close();
+                return true;
+
+
+            }
+            return false;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean blockFriend(String currentuserID, String friendID) {
+        File file = new File("userDatabase.txt");
+        try{
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+            ois.close();
+            User currentUser = null;
+            User friendUser = null;
+            for (User user : users) {
+                if (user.getUsername().equals(currentuserID)) {
+                    currentUser = user;
+                }
+                if (user.getUsername().equals(friendID)) {
+                    friendUser = user;
+                }
+                if (currentUser != null && friendUser != null) {
+                    break;
+                }
+            }
+            if (currentUser != null && friendUser != null) {
+                currentUser.addBlocked(friendUser);
+                FileOutputStream fos = new FileOutputStream(file);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(users);
+                oos.close();
+                return true;
+            }
+            return false;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
 }
