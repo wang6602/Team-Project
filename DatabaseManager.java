@@ -84,11 +84,6 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public void deleteText(String chatID, int index) {
-        // Make a connection with the file.
-        // Run readChat to get an ArrayList<String> of all the messages.
-        // Using the passed-in index, delete the corresponding line in the database.
-        // Rewrite the entire database with the updated ArrayList values.
-
             ArrayList<String> Texts = new ArrayList<>();
             try {
                 File f = new File(chatID + ".txt");
