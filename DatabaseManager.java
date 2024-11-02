@@ -182,29 +182,31 @@ public class DatabaseManager implements DatabaseManagerInterface {
 
 
     public synchronized boolean createUser(String username, String password) {
-        /*
-    Creates a new user with given username and password and UserID
-    Creates a temporary Users arrayList. Makes a connection to the
-    userDatabase file and retrieves that arrayList of Users from that text file.
-    Once the temporary Users arrayList has all the stored users in it, add
-    the new user to that arrayList if it has a unique username String
-    If new user username is not unique return false
-    Then write back to the database with new data
-    On success return true
+       /*
+   Creates a new user with given username and password and UserID
+   Creates a temporary Users arrayList. Makes a connection to the
+   userDatabase file and retrieves that arrayList of Users from that text file.
+   Once the temporary Users arrayList has all the stored users in it, add
+   the new user to that arrayList if it has a unique username String
+   If new user username is not unique return false
+   Then write back to the database with new data
+   On success return true
 
-         */
+
+        */
         try {
             User newUser = new User(username, password);
             ArrayList < User > users = new ArrayList < > ();
 
+
             File databaseFile = new File("userDatabase.txt");
             if(databaseFile.exists() == false) {
                 databaseFile.createNewFile();
+            } else {
+                FileInputStream fis = new FileInputStream(databaseFile);
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                users = (ArrayList < User > ) ois.readObject();
             }
-            FileInputStream fis = new FileInputStream(databaseFile);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            users = (ArrayList < User > ) ois.readObject();
 
             boolean uniqueUserName = true;
             for (User user: users) {
@@ -214,7 +216,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
                 }
             }
 
+
             users.add(newUser);
+
 
             FileOutputStream fos = new FileOutputStream(databaseFile);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -222,13 +226,13 @@ public class DatabaseManager implements DatabaseManagerInterface {
             oos.close();
             return true;
 
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-
-
     }
+
 
     public synchronized boolean removeUser(String userID) {
         /*

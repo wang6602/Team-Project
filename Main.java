@@ -8,7 +8,8 @@ public class Main {
         // Test createUser method
         DatabaseManager myManager = new DatabaseManager();
         System.out.println("Testing createUser:");
-        boolean userCreated = myManager.createUser("testUser", "password123");
-        System.out.println("User created: " + userCreated);
+        boolean userCreated1 = myManager.createUser("testUser", "password123");
+        boolean userCreated2 = myManager.createUser("testUser2", "password1223");
+
     }
 }
