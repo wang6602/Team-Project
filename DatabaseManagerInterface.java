@@ -4,10 +4,9 @@ public interface DatabaseManagerInterface {
     //Chat methods
     ArrayList<String> getChatIDs(String userID);
     ArrayList<String> readChat(String chatID);
-    ArrayList<String> readEndChat(String chatID);
-    void addText(String chatID, String message);
-    void deleteText(String chatID, int messageID);
+    void deleteText(String currentUserID, String ID, int index);
     void createChat(String[] userID);
+    void newText(String currentUserID, String chatID, String message);
 
     //User methods
     boolean createUser(String username, String password);
