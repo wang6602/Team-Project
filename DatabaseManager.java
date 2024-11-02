@@ -103,6 +103,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
          */
         try {
             File f = new File(chatID + ".txt");
+            if (f.exists() == false) {
+                f.createNewFile();
+            }
             FileOutputStream fos = new FileOutputStream(f, true); // Append mode
             PrintWriter pw = new PrintWriter(fos);
             pw.println(currentUserID + "," + message);
@@ -156,6 +159,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
         // Create a new text file with the ChatID representing the actual chat.
         try {
             File f = new File("ChatIDs.txt");
+            if (f.exists() == false) {
+                f.createNewFile();
+            }
             FileOutputStream fos = new FileOutputStream(f, true);
             PrintWriter pw = new PrintWriter(fos);
             String chatID = UUID.randomUUID().toString();
@@ -243,6 +249,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
         try {
             ArrayList < User > tempUser = new ArrayList < > ();
             File userfile = new File("userDatabase.txt");
+            if(userfile.exists() == false) {
+                userfile.createNewFile();
+            }
             FileInputStream fis = new FileInputStream(userfile);
             ObjectInputStream ois = new ObjectInputStream(fis);
             tempUser = (ArrayList < User > ) ois.readObject();
@@ -313,6 +322,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
         boolean userDeleted = false;
         try {
             File file = new File("chatIDs.txt");
+            if (file.exists() == false) {
+                file.createNewFile();
+            }
             FileReader fr = new FileReader(file);
             BufferedReader bfr = new BufferedReader(fr);
             FileWriter fw = new FileWriter("chatIDs_temp.txt");
@@ -352,6 +364,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
         boolean userAdded = false;
         try {
             File file = new File("chatIDs.txt");
+            if (file.exists() == false) {
+                file.createNewFile();
+            }
             FileReader fr = new FileReader(file);
             BufferedReader bfr = new BufferedReader(fr);
             FileWriter fw = new FileWriter("chatIDs_temp.txt");
@@ -395,6 +410,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
         ArrayList < User > ans = new ArrayList < > ();
         try {
             File file = new File("userDatabase.txt");
+            if (file.exists() == false) {
+                file.createNewFile();
+            }
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
@@ -418,6 +436,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
          */
         try {
             File file = new File("userDatabase.txt");
+            if (file.exists() == false) {
+                file.createNewFile();
+            }
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
             ArrayList < User > users = (ArrayList < User > ) ois.readObject();
@@ -437,6 +458,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
          */
         try {
             File file = new File("userDatabase.txt");
+            if (file.exists() == false) {
+                file.createNewFile();
+            }
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
             ArrayList < User > users = (ArrayList < User > ) ois.readObject();
@@ -468,6 +492,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
          */
         try {
             File file = new File("userDatabase.txt");
+            if (file.exists() == false) {
+                file.createNewFile();
+            }
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
             ArrayList < User > users = (ArrayList < User > ) ois.readObject();
