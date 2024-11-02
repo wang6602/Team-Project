@@ -4,13 +4,13 @@ import java.util.*;
 // Abstract is only temporary
 public class DatabaseManager implements DatabaseManagerInterface {
 
-    public synchronized ArrayList<String> getChatIDs(String userID) {
+    public synchronized ArrayList < String > getChatIDs(String userID) {
         /*
         User the userID of the user to return the chat ID’s that the given user is in.
         This method will look through the ChatID Database to retrieve the ChatID’s that
         the user is in.
          */
-        ArrayList<String> chatIDs = new ArrayList<>();
+        ArrayList < String > chatIDs = new ArrayList < > ();
         try {
             File f = new File("chatIDs.txt");
             FileReader fr = new FileReader(f);
@@ -35,21 +35,21 @@ public class DatabaseManager implements DatabaseManagerInterface {
         using the ChatID database file. Useful for the current user to know who he
         is sending a message to.
          */
-        ArrayList<String> userIDs = new ArrayList<>();
+        ArrayList < String > userIDs = new ArrayList < > ();
         File file = new File("chatIDs.txt");
-        try{
+        try {
             FileReader fr = new FileReader(file);
             BufferedReader bfr = new BufferedReader(fr);
             String currentLine = bfr.readLine();
             while ((currentLine) != null) {
                 if (currentLine.contains(chatID)) {
-                    return currentLine.substring(currentLine.indexOf(",")+1);
+                    return currentLine.substring(currentLine.indexOf(",") + 1);
                 }
             }
 
             return null;
 
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -58,12 +58,12 @@ public class DatabaseManager implements DatabaseManagerInterface {
 
 
 
-    public synchronized ArrayList<String> readChat(String chatID) {
+    public synchronized ArrayList < String > readChat(String chatID) {
         /*
         Makes a connection to the text file of the given chat. Loops through each line,
          storing each chat line into a String arrayList. Ex [“UserID1A,Hello”,”UserID2,Hello”...
          */
-        ArrayList<String> Texts = new ArrayList<>();
+        ArrayList < String > Texts = new ArrayList < > ();
         try {
             File f = new File(chatID + ".txt");
             if (f.exists()) {
@@ -89,15 +89,15 @@ public class DatabaseManager implements DatabaseManagerInterface {
         Ensure that this method properly locks the file when writing to avoid concurrency issues if multiple users
         are sending messages simultaneously, likely using synchronized(obj)
          */
-            try {
-                File f = new File(chatID + ".txt");
-                FileOutputStream fos = new FileOutputStream(f, true); // Append mode
-                PrintWriter pw = new PrintWriter(fos);
-                pw.println(currentUserID + "," + message);
-                pw.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            File f = new File(chatID + ".txt");
+            FileOutputStream fos = new FileOutputStream(f, true); // Append mode
+            PrintWriter pw = new PrintWriter(fos);
+            pw.println(currentUserID + "," + message);
+            pw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -107,33 +107,33 @@ public class DatabaseManager implements DatabaseManagerInterface {
         all the messages. Using the passed in index, it deletes the according line
         in the database. Then rewrites the whole database with ArrayList values
          */
-            ArrayList<String> Texts = new ArrayList<>();
-            try {
-                File f = new File(chatID + ".txt");
-                if (f.exists()) {
-                    FileReader fr = new FileReader(f);
-                    BufferedReader bfr = new BufferedReader(fr);
-                    String line;
-                    while ((line = bfr.readLine()) != null) {
-                        Texts.add(line);
-                    }
-                    if(index < 0 || index >= Texts.size()) {
-                        return; //invalid index to delete method
-                    }
-                    Texts.remove(index);
-                    bfr.close();
-
-                    BufferedWriter writer = new BufferedWriter(new FileWriter(f));
-                    PrintWriter pw = new PrintWriter(writer);
-                        for (String text : Texts) {
-                            pw.println(text);
-                        }
-                    pw.close();
+        ArrayList < String > Texts = new ArrayList < > ();
+        try {
+            File f = new File(chatID + ".txt");
+            if (f.exists()) {
+                FileReader fr = new FileReader(f);
+                BufferedReader bfr = new BufferedReader(fr);
+                String line;
+                while ((line = bfr.readLine()) != null) {
+                    Texts.add(line);
                 }
+                if (index < 0 || index >= Texts.size()) {
+                    return; //invalid index to delete method
+                }
+                Texts.remove(index);
+                bfr.close();
 
-            } catch (Exception e) {
-                e.printStackTrace();
+                BufferedWriter writer = new BufferedWriter(new FileWriter(f));
+                PrintWriter pw = new PrintWriter(writer);
+                for (String text: Texts) {
+                    pw.println(text);
+                }
+                pw.close();
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -177,18 +177,18 @@ public class DatabaseManager implements DatabaseManagerInterface {
          */
         try {
             User newUser = new User(username, password);
-            ArrayList<User> users = new ArrayList<>();
+            ArrayList < User > users = new ArrayList < > ();
 
             File databaseFile = new File("userDatabase.txt");
             FileInputStream fis = new FileInputStream(databaseFile);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            users = (ArrayList<User>) ois.readObject();
+            users = (ArrayList < User > ) ois.readObject();
 
-            boolean uniqueUserName=true;
-            for(User user : users) {
-                if(user.getUsername().equals(username)) {
-                    uniqueUserName=false;
+            boolean uniqueUserName = true;
+            for (User user: users) {
+                if (user.getUsername().equals(username)) {
+                    uniqueUserName = false;
                     return false;
                 }
             }
@@ -201,7 +201,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
             oos.close();
             return true;
 
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -226,11 +226,11 @@ public class DatabaseManager implements DatabaseManagerInterface {
          */
         boolean userFound = false;
         try {
-            ArrayList<User> tempUser = new ArrayList<>();
+            ArrayList < User > tempUser = new ArrayList < > ();
             File userfile = new File("userDatabase.txt");
             FileInputStream fis = new FileInputStream(userfile);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            tempUser = (ArrayList<User>) ois.readObject();
+            tempUser = (ArrayList < User > ) ois.readObject();
 
             for (int i = 0; i < tempUser.size(); i++) {
                 if (tempUser.get(i).getUserID().equals(userID)) {
@@ -238,7 +238,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
                     userFound = true;
                     i--;
                 }
-                ArrayList<User> friends = tempUser.get(i).getFriends();
+                ArrayList < User > friends = tempUser.get(i).getFriends();
                 for (int j = 0; j < friends.size(); j++) {
                     if (friends.get(j).getUserID().equals(userID)) {
                         friends.remove(j);
@@ -246,7 +246,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
                     }
                 }
 
-                ArrayList<User> blocked = tempUser.get(i).getBlocked();
+                ArrayList < User > blocked = tempUser.get(i).getBlocked();
                 for (int k = 0; k < blocked.size(); k++) {
                     if (blocked.get(k).getUserID().equals(userID)) {
                         blocked.remove(k);
@@ -372,19 +372,19 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public synchronized ArrayList<User> userLookup(String name) {
+    public synchronized ArrayList < User > userLookup(String name) {
         /*
         Uses user database
         Returns a list of users that contain String “name” in their username
          */
-        ArrayList<User> ans = new ArrayList<>();
+        ArrayList < User > ans = new ArrayList < > ();
         try {
             File file = new File("userDatabase.txt");
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            ArrayList<User> users = (ArrayList<User>) ois.readObject();
-            for (User user : users) {
+            ArrayList < User > users = (ArrayList < User > ) ois.readObject();
+            for (User user: users) {
                 if (user.getUserID().equals(name)) {
                     ans.add(user);
                 }
@@ -397,7 +397,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public synchronized ArrayList<User> userViewer() {
+    public synchronized ArrayList < User > userViewer() {
         /*
         Returns a list of all the viewers
          */
@@ -405,7 +405,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
             File file = new File("userDatabase.txt");
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+            ArrayList < User > users = (ArrayList < User > ) ois.readObject();
             ois.close();
             return users;
         } catch (Exception e) {
@@ -424,7 +424,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
             File file = new File("userDatabase.txt");
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+            ArrayList < User > users = (ArrayList < User > ) ois.readObject();
             ois.close();
 
             for (int i = 0; i < users.size(); i++) {
@@ -455,13 +455,13 @@ public class DatabaseManager implements DatabaseManagerInterface {
             File file = new File("userDatabase.txt");
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+            ArrayList < User > users = (ArrayList < User > ) ois.readObject();
             ois.close();
 
-            for (User user : users) {
-                if (user.getUserID().equals(userID)
-                        && user.getPassword().equals(password)
-                        && user.getUsername().equals(username)) {
+            for (User user: users) {
+                if (user.getUserID().equals(userID) &&
+                        user.getPassword().equals(password) &&
+                        user.getUsername().equals(username)) {
                     return true;
                 }
             }
@@ -472,19 +472,19 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public synchronized boolean updateUserProfilePicture(String userID, String base64){
+    public synchronized boolean updateUserProfilePicture(String userID, String base64) {
         /*
         Extra credit option
         Updates profile picture given the userID
          */
         File file = new File("userDatabase.txt");
-        try{
+        try {
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+            ArrayList < User > users = (ArrayList < User > ) ois.readObject();
             ois.close();
-            for (User user : users) {
-                if (user.getUserID().equals(userID)){
+            for (User user: users) {
+                if (user.getUserID().equals(userID)) {
                     user.setProfilePicturebase64(base64);
                     return true;
                 }
@@ -492,54 +492,54 @@ public class DatabaseManager implements DatabaseManagerInterface {
 
             return false;
 
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public synchronized String getUserProfilePicture(String userID){
+    public synchronized String getUserProfilePicture(String userID) {
         /*
         returns a code format of the user profile picture given the user ID
          */
         File file = new File("userDatabase.txt");
-        try{
+        try {
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+            ArrayList < User > users = (ArrayList < User > ) ois.readObject();
             ois.close();
-            for (User user : users) {
-                if (user.getUserID().equals(userID)){
+            for (User user: users) {
+                if (user.getUserID().equals(userID)) {
                     return user.getProfilePicturebase64();
                 }
             }
             return null;
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public synchronized boolean clearUserProfilePicture(String userID){
+    public synchronized boolean clearUserProfilePicture(String userID) {
         /*
         Removes the user's profile picture given the user ID
          */
         File file = new File("userDatabase.txt");
-        try{
+        try {
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+            ArrayList < User > users = (ArrayList < User > ) ois.readObject();
             ois.close();
-            for (User user : users) {
-                if (user.getUserID().equals(userID)){
+            for (User user: users) {
+                if (user.getUserID().equals(userID)) {
                     user.clearProfilePicturebase64();
                     return true;
                 }
             }
             return false;
 
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -557,14 +557,14 @@ public class DatabaseManager implements DatabaseManagerInterface {
             // Load the users from the file
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+            ArrayList < User > users = (ArrayList < User > ) ois.readObject();
             ois.close();
 
             User currentUser = null;
             User friendUser = null;
 
             // Find the users with currentUserID and friendID
-            for (User user : users) {
+            for (User user: users) {
                 if (user.getUsername().equals(currentUserID)) {
                     currentUser = user;
                 } else if (user.getUsername().equals(friendID)) {
@@ -605,14 +605,14 @@ public class DatabaseManager implements DatabaseManagerInterface {
         the loop will iterate through and add them to the blocked user list.
          */
         File file = new File("userDatabase.txt");
-        try{
+        try {
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+            ArrayList < User > users = (ArrayList < User > ) ois.readObject();
             ois.close();
             User currentUser = null;
             User friendUser = null;
-            for (User user : users) {
+            for (User user: users) {
                 if (user.getUsername().equals(currentuserID)) {
                     currentUser = user;
                 }
