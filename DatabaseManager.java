@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 // Abstract is only temporary
-public abstract class DatabaseManager implements DatabaseManagerInterface {
+public class DatabaseManager implements DatabaseManagerInterface {
 
     public ArrayList<String> getChatIDs(String userID) {
         ArrayList<String> chatIDs = new ArrayList<>();
@@ -24,21 +24,22 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public ArrayList<String> readChat(ArrayList<String> chatIDs) {
+
+
+    public ArrayList<String> readChat(String chatID) {
         ArrayList<String> Texts = new ArrayList<>();
         try {
-            for (String chatID : chatIDs) {
-                File f = new File(chatID + ".txt");
-                if (f.exists()) {
-                    FileReader fr = new FileReader(f);
-                    BufferedReader bfr = new BufferedReader(fr);
-                    String line;
-                    while ((line = bfr.readLine()) != null) {
-                        Texts.add(line);
-                    }
-                    bfr.close();
+            File f = new File(chatID + ".txt");
+            if (f.exists()) {
+                FileReader fr = new FileReader(f);
+                BufferedReader bfr = new BufferedReader(fr);
+                String line;
+                while ((line = bfr.readLine()) != null) {
+                    Texts.add(line);
                 }
+                bfr.close();
             }
+
             return Texts;
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,13 +47,13 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public void newText(User currentUser, String chatID, String message) {
+    public void newText(String currentUserID, String chatID, String message) {
         synchronized (this) {
             try {
                 File f = new File(chatID + ".txt");
                 FileOutputStream fos = new FileOutputStream(f, true); // Append mode
                 PrintWriter pw = new PrintWriter(fos);
-                pw.println(currentUser.toString() + "," + message);
+                pw.println(currentUserID + "," + message);
                 pw.close();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -60,7 +61,7 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public void deleteText(User currentUser, String chatID, int index) {
+    public void deleteText(String currentUserID, String chatID, int index) {
         // Make a connection with the file.
         // Run readChat to get an ArrayList<String> of all the messages.
         // Using the passed-in index, delete the corresponding line in the database.
@@ -77,7 +78,7 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
                             Texts.add(line);
                         }
                         if(index < 0 || index >= Texts.size()) {
-                            return; //invalid index to delete
+                            return; //invalid index to delete method
                         }
                         Texts.remove(index);
                         bfr.close();
@@ -100,17 +101,28 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
         // Assign a unique chatID for the group, then follow it with all the user IDs involved
         // (ChatID, UserID1, UserID2, UserID3...).
         // Create a new text file with the ChatID representing the actual chat.
-        synchronized (this) {
+        try {
             File f = new File("ChatIDs.txt");
-            FileOutputStream fos = new FileOutputStream(f);
+            FileOutputStream fos = new FileOutputStream(f, true);
             PrintWriter pw = new PrintWriter(fos);
+            String chatID = UUID.randomUUID().toString();
+            String usersInChat = "";
+            for (int i = 0; i < userID.length; i++) {
+                usersInChat += userID[i] + ",";
+            }
 
+            pw.println(chatID + "," + usersInChat.substring(0, usersInChat.length() - 1)); // prints the chatID to the .txt file
+
+
+            File newFile = new File(chatID + ".txt");
+            newFile.createNewFile();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
 
-    public boolean createUser(String username, String password, String userID) {
+    public boolean createUser(String username, String password) {
         // Create a new user with the given username, password, and userID.
         // Create a temporary Users ArrayList.
         // Make a connection to the userDatabase file and retrieve an ArrayList of Users from that text file.
@@ -118,6 +130,38 @@ public abstract class DatabaseManager implements DatabaseManagerInterface {
         // If the username is not unique, return false.
         // Write back to the database with the updated data.
         // On success, return true.
+        try {
+            User newUser = new User(username, password);
+            ArrayList<User> users = new ArrayList<>();
+
+            File databaseFile = new File("userDatabase.txt");
+            FileInputStream fis = new FileInputStream(databaseFile);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            users = (ArrayList<User>) ois.readObject();
+
+            boolean uniqueUserName=true;
+            for(User user : users) {
+                if(user.getUsername().equals(username)) {
+                    uniqueUserName=false;
+                    return false;
+                }
+            }
+
+            users.add(newUser);
+
+            FileOutputStream fos = new FileOutputStream(databaseFile);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(users);
+            oos.close();
+            return true;
+
+        } catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+
     }
 
     public boolean removeUser(String userID) {
