@@ -13,6 +13,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
         ArrayList < String > chatIDs = new ArrayList < > ();
         try {
             File f = new File("chatIDs.txt");
+            if(f.exists() == false) {
+                f.createNewFile();
+            }
             FileReader fr = new FileReader(f);
             BufferedReader bfr = new BufferedReader(fr);
             String currentLine;
@@ -37,7 +40,11 @@ public class DatabaseManager implements DatabaseManagerInterface {
          */
         ArrayList < String > userIDs = new ArrayList < > ();
         File file = new File("chatIDs.txt");
+
         try {
+            if(file.exists() == false) {
+            file.createNewFile(); //creates new file if file doesn't exist
+            }
             FileReader fr = new FileReader(file);
             BufferedReader bfr = new BufferedReader(fr);
             String currentLine = bfr.readLine();
@@ -66,27 +73,32 @@ public class DatabaseManager implements DatabaseManagerInterface {
         ArrayList < String > Texts = new ArrayList < > ();
         try {
             File f = new File(chatID + ".txt");
-            if (f.exists()) {
-                FileReader fr = new FileReader(f);
-                BufferedReader bfr = new BufferedReader(fr);
+            if (f.exists() == false) {
+                f.createNewFile();
+            }
+            FileReader fr = new FileReader(f);
+            BufferedReader bfr = new BufferedReader(fr);
+
+
                 String line;
                 while ((line = bfr.readLine()) != null) {
                     Texts.add(line);
                 }
                 bfr.close();
-            }
+
 
             return Texts;
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return Texts;
         }
     }
 
     public synchronized void newText(String currentUserID, String chatID, String message) {
         /*
         Makes a connection to the given chatID, then adds a new line to the database of UserID,message
-        Ensure that this method properly locks the file when writing to avoid concurrency issues if multiple users
+        Ensure that this method properly locks the file when writing to avoid concurrency
+        issues if multiple users
         are sending messages simultaneously, likely using synchronized(obj)
          */
         try {
