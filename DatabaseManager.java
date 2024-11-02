@@ -5,6 +5,11 @@ import java.util.*;
 public class DatabaseManager implements DatabaseManagerInterface {
 
     public synchronized ArrayList<String> getChatIDs(String userID) {
+        /*
+        User the userID of the user to return the chat ID’s that the given user is in.
+        This method will look through the ChatID Database to retrieve the ChatID’s that
+        the user is in.
+         */
         ArrayList<String> chatIDs = new ArrayList<>();
         try {
             File f = new File("chatIDs.txt");
@@ -25,6 +30,11 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public synchronized String getUsersinChat(String chatID) {
+        /*
+        Returns a comma separated value of the various usernames in given chatID
+        using the ChatID database file. Useful for the current user to know who he
+        is sending a message to.
+         */
         ArrayList<String> userIDs = new ArrayList<>();
         File file = new File("chatIDs.txt");
         try{
@@ -49,6 +59,10 @@ public class DatabaseManager implements DatabaseManagerInterface {
 
 
     public synchronized ArrayList<String> readChat(String chatID) {
+        /*
+        Makes a connection to the text file of the given chat. Loops through each line,
+         storing each chat line into a String arrayList. Ex [“UserID1A,Hello”,”UserID2,Hello”...
+         */
         ArrayList<String> Texts = new ArrayList<>();
         try {
             File f = new File(chatID + ".txt");
@@ -70,7 +84,11 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public synchronized void newText(String currentUserID, String chatID, String message) {
-
+        /*
+        Makes a connection to the given chatID, then adds a new line to the database of UserID,message
+        Ensure that this method properly locks the file when writing to avoid concurrency issues if multiple users
+        are sending messages simultaneously, likely using synchronized(obj)
+         */
             try {
                 File f = new File(chatID + ".txt");
                 FileOutputStream fos = new FileOutputStream(f, true); // Append mode
@@ -84,6 +102,11 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public synchronized void deleteText(String chatID, int index) {
+        /*
+        Make a connection with the file. Runs the readChat to get an arrayList<String> of
+        all the messages. Using the passed in index, it deletes the according line
+        in the database. Then rewrites the whole database with ArrayList values
+         */
             ArrayList<String> Texts = new ArrayList<>();
             try {
                 File f = new File(chatID + ".txt");
@@ -141,6 +164,17 @@ public class DatabaseManager implements DatabaseManagerInterface {
 
 
     public synchronized boolean createUser(String username, String password) {
+        /*
+    Creates a new user with given username and password and UserID
+    Creates a temporary Users arrayList. Makes a connection to the
+    userDatabase file and retrieves that arrayList of Users from that text file.
+    Once the temporary Users arrayList has all the stored users in it, add
+    the new user to that arrayList if it has a unique username String
+    If new user username is not unique return false
+    Then write back to the database with new data
+    On success return true
+
+         */
         try {
             User newUser = new User(username, password);
             ArrayList<User> users = new ArrayList<>();
@@ -176,6 +210,20 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public synchronized boolean removeUser(String userID) {
+        /*
+        Creates a temporary Users arraylist. Makes a connection to the userDatabase
+        file and retrieves that arrayList of Users from that text file.
+        Once Users ArrayList has all the users, find the one with matching userID
+        and remove that user from the arrayList. Then remove that user from any friend
+        list or blocked list.
+        Remove the User from the ChatID database too
+        If chat has one other user remaining, delete that entire line and the
+        specific chat database
+        If matching username is not found, return false
+        Then re-write the updated values to the user database
+        If successful, return true
+
+         */
         boolean userFound = false;
         try {
             ArrayList<User> tempUser = new ArrayList<>();
@@ -242,6 +290,11 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public synchronized boolean removeUserFromChat(String userID, String chatID) {
+        /*
+        Removes the specific user in the ChatID database
+        If there is only one user left in the chat, delete the chat
+        in the chatID database and delete the actual text file representing the chat.
+         */
         boolean userDeleted = false;
         try {
             File file = new File("chatIDs.txt");
@@ -276,6 +329,11 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public synchronized boolean addUserToChat(String userID, String chatID) {
+        /*
+        Must be an existing userID
+        Make sure this user isnt blocked
+        IN the chatID database, add the userID to the end of the line with the chatID
+         */
         boolean userAdded = false;
         try {
             File file = new File("chatIDs.txt");
@@ -315,6 +373,10 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public synchronized ArrayList<User> userLookup(String name) {
+        /*
+        Uses user database
+        Returns a list of users that contain String “name” in their username
+         */
         ArrayList<User> ans = new ArrayList<>();
         try {
             File file = new File("userDatabase.txt");
@@ -336,6 +398,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public synchronized ArrayList<User> userViewer() {
+        /*
+        Returns a list of all the viewers
+         */
         try {
             File file = new File("userDatabase.txt");
             FileInputStream fis = new FileInputStream(file);
@@ -350,6 +415,11 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public synchronized void updateUser(User user) {
+        /*
+        User that is passed in has been updated by the client, with the user methods.
+        Make a connection to the Users database, receive the arraylist of users
+        Search for the old user with same userID, then replace it *
+         */
         try {
             File file = new File("userDatabase.txt");
             FileInputStream fis = new FileInputStream(file);
@@ -375,6 +445,12 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public synchronized boolean loginUser(String username, String password, String userID) {
+        /*
+        Receives a username and password. Searches for a user with given userID.
+        Then checks if the given username
+        matches with its password in the users database.
+        Returns true if successful, false if incorrect
+         */
         try {
             File file = new File("userDatabase.txt");
             FileInputStream fis = new FileInputStream(file);
@@ -397,6 +473,10 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public synchronized boolean updateUserProfilePicture(String userID, String base64){
+        /*
+        Extra credit option
+        Updates profile picture given the userID
+         */
         File file = new File("userDatabase.txt");
         try{
             FileInputStream fis = new FileInputStream(file);
@@ -419,6 +499,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public synchronized String getUserProfilePicture(String userID){
+        /*
+        returns a code format of the user profile picture given the user ID
+         */
         File file = new File("userDatabase.txt");
         try{
             FileInputStream fis = new FileInputStream(file);
@@ -439,6 +522,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public synchronized boolean clearUserProfilePicture(String userID){
+        /*
+        Removes the user's profile picture given the user ID
+         */
         File file = new File("userDatabase.txt");
         try{
             FileInputStream fis = new FileInputStream(file);
@@ -461,6 +547,10 @@ public class DatabaseManager implements DatabaseManagerInterface {
 
 
     public synchronized boolean addFriend(String currentUserID, String friendID) {
+        /*
+        Adds a friend given the current User's ID and ID of the friend they want to add.
+        Uses a for:each loop to iterate through the users arrayList and find said user.
+         */
         File file = new File("userDatabase.txt");
 
         try {
@@ -507,6 +597,13 @@ public class DatabaseManager implements DatabaseManagerInterface {
     }
 
     public synchronized boolean blockFriend(String currentuserID, String friendID) {
+        /*
+        Blocks another user given userID of the current user and the friend (enemy?)
+        they want to block.
+
+        If the user is found in the user arrayList, which is a copy of the user database,
+        the loop will iterate through and add them to the blocked user list.
+         */
         File file = new File("userDatabase.txt");
         try{
             FileInputStream fis = new FileInputStream(file);
