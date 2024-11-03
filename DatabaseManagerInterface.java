@@ -10,7 +10,7 @@ public interface DatabaseManagerInterface {
 
     void deleteText(String chatID, int index);
 
-    void createChat(String[] userID);
+    String createChat(String[] userID);
 
     void newText(String currentUserID, String chatID, String message);
 

@@ -8,7 +8,6 @@ public class Main {
 
 
 
-        dm.removeUser("testuseer9");
 
     }
 }
