@@ -450,12 +450,14 @@ public class DatabaseManager implements DatabaseManagerInterface {
                     existingUser = true;
                 }
             }
+            ois.close();
+
             if(!existingUser){
                 return false;
                 //user needs to be created first!
             }
 
-            ois.close();
+
 
             File file = new File("chatIDs.txt");
             FileReader fr = new FileReader(file);
@@ -520,7 +522,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
 
             ArrayList<User> users = (ArrayList<User>) ois.readObject();
             for(int i=0; i<users.size(); i++){
-                if(users.get(i).getUserID().equals(name)){
+                if(users.get(i).getUserID().contains(name)){
                     ans.add(users.get(i));
                 }
             }

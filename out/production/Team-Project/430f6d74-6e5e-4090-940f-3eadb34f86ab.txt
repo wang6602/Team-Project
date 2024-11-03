@@ -1,3 +1,0 @@
-testUser1,hello1
-testUser1,hello2
-testUser1,hello3
