@@ -83,7 +83,7 @@ public class RunLocalTest {
         // Test for sending a message
         @Test
         public void testSendMessage() {
-            dbManager.createChat( new String[]{"user1", "user2"});
+            dbManager.createChat(new String[] { "user1", "user2" });
             dbManager.newText("user1", "Hello", "chat1");
             ArrayList<String> chatMessages = dbManager.readChat("chat1");
             Assert.assertTrue("Chat should contain the sent message", chatMessages.contains("Hello"));
@@ -92,7 +92,7 @@ public class RunLocalTest {
         // Test for viewing chat messages
         @Test
         public void testViewChat() {
-            dbManager.createChat(new String[]{"user1", "user2"});
+            dbManager.createChat(new String[] { "user1", "user2" });
             dbManager.newText("user1", "chat1", "Hello");
             ArrayList<String> chatMessages = dbManager.readChat("chat1");
             Assert.assertNotNull("Messages should not be null", chatMessages);
@@ -111,8 +111,8 @@ public class RunLocalTest {
         // Test for adding text to a chat
         @Test
         public void testAddText() {
-            dbManager.createChat(new String[]{"user1", "user2"});
-            dbManager.newText("user1","chat1", "Hello, world!");
+            dbManager.createChat(new String[] { "user1", "user2" });
+            dbManager.newText("user1", "chat1", "Hello, world!");
             ArrayList<String> chatMessages = dbManager.readChat("chat1");
             Assert.assertTrue("Message should be added to chat", chatMessages.contains("Hello, world!"));
         }
@@ -120,7 +120,7 @@ public class RunLocalTest {
         // Test for deleting text from a chat
         @Test
         public void testDeleteText() {
-            dbManager.createChat(new String[]{"user1", "user2"});
+            dbManager.createChat(new String[] { "user1", "user2" });
             dbManager.newText("user1", "chat1", "Temporary message");
             dbManager.deleteText("chat1", 0); // Assuming 0 is the message index
             ArrayList<String> chatMessages = dbManager.readChat("chat1");
