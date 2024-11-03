@@ -32,4 +32,10 @@ public interface UserInterface {
 
     void removeBlocked(User user);
 
+    void setProfilePicturebase64(String profilePicturebase64);
+
+    String getProfilePicturebase64();
+
+    void clearProfilePicturebase64();
+
 }
