@@ -6,5 +6,9 @@ public class Main {
 
         DatabaseManager dm = new DatabaseManager();
 
+
+
+        dm.removeUser("testuseer9");
+
     }
 }
