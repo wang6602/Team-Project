@@ -23,6 +23,13 @@ Client Class/Interface
 This will be running on each individual user. It will make a connection to the Client Handler class to connect to the network
 This will be responsible for sending the information to Server, which will send information to Database manager to execute desired actions
 
+RunLocalTest
+-Implements JUnit test cases that were written to ensure that methods in User class and DatabaseManager class work as intended
+
+PROGRAM INSTRUCTIONS
+When first running the program and creatign the first user, make sure the userDatabase.txt does not exist. The program will automatically create this file.
+ If not, the program will not work.
+
 
 
 
