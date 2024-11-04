@@ -1,3 +1,16 @@
+/**
+ * RunLocalTest Class
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
+ *
+ * RunLocalTest
+ * -Implements JUnit test cases that were written to ensure that methods in User class
+ * and DatabaseManager class work as intended
+ *
+ * @authors Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
+ * @version November 3, 2024
+ */
+
 
 import org.junit.Assert;
 import org.junit.Before;

@@ -1,3 +1,21 @@
+/**
+ * DatabaseManagerInterface Class
+ *
+ * - This class is used for interacting with the various databases, like messaging and the
+ * users database
+ * It will store the users in usersDatabase and chats in their own text files.
+ * It also has a ChatID database to store the filenames of chats between certain users
+ * This class will be responsible from receiving information from the server class to create
+ * new messages, delete texts, add users, delete users, and more
+ *
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
+ *
+ * @authors Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
+ * @version November 3, 2024
+ */
+
+
 import java.util.ArrayList;
 
 public interface DatabaseManagerInterface {
