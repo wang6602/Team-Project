@@ -178,5 +178,19 @@ public class RunLocalTest {
             ArrayList<String> messages = dbManager.readChat(chatIDs.get(0));
             Assert.assertTrue("Messages list should be empty for a non-existent chat", messages.isEmpty());
         }
+
+        //Test for UserInterface implementation
+        @Test
+        public void testUserInterfaceImplementation() {
+            User obj = new User("username", "password");
+            Assert.assertTrue(obj instanceof UserInterface);
+        }
+
+        //Test for DatabaseManagerInterface implementation
+        @Test
+        public void testDatabaseManagerInterfaceImplementation() {
+            DatabaseManager obj = new DatabaseManager();
+            Assert.assertTrue(obj instanceof DatabaseManagerInterface);
+        }
     }
 }
