@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public interface UserInterface {
     // getters
-    String getUserName();
+    String getUsername();
 
     String getUserID();
 
@@ -24,9 +24,9 @@ public interface UserInterface {
     void setChatIDs(ArrayList<String> chatIDs);
 
     // other
-    void addFriend(User user);
+    void addFriends(User user);
 
-    void removeFriend(User user);
+    void removeFriends(User user);
 
     void addBlocked(User user);
 
