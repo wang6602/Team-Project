@@ -62,6 +62,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
                 if (currentLine.contains(chatID)) {
                     return currentLine.substring(currentLine.indexOf(",") + 1);
                 }
+                currentLine = bfr.readLine();
             }
 
             return null;
