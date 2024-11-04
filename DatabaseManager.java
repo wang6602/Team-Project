@@ -729,7 +729,8 @@ public class DatabaseManager implements DatabaseManagerInterface {
                     user.setProfilePicturebase64(base64);
                     FileOutputStream fos = new FileOutputStream(file);
                     oos = new ObjectOutputStream(fos);
-                    oos.writeObject(user);
+
+                    oos.writeObject(users);
                     return true;
                 }
             }
@@ -796,7 +797,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
                     user.clearProfilePicturebase64();
                     FileOutputStream fos = new FileOutputStream(file);
                     oos = new ObjectOutputStream(fos);
-                    oos.writeObject(user);
+                    oos.writeObject(users);
                     return true;
                 }
             }

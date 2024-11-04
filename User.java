@@ -15,9 +15,9 @@ public class User implements Serializable {
         this.userID = username;
         this.password = password;
         profilePicturebase64 = null;
-        friends = null;
-        blocked = null;
-        chatIDs = null;
+        friends = new ArrayList<>();
+        blocked = new ArrayList<>();
+        chatIDs = new ArrayList<>();
     }
 
     public User(String username, String password, String profilePicturebase64) {
@@ -25,9 +25,9 @@ public class User implements Serializable {
         this.userID = username;
         this.password = password;
         this.profilePicturebase64 = profilePicturebase64;
-        friends = null;
-        blocked = null;
-        chatIDs = null;
+        friends = new ArrayList<>();
+        blocked = new ArrayList<>();
+        chatIDs = new ArrayList<>();
     }
 
     // all get methods
