@@ -173,7 +173,9 @@ public class RunLocalTest {
 
         @Test
         public void testblockfriend(){
-            Boolean result = dbManager.blockFriend("friend1", "friend2");
+            dbManager.createUser("friendblock1", "friend1");
+            dbManager.createUser("friendblock2", "friend2");
+            Boolean result = dbManager.blockFriend("friendblock1", "friendblock2");
             Assert.assertTrue(result);
         }
 
