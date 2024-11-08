@@ -105,7 +105,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
          * storing each chat line into a String arrayList. Ex
          * [“UserID1A,Hello”,”UserID2,Hello”...
          */
-        ArrayList<String> Texts = new ArrayList<>();
+        ArrayList<String> texts = new ArrayList<>();
         BufferedReader bfr = null;
         try {
             File f = new File(chatID + ".txt");
@@ -117,14 +117,14 @@ public class DatabaseManager implements DatabaseManagerInterface {
 
             String line;
             while ((line = bfr.readLine()) != null) {
-                Texts.add(line);
+                texts.add(line);
             }
             bfr.close();
 
-            return Texts;
+            return texts;
         } catch (Exception e) {
             e.printStackTrace();
-            return Texts;
+            return texts;
         } finally{
             try {
                 if (bfr != null) bfr.close();
@@ -169,7 +169,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
          * all the messages. Using the passed in index, it deletes the according line
          * in the database. Then rewrites the whole database with ArrayList values
          */
-        ArrayList<String> Texts = new ArrayList<>();
+        ArrayList<String> texts = new ArrayList<>();
         BufferedReader bfr = null;
         PrintWriter pw = null;
         try {
@@ -179,17 +179,17 @@ public class DatabaseManager implements DatabaseManagerInterface {
                 bfr = new BufferedReader(fr);
                 String line;
                 while ((line = bfr.readLine()) != null) {
-                    Texts.add(line);
+                    texts.add(line);
                 }
-                if (index < 0 || index >= Texts.size()) {
+                if (index < 0 || index >= texts.size()) {
                     return; // invalid index to delete method
                 }
-                Texts.remove(index);
+                texts.remove(index);
                 bfr.close();
 
                 BufferedWriter writer = new BufferedWriter(new FileWriter(f));
                 pw = new PrintWriter(writer);
-                for (String text : Texts) {
+                for (String text : texts) {
                     pw.println(text);
                 }
                 pw.close();
