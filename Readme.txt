@@ -27,8 +27,11 @@ RunLocalTest
 -Implements JUnit test cases that were written to ensure that methods in User class and DatabaseManager class work as intended
 
 PROGRAM INSTRUCTIONS
-When first running the program and creatign the first user, make sure the userDatabase.txt does not exist. The program will automatically create this file.
+When first running the program and creating the first user, make sure the userDatabase.txt does not exist. The program will automatically create this file.
  If not, the program will not work.
+Additionally, when testing the program, make sure to only have the classes, interfaces, and the chatIDs.txt file. All other files, like the text chats and the usertDatabase should be deleted.
+Then run the RunLocalTest File.
+
 
 
 
