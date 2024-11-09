@@ -423,8 +423,5 @@ public class RunLocalTest {
             Assert.assertFalse("Old friends should not be in the friends list", user.getFriends().contains(oldFriends.get(0)));
             Assert.assertTrue("New friends should be in the friends list", user.getFriends().contains(newFriends.get(0)));
         }
-
-
-
     }
 }
