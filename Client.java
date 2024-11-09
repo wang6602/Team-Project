@@ -15,9 +15,15 @@ public class Client {
             socket = new Socket("localhost", 4242);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
+            System.out.println("Connected");
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void setUserIDandUsername(String userID){
+        this.userID = userID;
+        this.username = userID;
     }
 
     public void sendMessage(){
@@ -67,6 +73,7 @@ public class Client {
     public void newText(String chatID, String message){
         try{
             out.println("POSTTEXT:" + userID + ":" + chatID + ":" + message);
+
 
         } catch (Exception e){
 

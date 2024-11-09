@@ -235,7 +235,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
 
         try {
             synchronized (gatekeeper) {
-                File f = new File("ChatIDs.txt");
+                File f = new File("chatIDs.txt");
                 if (f.exists() == false) {
                     f.createNewFile();
                 }
