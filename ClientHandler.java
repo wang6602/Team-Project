@@ -19,7 +19,9 @@ public class ClientHandler implements Runnable {
             String message = in.readLine();
             while(message != null) {
 
-                if (message.contains("GETCHATID")) {
+                String request = message.split(":")[0];
+
+                if (request.equals("GETCHATID")) {
                     String[] temp = message.split(":");
                     String output = "";
                     ArrayList<String> result = databaseManager.getChatIDs(temp[1]);
@@ -29,13 +31,13 @@ public class ClientHandler implements Runnable {
                     out.println(output.substring(0, output.length() - 1));
                 }
 
-                if (message.contains("GETUSERINCHAT")) {
+                if (request.equals("GETUSERINCHAT")) {
                     String[] temp = message.split(":");
                     String output = databaseManager.getUsersinChat(temp[1]);
                     out.println(output);
                 }
 
-                if (message.contains("READCHAT")) {
+                if (request.equals("READCHAT")) {
                     String[] temp = message.split(":");
                     String ans = "";
                     ArrayList<String> result = databaseManager.readChat(temp[1]);
@@ -45,7 +47,7 @@ public class ClientHandler implements Runnable {
                     out.println(ans.substring(0, ans.length() - 1));
 
                 }
-                if (message.contains("POSTTEXT")) {
+                if (request.equals("POSTTEXT")) {
                     String[] temp = message.split(":");
                     databaseManager.newText(temp[1], temp[2], temp[3]);
 
