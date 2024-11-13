@@ -42,6 +42,8 @@ public class RunLocalTestPhase2 {
             db.createUser("user3", "user3");
             chat1 = db.createChat(new String[]{"user1", "user2"});
 
+
+
         }
         @Test
         public void testClientgetChatID() {
@@ -62,6 +64,21 @@ public class RunLocalTestPhase2 {
             String[] ans = client.readChat(chat1);
             Assert.assertTrue(ans[1].equals("hello user2 my name is user1"));
         }
+
+        @Test
+        public void testAddFriend(){
+            boolean ans = client.addFriend("user1", "user2");
+            Assert.assertTrue(ans == true);
+        }
+
+        @Test
+        public void testBlockFriend(){
+            boolean ans = client.blockFriend("user1", "user2");
+            Assert.assertTrue(ans == true);
+        }
+
+
+
 
 
 
