@@ -53,6 +53,26 @@ public class ClientHandler implements Runnable {
 
 
                 }
+                if (request.equals("GETUSERPROFILEPICTURE")) {
+                    String[] temp = message.split(":");
+                    String output = databaseManager.getUserProfilePicture(temp[1]);
+                    out.println(output);
+                }
+                if (request.equals("CLEARUSERPROFILEPICTURE")) {
+                    String[] temp = message.split(":");
+                    boolean output = databaseManager.clearUserProfilePicture(temp[1]);
+                    out.println(output);
+                }
+                if (request.equals("ADDFRIEND")) {
+                    String[] temp = message.split(":");
+                    boolean output = databaseManager.addFriend(temp[1], temp[2]);
+                    out.println(output);
+                }
+                if (request.equals("BLOCKFRIEND")) {
+                    String[] temp = message.split(":");
+                    boolean output = databaseManager.blockFriend(temp[1], temp[2]);
+                    out.println(output);
+                }
 
                 message = in.readLine();
 

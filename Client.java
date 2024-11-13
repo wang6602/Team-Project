@@ -81,6 +81,56 @@ public class Client {
         }
     }
 
+    public String getUserProfilePicture(String userID) {
+        try {
+            out.println("GETUSERPROFILEPICTURE:" + userID);
+            return(in.readLine());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public boolean clearUserProfilePicture(String userID) {
+        try {
+            out.println("CLEARUSERPROFILEPICTURE:" + userID);
+            return Boolean.parseBoolean((in.readLine()));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public  boolean addFriend(String currentuserID, String friendID) {
+        try {
+            out.println("ADDFRIEND:" + currentuserID + ":" + friendID);
+            return Boolean.parseBoolean((in.readLine()));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public boolean blockFriend(String currentuserID, String friendID) {
+        try {
+            out.println("BLOCKFRIEND:" + currentuserID + ":" + friendID);
+            return Boolean.parseBoolean((in.readLine()));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+
+
+
+
     public static void main(String[] args){
         Client client = new Client();
         client.sendMessage();
