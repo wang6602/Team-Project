@@ -9,6 +9,7 @@ public class Client {
     private String username;
     private String password;
     private String userID;
+    private String[] userID;
 
     public Client(){
         try {
@@ -130,6 +131,24 @@ public class Client {
 
 
 
+
+    /*
+            socket = new Socket("localhost", 4242);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+            System.out.println("Connected");
+     */
+    public void deleteText(String chatID, String message){
+        try {
+            out.println("Deleted:" + userID + ":Chat ID:" + chatID + ":Message content:" + message);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void createChat(String[] userID){
+        out.println("CHATCREATED:" + )
+    }
 
     public static void main(String[] args){
         Client client = new Client();
