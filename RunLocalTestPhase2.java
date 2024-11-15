@@ -105,7 +105,12 @@ public class RunLocalTestPhase2 {
             ArrayList<String> s = db.getChatIDs("user1");
             //String ans = s.get(s.size()-1);
             Assert.assertTrue(s.contains(newChat));
+        }
 
+        @Test
+        public void testCreateUser() {
+            boolean newUser = client.createUser("newUser","password123");
+            Assert.assertTrue(newUser == true);
         }
 
 
