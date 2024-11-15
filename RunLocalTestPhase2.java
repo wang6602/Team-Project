@@ -109,12 +109,15 @@ public class RunLocalTestPhase2 {
 
         @Test
         public void testCreateUser() {
-            boolean newUser = client.createUser("newUser","password123");
+            //MUST MODIFY USERNAME AFTER EVERY TEST CASE; ONLY WORKS ONCE PER USER
+            boolean newUser = client.createUser("newUser1","password123");
             Assert.assertTrue(newUser == true);
         }
 
         @Test
         public void testRemoveUser() {
+            //Tests the removeUser method from Client.java.
+            //Boolean will equal true if it is successful, passing the test case
             boolean removeUser = client.removeUser("user1");
             Assert.assertTrue(removeUser);
         }
