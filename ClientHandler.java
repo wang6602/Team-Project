@@ -114,7 +114,7 @@ public class ClientHandler implements Runnable {
                     String output = "";
                     ArrayList<User> result = databaseManager.userLookup(temp[1]);
                     for (User s : result) {
-                        output += s + ",";
+                        output += s.getUsername() + ",";
                     }
                     out.println(output.substring(0, output.length() - 1));
                 }
