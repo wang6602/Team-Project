@@ -50,8 +50,6 @@ public class ClientHandler implements Runnable {
                 if (request.equals("POSTTEXT")) {
                     String[] temp = message.split(":");
                     databaseManager.newText(temp[1], temp[2], temp[3]);
-
-
                 }
                 if (request.equals("GETUSERPROFILEPICTURE")) {
                     String[] temp = message.split(":");
@@ -73,6 +71,36 @@ public class ClientHandler implements Runnable {
                     boolean output = databaseManager.blockFriend(temp[1], temp[2]);
                     out.println(output);
                 }
+
+                if (request.equals("DELETETEXT")) {
+                    String[] temp = message.split(":");
+                    databaseManager.deleteText(temp[1], temp[2]);
+                }
+
+                if(request.equals("CREATECHAT")) {
+                    String[] temp = message.split(":");
+                    databaseManager.createChat(temp[1], temp[2]);
+                }
+
+                if(request.equals("CREATEUSER")) {
+                    String[] temp = message.split(":");
+                    boolean output = databaseManager.createUser(temp[1], temp[2]);
+                    out.println(output);
+                }
+
+                if(request.equals("REMOVEUSER")) {
+                    String[] temp = message.split(":");
+                    boolean output = databaseManager.removeUser(temp[1]);
+                    out.println(output);
+                }
+
+                if(request.equals("REMOVEUSERFROMCHAT")) {
+                    String[] temp = message.split(":");
+                    boolean output = databaseManager.removeUser(temp[1]);
+                    out.println(output);
+                }
+
+
 
                 message = in.readLine();
 

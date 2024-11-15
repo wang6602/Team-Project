@@ -128,10 +128,45 @@ public class Client {
     }
 
 
-    public void deleteText(String chatID, String message){
+    public void deleteText(String chatID, String message) {
         try {
-            out.println("Deleted:" + userID + ":Chat ID:" + chatID + ":Message content:" + message);
+            out.println("CHATID:" + chatID + ":MSGCONTENT:" + message);
         } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void createChat(String chatID, String message) {
+        try {
+            out.println("CREATECHAT:" + chatID + ":" + message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean createUser(String username, String password) {
+        try {
+            out.println("CREATEUSER:" + username + ":" + password);
+            return (in.readLine());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean removeUser(String userID) {
+        try {
+            out.println("REMOVEUSER:" + userID);
+            return(in.readLine());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean removeUserFromChat(String username, String chatID) {
+        try {
+            out.println("REMOVEUSERFROMCHAT:" + username + ":" + chatID);
+            return(in.readLine());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
