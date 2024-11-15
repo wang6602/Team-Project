@@ -90,6 +90,13 @@ public class RunLocalTestPhase2 {
             Assert.assertTrue(ans == true);
         }
 
+        @Test
+        public void deleteText(){
+            db.newText("user1",chat1, "testing the delete text");
+            client.deleteText(chat1, 1);
+
+        }
+
 
 
 
