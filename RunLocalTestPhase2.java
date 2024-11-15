@@ -102,6 +102,9 @@ public class RunLocalTestPhase2 {
         @Test
         public void createChat() {
             String newChat = client.createChat(new String[]{"user1", "user2"});
+            ArrayList<String> s = db.getChatIDs("user1");
+            //String ans = s.get(s.size()-1);
+            Assert.assertTrue(s.contains(newChat));
 
         }
 

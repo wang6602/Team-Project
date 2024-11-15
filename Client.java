@@ -136,15 +136,17 @@ public class Client {
         }
     }
 
-    public void createChat(String[] userID) {
+    public String createChat(String[] userID) {
         try {
             String send = "";
             for(String temp : userID){
                 send += temp + ",";
             }
             out.println("CREATECHAT:"+ send.substring(0, send.length()-1));
+            return in.readLine();
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 

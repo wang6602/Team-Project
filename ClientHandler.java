@@ -80,7 +80,8 @@ public class ClientHandler implements Runnable {
                 if(request.equals("CREATECHAT")) {
                     String[] temp = message.split(":");
                     String[] userID = temp[1].split(",");
-                    databaseManager.createChat(userID);
+                    String newChat = databaseManager.createChat(userID);
+                    out.println(newChat);
                 }
 
                 if(request.equals("CREATEUSER")) {
