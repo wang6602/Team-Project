@@ -128,17 +128,21 @@ public class Client {
     }
 
 
-    public void deleteText(String chatID, String message) {
+    public void deleteText(String chatID, int index) {
         try {
-            out.println("CHATID:" + chatID + ":MSGCONTENT:" + message);
+            out.println("DELETETEXT:" + chatID + ":" + index);
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public void createChat(String chatID, String message) {
+    public void createChat(String[] userID) {
         try {
-            out.println("CREATECHAT:" + chatID + ":" + message);
+            String send = "";
+            for(String temp : userID){
+                send += temp + ",";
+            }
+            out.println("CREATECHAT:"+ send.substring(0, send.length()-1));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -147,27 +151,30 @@ public class Client {
     public boolean createUser(String username, String password) {
         try {
             out.println("CREATEUSER:" + username + ":" + password);
-            return (in.readLine());
+            return Boolean.parseBoolean(in.readLine());
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
     public boolean removeUser(String userID) {
         try {
             out.println("REMOVEUSER:" + userID);
-            return(in.readLine());
+            return Boolean.parseBoolean(in.readLine());
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
     public boolean removeUserFromChat(String username, String chatID) {
         try {
             out.println("REMOVEUSERFROMCHAT:" + username + ":" + chatID);
-            return(in.readLine());
+            return Boolean.parseBoolean(in.readLine());
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 

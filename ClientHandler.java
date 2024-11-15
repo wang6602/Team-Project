@@ -74,12 +74,13 @@ public class ClientHandler implements Runnable {
 
                 if (request.equals("DELETETEXT")) {
                     String[] temp = message.split(":");
-                    databaseManager.deleteText(temp[1], temp[2]);
+                    databaseManager.deleteText(temp[1], Integer.parseInt(temp[2]));
                 }
 
                 if(request.equals("CREATECHAT")) {
                     String[] temp = message.split(":");
-                    databaseManager.createChat(temp[1], temp[2]);
+                    String[] userID = temp[1].split(",");
+                    databaseManager.createChat(userID);
                 }
 
                 if(request.equals("CREATEUSER")) {
@@ -96,10 +97,9 @@ public class ClientHandler implements Runnable {
 
                 if(request.equals("REMOVEUSERFROMCHAT")) {
                     String[] temp = message.split(":");
-                    boolean output = databaseManager.removeUser(temp[1]);
+                    boolean output = databaseManager.removeUserFromChat(temp[1], temp[2]);
                     out.println(output);
                 }
-
 
 
                 message = in.readLine();
