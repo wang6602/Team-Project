@@ -113,6 +113,20 @@ public class RunLocalTestPhase2 {
             Assert.assertTrue(newUser == true);
         }
 
+        @Test
+        public void testRemoveUser() {
+            boolean removeUser = client.removeUser("user1");
+            Assert.assertTrue(removeUser);
+        }
+
+        @Test
+        public void testRemoveUserFromChat() {
+            ArrayList<String> chatIDs = db.getChatIDs("user1");
+            String firstChat = chatIDs.get(0);
+            boolean removeUser = client.removeUserFromChat("user1",firstChat);
+            Assert.assertTrue(removeUser);
+        }
+
 
 
 
