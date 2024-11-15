@@ -43,7 +43,7 @@ public interface DatabaseManagerInterface {
 
     ArrayList<User> userLookup(String username);
 
-    ArrayList<User> userViewer();
+    ArrayList<String> userViewer();
 
     void updateUser(User user);
 

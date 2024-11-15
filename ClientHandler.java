@@ -102,6 +102,54 @@ public class ClientHandler implements Runnable {
                     out.println(output);
                 }
 
+                // Tatjana's methods
+                if (request.equals("ADDUSERTOCHAT")) {
+                    String[] temp = message.split(":");
+                    boolean output = databaseManager.addUserToChat(temp[1], temp[2]);
+                    out.println(output);
+                }
+
+                if (request.equals("USERLOOKUP")) {
+                    String[] temp = message.split(":");
+                    String output = "";
+                    ArrayList<User> result = databaseManager.userLookup(temp[1]);
+                    for (User s : result) {
+                        output += s + ",";
+                    }
+                    out.println(output.substring(0, output.length() - 1));
+                }
+
+                if (request.equals("USERVIEWER")) {
+                    String[] temp = message.split(":");
+                    String output = "";
+                    ArrayList<String> result = databaseManager.userViewer();
+                    for (String s : result) {
+                        output += s + ",";
+                    }
+                    out.println(output.substring(0, output.length() - 1));
+                }
+
+                if (request.equals("UPDATEUSER")) {
+                    try {
+                        String[] temp = message.split(":");
+                        String username = temp[1];
+                        String password = temp[2];
+                        User user = new User(username, password);
+                        databaseManager.updateUser(user);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        out.println("ERROR");
+                    }
+                }
+
+
+                if (request.equals("LOGINUSER")) {
+                    String[] temp = message.split(":");
+                    boolean output = databaseManager.loginUser(temp[1], temp[2], temp[3]);
+                    out.println(output);
+                }
+
+
 
                 message = in.readLine();
 

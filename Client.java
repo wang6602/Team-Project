@@ -180,6 +180,66 @@ public class Client {
         }
     }
 
+    // Tatjana's methods tehe
+    /*
+    1. boolean addUsertochat(String username, String chatID)
+    2. String[] userLookup(String name)
+    3. String[] userViewer()
+          - Returns a list of all the user’s username
+    4. Void Updateuser(User user)
+    5. boolean loginuser(String username, String password, String userID)
+
+    */
+
+
+    public boolean addUserToChat(String username, String chatID) {
+        try {
+            out.println("ADDUSERTOCHAT:" + username + ":" + chatID);
+            return Boolean.parseBoolean(in.readLine());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public String[] userLookup(String name) {
+        try {
+            out.println("USERLOOKUP:" + name);
+            return in.readLine().split(",");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String[] userViewer() {
+        try {
+            out.println("USER VIEWER");
+            return in.readLine().split(",");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void updateUser(String username, String password) {
+        try {
+            out.println("UPDATEUSER:" + username + ":" + password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean loginUser(String username, String password, String userID) {
+        try {
+            out.println("LOGINUSER:" + username + ":" + password + ":" + userID);
+            return Boolean.parseBoolean(in.readLine());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 
     public static void main(String[] args){
