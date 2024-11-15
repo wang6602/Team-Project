@@ -114,14 +114,14 @@ public class RunLocalTest {
 
         @Test
         public void testcreateuser(){
-            Boolean result = dbManager.createUser("tstingcreateUser", "testingCreateUser");
+            boolean result = dbManager.createUser("tstingcreateUser", "testingCreateUser");
             Assert.assertTrue("The ArrayList should have a userID.", result);
 
 
         }
         @Test
         public void testRemoveUser(){
-            Boolean result = dbManager.removeUser("tstingcreateUser");
+            boolean result = dbManager.removeUser("tstingcreateUser");
             Assert.assertTrue("The ArrayList should have a userID.", result);
         }
 
@@ -129,7 +129,7 @@ public class RunLocalTest {
         @Test public void testremoveuserfromchat(){
             dbManager.createUser("temporrary", "temporrary");
             dbManager.addUserToChat("temporrary", user1chat);
-            Boolean result = dbManager.removeUserFromChat("temporrary", user1chat);
+            boolean result = dbManager.removeUserFromChat("temporrary", user1chat);
             Assert.assertTrue("The ArrayList should remove this userID.", result);
         }
 
@@ -153,14 +153,14 @@ public class RunLocalTest {
 
         @Test
         public void testLoginUser(){
-            Boolean result = dbManager.loginUser("user3", "user3", "user3");
+            boolean result = dbManager.loginUser("user3", "user3", "user3");
             Assert.assertTrue(result);
         }
 
 
         @Test
         public void testupdateprofilepic(){
-            Boolean result = dbManager.updateUserProfilePicture("user1", "New profile picture");
+            boolean result = dbManager.updateUserProfilePicture("user1", "New profile picture");
             Assert.assertTrue(result);
         }
         @Test
@@ -170,7 +170,7 @@ public class RunLocalTest {
         }
         @Test
         public void testclearprofilepic(){
-            Boolean result = dbManager.clearUserProfilePicture("user1");
+            boolean result = dbManager.clearUserProfilePicture("user1");
             Assert.assertTrue(result);
         }
 
@@ -179,7 +179,7 @@ public class RunLocalTest {
         public void testaddfriend(){
             dbManager.createUser("friend1", "friend1");
             dbManager.createUser("friend2", "friend2");
-            Boolean result = dbManager.addFriend("friend1", "friend2");
+            boolean result = dbManager.addFriend("friend1", "friend2");
             Assert.assertTrue(result);
         }
 
@@ -188,13 +188,13 @@ public class RunLocalTest {
         public void testblockfriend(){
             dbManager.createUser("friendblock1", "friend1");
             dbManager.createUser("friendblock2", "friend2");
-            Boolean result = dbManager.blockFriend("friendblock1", "friendblock2");
+            boolean result = dbManager.blockFriend("friendblock1", "friendblock2");
             Assert.assertTrue(result);
         }
 
 
         @Test public void testuserviewer(){
-            ArrayList<User> users = dbManager.userViewer();
+            ArrayList<String> users = dbManager.userViewer();
             Assert.assertTrue(users.size()>0);
         }
         @Test public void testuserlookup(){

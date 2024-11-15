@@ -670,7 +670,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public ArrayList<User> userViewer() {
+    public ArrayList<String> userViewer() {
         /*
          * Returns a list of all the viewers
          */
@@ -681,7 +681,11 @@ public class DatabaseManager implements DatabaseManagerInterface {
                 FileInputStream fr = new FileInputStream(file);
                 ois = new ObjectInputStream(fr);
                 ArrayList<User> users = (ArrayList<User>) ois.readObject();
-                return users;
+                ArrayList<String> ans = new ArrayList<>();
+                for (User user : users) {
+                    ans.add(user.getUsername());
+                }
+                return ans;
             }
 
         } catch (Exception e) {
