@@ -94,6 +94,8 @@ public class RunLocalTestPhase2 {
         public void deleteText(){
             db.newText("user1",chat1, "testing the delete text");
             client.deleteText(chat1, 1);
+            String[] chat = client.readChat(chat1);
+            Assert.assertTrue(chat.length == 2);
 
         }
 
