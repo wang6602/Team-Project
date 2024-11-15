@@ -41,6 +41,7 @@ public class RunLocalTestPhase2 {
             db.createUser("user2", "user2");
             db.createUser("user3", "user3");
             chat1 = db.createChat(new String[]{"user1", "user2"});
+            db.updateUserProfilePicture("user1", "profilepicbase64");
 
 
 
@@ -76,6 +77,20 @@ public class RunLocalTestPhase2 {
             boolean ans = client.blockFriend("user1", "user2");
             Assert.assertTrue(ans == true);
         }
+
+        @Test
+        public void testGetUserProfilePicture(){
+            String ans = client.getUserProfilePicture("user1");
+            Assert.assertTrue(ans.equals("profilepicbase64"));
+        }
+
+        @Test
+        public void testClearUserProfilePicture(){
+            boolean ans = client.clearUserProfilePicture("user1");
+            Assert.assertTrue(ans == true);
+        }
+
+
 
 
 
