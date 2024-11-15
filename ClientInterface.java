@@ -14,26 +14,19 @@
  */
 public interface ClientInterface {
 
-    public void login();
-
-    public void logout();
-
-    public void register();
-
-    public void profile();
-
-    public void createChat(String username);
-
-    public void sendMessage(String username, String message);
-
-    public void addFriend(String username);
-
-    public void blockFriend(String username);
-
-    public void viewChats();
-
-    public void viewUsers(String userID);
-
-    public void viewUsers();
+    String[] getChatIDs();
+    String getUsersInChat(String chatID);
+    String[] readChat(String chatID);
+    void newText(String chatID, String message);
+    void deleteText(String chatID, int index);
+    void createChat(String chatID, String message);
+    boolean createUser(String username, String password);
+    boolean removeUser(String userID);
+    boolean removeUserFromChat(String username, String chatID);
+    boolean addUsertochat(String username, String chatID);
+    String[] userLookup(String name);
+    String[] userViewer();
+    void UpdateUser(User user);
+    boolean loginuser(String username, String password, String userID);
 
 }
