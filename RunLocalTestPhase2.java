@@ -184,7 +184,8 @@ public class RunLocalTestPhase2 {
 
         @Test
         public void testLoginUser(){
-            boolean ans = client.loginUser("user4", "user4", "user4");
+            client.updateUser("user1", "testuserpasswordnew");
+            boolean ans = client.loginUser("user1", "testuserpasswordnew", "user1");
             Assert.assertTrue(ans);
 
         }
