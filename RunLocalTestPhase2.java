@@ -7,6 +7,9 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 //make sure to clear the chatID file and delete the userDatabase.txt before running
@@ -40,6 +43,7 @@ public class RunLocalTestPhase2 {
             db.createUser("user1", "user1");
             db.createUser("user2", "user2");
             db.createUser("user3", "user3");
+            db.createUser("user4", "user4");
             chat1 = db.createChat(new String[]{"user1", "user2"});
             db.updateUserProfilePicture("user1", "profilepicbase64");
 
@@ -130,6 +134,60 @@ public class RunLocalTestPhase2 {
             Assert.assertTrue(removeUser);
         }
 
+        @Test
+        public void addUserToChat(){
+            boolean ans = client.addUserToChat("user2", chat1);
+            Assert.assertTrue(ans);
+        }
+
+
+        @Test
+        public void testuserLookup(){
+            String[] ans = client.userLookup("user2");
+            Assert.assertTrue(ans[0].equals("user2"));
+        }
+
+
+        @Test
+        public void testuserViewer(){
+            String[] ans  = client.userViewer();
+            Assert.assertTrue(ans.length > 0);
+
+
+        }
+
+
+        @Test
+        public void testUpdateUser() {
+            client.updateUser("user1", "testuserpassword");
+            try{
+                FileInputStream fis = new FileInputStream(new File("userDatabase.txt"));
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                ArrayList<User> users = (ArrayList<User>) ois.readObject();
+                boolean userupdated = false;
+                for (User user : users) {
+                    if (user.getUserID().equals("user1") && user.getPassword().equals("testuserpassword")) {
+                        userupdated = true;
+                    }
+                }
+
+                Assert.assertTrue(userupdated == true);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+
+
+        }
+
+        @Test
+        public void testLoginUser(){
+            boolean ans = client.loginUser("user4", "user4", "user4");
+            Assert.assertTrue(ans);
+
+        }
 
 
 
@@ -137,7 +195,11 @@ public class RunLocalTestPhase2 {
 
 
 
-    }
+
+
+
+
+        }
 
 
 }

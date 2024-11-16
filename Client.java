@@ -214,8 +214,8 @@ public class Client {
 
     public String[] userViewer() {
         try {
-            out.println("USER VIEWER");
-            return in.readLine().split(",");
+            out.println("USERVIEWER:");
+            return (in.readLine().split(","));
         } catch (Exception e) {
             e.printStackTrace();
             return null;
