@@ -32,7 +32,6 @@ public class RunLocalTestPhase2 {
         DatabaseManager db = new DatabaseManager();
 
 
-
         Client client = new Client();
         String chat1;
 
@@ -44,16 +43,20 @@ public class RunLocalTestPhase2 {
             db.createUser("user2", "user2");
             db.createUser("user3", "user3");
             db.createUser("user4", "user4");
+
+            db.createUser("usertestupdate", "usertestupdate");
             chat1 = db.createChat(new String[]{"user1", "user2"});
             db.updateUserProfilePicture("user1", "profilepicbase64");
 
+            client.updateUser("usertestupdate", "testuserpassword");
 
 
         }
+
         @Test
         public void testClientgetChatID() {
             String[] ans = client.getChatIDs();
-            Assert.assertTrue(ans[ans.length-1].equals(chat1));
+            Assert.assertTrue(ans[ans.length - 1].equals(chat1));
         }
 
         @Test
@@ -64,39 +67,39 @@ public class RunLocalTestPhase2 {
         }
 
         @Test
-        public void testNewTextandReadText(){
+        public void testNewTextandReadText() {
             client.newText(chat1, "hello user2 my name is user1");
             String[] ans = client.readChat(chat1);
             Assert.assertTrue(ans[1].equals("hello user2 my name is user1"));
         }
 
         @Test
-        public void testAddFriend(){
+        public void testAddFriend() {
             boolean ans = client.addFriend("user1", "user2");
             Assert.assertTrue(ans == true);
         }
 
         @Test
-        public void testBlockFriend(){
+        public void testBlockFriend() {
             boolean ans = client.blockFriend("user1", "user2");
             Assert.assertTrue(ans == true);
         }
 
         @Test
-        public void testGetUserProfilePicture(){
+        public void testGetUserProfilePicture() {
             String ans = client.getUserProfilePicture("user1");
             Assert.assertTrue(ans.equals("profilepicbase64"));
         }
 
         @Test
-        public void testClearUserProfilePicture(){
+        public void testClearUserProfilePicture() {
             boolean ans = client.clearUserProfilePicture("user1");
             Assert.assertTrue(ans == true);
         }
 
         @Test
-        public void deleteText(){
-            db.newText("user1",chat1, "testing the delete text");
+        public void deleteText() {
+            db.newText("user1", chat1, "testing the delete text");
             client.deleteText(chat1, 1);
             String[] chat = client.readChat(chat1);
             Assert.assertTrue(chat.length == 2);
@@ -114,7 +117,7 @@ public class RunLocalTestPhase2 {
         @Test
         public void testCreateUser() {
             //MUST MODIFY USERNAME AFTER EVERY TEST CASE; ONLY WORKS ONCE PER USER
-            boolean newUser = client.createUser("newUser1","password123");
+            boolean newUser = client.createUser("newUser1", "password123");
             Assert.assertTrue(newUser == true);
         }
 
@@ -130,27 +133,27 @@ public class RunLocalTestPhase2 {
         public void testRemoveUserFromChat() {
             ArrayList<String> chatIDs = db.getChatIDs("user1");
             String firstChat = chatIDs.get(0);
-            boolean removeUser = client.removeUserFromChat("user1",firstChat);
+            boolean removeUser = client.removeUserFromChat("user1", firstChat);
             Assert.assertTrue(removeUser);
         }
 
         @Test
-        public void addUserToChat(){
+        public void addUserToChat() {
             boolean ans = client.addUserToChat("user2", chat1);
             Assert.assertTrue(ans);
         }
 
 
         @Test
-        public void testuserLookup(){
+        public void testuserLookup() {
             String[] ans = client.userLookup("user2");
             Assert.assertTrue(ans[0].equals("user2"));
         }
 
 
         @Test
-        public void testuserViewer(){
-            String[] ans  = client.userViewer();
+        public void testuserViewer() {
+            String[] ans = client.userViewer();
             Assert.assertTrue(ans.length > 0);
 
 
@@ -159,9 +162,9 @@ public class RunLocalTestPhase2 {
 
         @Test
         public void testUpdateUser() {
-            client.createUser("usertestupdate", "usertestupdate");
-            client.updateUser("usertestupdate", "testuserpassword");
-            try{
+
+
+            try {
                 FileInputStream fis = new FileInputStream(new File("userDatabase.txt"));
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 ArrayList<User> users = (ArrayList<User>) ois.readObject();
@@ -184,7 +187,7 @@ public class RunLocalTestPhase2 {
         }
 
         @Test
-        public void testLoginUser(){
+        public void testLoginUser() {
             client.updateUser("user1", "testuserpasswordnew");
             boolean ans = client.loginUser("user1", "testuserpasswordnew", "user1");
             Assert.assertTrue(ans);
@@ -192,16 +195,7 @@ public class RunLocalTestPhase2 {
         }
 
 
-
-
-
-
-
-
-
-
-
-        }
+    }
 
 
 }
