@@ -159,14 +159,15 @@ public class RunLocalTestPhase2 {
 
         @Test
         public void testUpdateUser() {
-            client.updateUser("user1", "testuserpassword");
+            client.createUser("usertestupdate", "usertestupdate");
+            client.updateUser("usertestupdate", "testuserpassword");
             try{
                 FileInputStream fis = new FileInputStream(new File("userDatabase.txt"));
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 ArrayList<User> users = (ArrayList<User>) ois.readObject();
                 boolean userupdated = false;
                 for (User user : users) {
-                    if (user.getUserID().equals("user1") && user.getPassword().equals("testuserpassword")) {
+                    if (user.getUserID().equals("usertestupdate") && user.getPassword().equals("testuserpassword")) {
                         userupdated = true;
                     }
                 }

@@ -18,23 +18,23 @@ public class Client implements ClientInterface {
     private String password;
     private String userID;
 
-    public Client(){
+    public Client() {
         try {
             socket = new Socket("localhost", 4242);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
             System.out.println("Connected");
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void setUserIDandUsername(String userID){
+    public void setUserIDandUsername(String userID) {
         this.userID = userID;
         this.username = userID;
     }
 
-    public void sendMessage(){
+    public void sendMessage() {
         try {
             out.println("hello world");
             System.out.println(in.readLine());
@@ -43,47 +43,47 @@ public class Client implements ClientInterface {
         }
     }
 
-    public String[] getChatIDs(){
-        try{
+    public String[] getChatIDs() {
+        try {
             out.println("GETCHATID:" + userID);
             String[] result = in.readLine().split(",");
             return result;
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public String getUsersInChat(String chatID){
-        try{
+    public String getUsersInChat(String chatID) {
+        try {
             out.println("GETUSERINCHAT:" + chatID);
-            return(in.readLine());
+            return (in.readLine());
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public String[] readChat(String chatID){
-        try{
+    public String[] readChat(String chatID) {
+        try {
             out.println("READCHAT:" + chatID);
             String[] result = in.readLine().split(",");
             return result;
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public void newText(String chatID, String message){
-        try{
+    public void newText(String chatID, String message) {
+        try {
             out.println("POSTTEXT:" + userID + ":" + chatID + ":" + message);
 
 
-        } catch (Exception e){
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
@@ -92,7 +92,7 @@ public class Client implements ClientInterface {
     public String getUserProfilePicture(String userID) {
         try {
             out.println("GETUSERPROFILEPICTURE:" + userID);
-            return(in.readLine());
+            return (in.readLine());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,7 +139,7 @@ public class Client implements ClientInterface {
     public void deleteText(String chatID, int index) {
         try {
             out.println("DELETETEXT:" + chatID + ":" + index);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -147,10 +147,10 @@ public class Client implements ClientInterface {
     public String createChat(String[] userID) {
         try {
             String send = "";
-            for(String temp : userID){
+            for (String temp : userID) {
                 send += temp + ",";
             }
-            out.println("CREATECHAT:"+ send.substring(0, send.length()-1));
+            out.println("CREATECHAT:" + send.substring(0, send.length() - 1));
             return in.readLine();
         } catch (Exception e) {
             e.printStackTrace();
@@ -249,8 +249,7 @@ public class Client implements ClientInterface {
     }
 
 
-
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Client client = new Client();
         client.sendMessage();
     }
