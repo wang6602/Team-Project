@@ -12,8 +12,16 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
-//make sure to clear the chatID file and delete the userDatabase.txt before running
-
+/**
+ * Run local test case phase 2 Class
+ * <p>
+ * Runs all the test cases for phase 2. Make sure to be running the server first.
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
+ *
+ * @version November 3, 2024
+ * @author Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
+ */
 
 public class RunLocalTestPhase2 {
 

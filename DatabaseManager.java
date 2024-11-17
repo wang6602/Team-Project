@@ -3,9 +3,10 @@
 
 import java.io.*;
 import java.util.*;
+
 /**
  * DatabaseManager Class
- *
+ * <p>
  * DatabaseManager Class
  * - This class is used for interacting with the various databases, like messaging and the users database
  * It will store the users in usersDatabase and chats in their own text files.
@@ -15,8 +16,8 @@ import java.util.*;
  *
  * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
  *
- * @authors Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
  * @version November 3, 2024
+ * @authors Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
  */
 
 //  is only temporary
@@ -57,7 +58,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
             return null;
         } finally {
             try {
-                if (bfr != null) {bfr.close();}
+                if (bfr != null) {
+                    bfr.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -135,7 +138,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         } catch (Exception e) {
             e.printStackTrace();
             return texts;
-        } finally{
+        } finally {
             try {
                 if (bfr != null) bfr.close();
             } catch (IOException e) {
@@ -186,30 +189,30 @@ public class DatabaseManager implements DatabaseManagerInterface {
         PrintWriter pw = null;
         try {
             synchronized (gatekeeper) {
-            File f = new File(chatID + ".txt");
-            if (f.exists()) {
-                FileReader fr = new FileReader(f);
-                bfr = new BufferedReader(fr);
-                String line;
-                while ((line = bfr.readLine()) != null) {
-                    texts.add(line);
+                File f = new File(chatID + ".txt");
+                if (f.exists()) {
+                    FileReader fr = new FileReader(f);
+                    bfr = new BufferedReader(fr);
+                    String line;
+                    while ((line = bfr.readLine()) != null) {
+                        texts.add(line);
+                    }
+                    if (index < 0 || index >= texts.size()) {
+                        return; // invalid index to delete method
+                    }
+                    texts.remove(index);
+                    bfr.close();
                 }
-                if (index < 0 || index >= texts.size()) {
-                    return; // invalid index to delete method
-                }
-                texts.remove(index);
-                bfr.close();
-            }
 
-            synchronized (gatekeeper) {
+                synchronized (gatekeeper) {
 
-                BufferedWriter writer = new BufferedWriter(new FileWriter(f));
-                pw = new PrintWriter(writer);
-                for (String text : texts) {
-                    pw.println(text);
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(f));
+                    pw = new PrintWriter(writer);
+                    for (String text : texts) {
+                        pw.println(text);
+                    }
+                    pw.close();
                 }
-                pw.close();
-            }
             }
 
         } catch (Exception e) {
@@ -247,7 +250,8 @@ public class DatabaseManager implements DatabaseManagerInterface {
                     usersInChat += userID[i] + ",";
                 }
 
-                pw.println(chatID + "," + usersInChat.substring(0, usersInChat.length() - 1)); // prints the chatID to the
+                pw.println(chatID + "," +
+                        usersInChat.substring(0, usersInChat.length() - 1)); // prints the chatID to the
                 // .txt file
 
                 File newFile = new File(chatID + ".txt");
@@ -260,7 +264,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
             e.printStackTrace();
             return null;
         } finally {
-                if (pw != null) pw.close();
+            if (pw != null) pw.close();
         }
     }
 
@@ -316,7 +320,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-        } finally{
+        } finally {
             try {
                 if (ois != null) ois.close();
                 if (oos != null) oos.close();
@@ -455,8 +459,8 @@ public class DatabaseManager implements DatabaseManagerInterface {
             try {
                 if (ois != null) ois.close();
                 if (oos != null) oos.close();
-                if(pw != null) pw.close();
-                if(bfr != null) bfr.close();
+                if (pw != null) pw.close();
+                if (bfr != null) bfr.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -533,7 +537,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-        } finally{
+        } finally {
             try {
                 if (bfr != null) bfr.close();
                 if (pw != null) pw.close();
@@ -841,7 +845,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        } finally{
+        } finally {
             try {
                 if (ois != null) ois.close();
             } catch (IOException e) {

@@ -1,3 +1,9 @@
+
+import java.io.*;
+import java.net.*;
+import java.sql.Array;
+import java.util.ArrayList;
+
 /**
  * ClientHandler Class
  * <p>
@@ -19,12 +25,9 @@
  * @version November 16, 2024
  */
 
-import java.io.*;
-import java.net.*;
-import java.sql.Array;
-import java.util.ArrayList;
 
-public class ClientHandler implements Runnable {
+
+public class ClientHandler implements Runnable, ClientHandlerInterface {
 
     BufferedReader in;
     PrintWriter out;

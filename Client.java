@@ -38,9 +38,9 @@ public class Client implements ClientInterface {
         }
     }
 
-    public void setUserIDandUsername(String userID) {
-        this.userID = userID;
-        this.username = userID;
+    public void setUserIDandUsername(String currentuserID) {
+        this.userID = currentuserID;
+        this.username = currentuserID;
     }
 
     public void sendMessage() {
@@ -98,9 +98,9 @@ public class Client implements ClientInterface {
         }
     }
 
-    public String getUserProfilePicture(String userID) {
+    public String getUserProfilePicture(String currentuserID) {
         try {
-            out.println("GETUSERPROFILEPICTURE:" + userID);
+            out.println("GETUSERPROFILEPICTURE:" + currentuserID);
             return (in.readLine());
 
         } catch (Exception e) {
@@ -109,9 +109,9 @@ public class Client implements ClientInterface {
         }
     }
 
-    public boolean clearUserProfilePicture(String userID) {
+    public boolean clearUserProfilePicture(String currentuserID) {
         try {
-            out.println("CLEARUSERPROFILEPICTURE:" + userID);
+            out.println("CLEARUSERPROFILEPICTURE:" + currentuserID);
             return Boolean.parseBoolean((in.readLine()));
 
         } catch (Exception e) {
@@ -153,10 +153,10 @@ public class Client implements ClientInterface {
         }
     }
 
-    public String createChat(String[] userID) {
+    public String createChat(String[] userIDList) {
         try {
             String send = "";
-            for (String temp : userID) {
+            for (String temp : userIDList) {
                 send += temp + ",";
             }
             out.println("CREATECHAT:" + send.substring(0, send.length() - 1));
@@ -167,9 +167,9 @@ public class Client implements ClientInterface {
         }
     }
 
-    public boolean createUser(String username, String password) {
+    public boolean createUser(String newusername, String newpassword) {
         try {
-            out.println("CREATEUSER:" + username + ":" + password);
+            out.println("CREATEUSER:" + newusername + ":" + newpassword);
             return Boolean.parseBoolean(in.readLine());
         } catch (Exception e) {
             e.printStackTrace();
@@ -177,9 +177,9 @@ public class Client implements ClientInterface {
         }
     }
 
-    public boolean removeUser(String userID) {
+    public boolean removeUser(String specifiedUserID) {
         try {
-            out.println("REMOVEUSER:" + userID);
+            out.println("REMOVEUSER:" + specifiedUserID);
             return Boolean.parseBoolean(in.readLine());
         } catch (Exception e) {
             e.printStackTrace();
@@ -187,9 +187,9 @@ public class Client implements ClientInterface {
         }
     }
 
-    public boolean removeUserFromChat(String username, String chatID) {
+    public boolean removeUserFromChat(String specifiedUsername, String chatID) {
         try {
-            out.println("REMOVEUSERFROMCHAT:" + username + ":" + chatID);
+            out.println("REMOVEUSERFROMCHAT:" + specifiedUsername + ":" + chatID);
             return Boolean.parseBoolean(in.readLine());
         } catch (Exception e) {
             e.printStackTrace();
@@ -197,21 +197,9 @@ public class Client implements ClientInterface {
         }
     }
 
-    // Tatjana's methods tehe
-    /*
-    1. boolean addUsertochat(String username, String chatID)
-    2. String[] userLookup(String name)
-    3. String[] userViewer()
-          - Returns a list of all the user’s username
-    4. Void Updateuser(User user)
-    5. boolean loginuser(String username, String password, String userID)
-
-    */
-
-
-    public boolean addUserToChat(String username, String chatID) {
+    public boolean addUserToChat(String newusername, String chatID) {
         try {
-            out.println("ADDUSERTOCHAT:" + username + ":" + chatID);
+            out.println("ADDUSERTOCHAT:" + newusername + ":" + chatID);
             return Boolean.parseBoolean(in.readLine());
         } catch (Exception e) {
             e.printStackTrace();
@@ -239,17 +227,17 @@ public class Client implements ClientInterface {
         }
     }
 
-    public void updateUser(String username, String password) {
+    public void updateUser(String newusername, String newpassword) {
         try {
-            out.println("UPDATEUSER:" + username + ":" + password);
+            out.println("UPDATEUSER:" + newusername + ":" + newpassword);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public boolean loginUser(String username, String password, String userID) {
+    public boolean loginUser(String username, String clientPassword, String clientuserID) {
         try {
-            out.println("LOGINUSER:" + username + ":" + password + ":" + userID);
+            out.println("LOGINUSER:" + username + ":" + clientPassword + ":" + clientuserID);
             return Boolean.parseBoolean(in.readLine());
         } catch (Exception e) {
             e.printStackTrace();

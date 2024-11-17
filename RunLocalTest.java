@@ -22,6 +22,16 @@ import org.junit.runner.notification.Failure;
 
 import java.util.ArrayList;
 
+/**
+ * Run local test case phase 1 Class
+ * <p>
+ * Runs all the test cases for phase 1.
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
+ *
+ * @version November 3, 2024
+ * @author Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
+ */
 
 public class RunLocalTest {
 
