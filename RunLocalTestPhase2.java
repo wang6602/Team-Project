@@ -5,22 +5,22 @@ import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 /**
- * Run local test case phase 2 Class
+ * RunLocalTestPhase2 Class
  * <p>
- * Runs all the test cases for phase 2. Make sure to be running the server first.
+ * This class is responsible for running all test cases for phase 2.
+ * Ensure that the server is running before executing these tests.
  *
  * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
  *
  * @version November 3, 2024
- * @author Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
+ * @author Tatjana Trajkovic, Rohit Sattuluri,
+ *         Sophia Zakar, Alan Wang, BLK
  */
 
 public class RunLocalTestPhase2 {
@@ -35,6 +35,19 @@ public class RunLocalTestPhase2 {
             }
         }
     }
+
+    /**
+     * TestCase Class
+     * <p>
+     * This class is responsible for running all test cases for phase 2.
+     * Ensure that the server is running before executing these tests.
+     *
+     * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
+     *
+     * @version November 3, 2024
+     * @author Tatjana Trajkovic, Rohit Sattuluri,
+     *         Sophia Zakar, Alan Wang, BLK
+     */
 
     public static class TestCase {
         DatabaseManager db = new DatabaseManager();

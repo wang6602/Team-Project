@@ -2,7 +2,6 @@ import java.io.*;
 import java.net.*;
 
 /**
- * DatabaseManager Class
  * <p>
  * Client Class
  * This class runs for each individual Client.
@@ -15,7 +14,7 @@ import java.net.*;
  * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
  *
  * @version November 3, 2024
- * @authors Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
+ * @author Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
  */
 
 public class Client implements ClientInterface {
@@ -235,9 +234,9 @@ public class Client implements ClientInterface {
         }
     }
 
-    public boolean loginUser(String username, String clientPassword, String clientuserID) {
+    public boolean loginUser(String currentusername, String clientPassword, String clientuserID) {
         try {
-            out.println("LOGINUSER:" + username + ":" + clientPassword + ":" + clientuserID);
+            out.println("LOGINUSER:" + currentusername + ":" + clientPassword + ":" + clientuserID);
             return Boolean.parseBoolean(in.readLine());
         } catch (Exception e) {
             e.printStackTrace();

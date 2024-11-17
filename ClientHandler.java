@@ -21,7 +21,7 @@ import java.util.ArrayList;
  *
  * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project</p>
  *
- * @authors Alan Wang, Rohit Sattuluri, Sophia Zakar, Tatjana Trajkovic, BLK
+ * @author Alan Wang, Rohit Sattuluri, Sophia Zakar, Tatjana Trajkovic, BLK
  * @version November 16, 2024
  */
 
