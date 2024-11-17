@@ -2,18 +2,18 @@ Phase One README.txt File
 
 User Class/Interface
 - This class is used for storing each individual users' information.
-This class stores things related to users such as username, userID, password, profile picture, friends, and blocked users
-The users class will interact heavily with the Database Manager class, where it will store it along with the chat Data.
+  This class stores things related to users such as username, userID, password, profile picture, friends, and blocked users
+  The users class will interact heavily with the Database Manager class, where it will store it along with the chat Data.
 
 DatabaseManager Class
 - This class is used for interacting with the various databases, like messaging and the users database
-It will store the users in usersDatabase and chats in their own text files.
-It also has a ChatID database to store the filenames of chats between certain users
-This class will be responsible from receiving information from the server class to create new messages, delete texts, add users, delete users, and more
+  It will store the users in usersDatabase and chats in their own text files.
+  It also has a ChatID database to store the filenames of chats between certain users
+  This class will be responsible from receiving information from the server class to create new messages, delete texts, add users, delete users, and more
 
 Server Class
 -  This is the main server, and it handles connections with the clients.
-Uses the Database Manager class to handle the actions of the clients
+   Uses the Database Manager class to handle the actions of the clients
 
 Client Handler Class
 Client connects to this class which extends thread.
@@ -29,7 +29,7 @@ RunLocalTest
 PROGRAM INSTRUCTIONS
 When first running the program and creating the first user, make sure the userDatabase.txt does not exist.
 The program will automatically create this file.
- If not, the program will not work.
+If not, the program will not work.
 Additionally, when testing the program, make sure to only have the classes, interfaces, and the chatIDs.txt file. All other files, like the text chats and the usertDatabase should be deleted.
 Then run the RunLocalTest File.
 
