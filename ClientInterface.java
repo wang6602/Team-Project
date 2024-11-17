@@ -19,14 +19,14 @@ public interface ClientInterface {
     String[] readChat(String chatID);
     void newText(String chatID, String message);
     void deleteText(String chatID, int index);
-    void createChat(String chatID, String message);
+    String createChat(String[] users);
     boolean createUser(String username, String password);
     boolean removeUser(String userID);
     boolean removeUserFromChat(String username, String chatID);
-    boolean addUsertochat(String username, String chatID);
+    boolean addUserToChat(String username, String chatID);
     String[] userLookup(String name);
     String[] userViewer();
-    void UpdateUser(User user);
-    boolean loginuser(String username, String password, String userID);
+    void updateUser(String username, String password);
+    boolean loginUser(String username, String password, String userID);
 
 }

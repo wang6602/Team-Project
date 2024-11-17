@@ -9,7 +9,7 @@ operation from the user.
 
 The processing itself is carried out in the ClientHandler class.
  */
-public class Client {
+public class Client implements ClientInterface {
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
