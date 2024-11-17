@@ -1,6 +1,14 @@
 import java.io.*;
 import java.net.*;
 
+/*
+This class runs for each individual Client.
+
+It makes a connection to the Client Handler class using Server I/O after receiving the desired
+operation from the user.
+
+The processing itself is carried out in the ClientHandler class.
+ */
 public class Client {
     private Socket socket;
     private BufferedReader in;
@@ -103,7 +111,7 @@ public class Client {
         }
     }
 
-    public  boolean addFriend(String currentuserID, String friendID) {
+    public boolean addFriend(String currentuserID, String friendID) {
         try {
             out.println("ADDFRIEND:" + currentuserID + ":" + friendID);
             return Boolean.parseBoolean((in.readLine()));
