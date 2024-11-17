@@ -1,14 +1,22 @@
 import java.io.*;
 import java.net.*;
-
-/*
-This class runs for each individual Client.
-
-It makes a connection to the Client Handler class using Server I/O after receiving the desired
-operation from the user.
-
-The processing itself is carried out in the ClientHandler class.
+/**
+ * DatabaseManager Class
+ *
+ * Client Class
+ * This class runs for each individual Client.
+ *
+ * It makes a connection to the Client Handler class using Server I/O after receiving the desired
+ * operation from the user.
+ *
+ * The processing itself is carried out in the ClientHandler class.
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
+ *
+ * @authors Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
+ * @version November 3, 2024
  */
+
 public class Client implements ClientInterface {
     private Socket socket;
     private BufferedReader in;
