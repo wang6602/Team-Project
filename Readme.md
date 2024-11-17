@@ -34,6 +34,7 @@ Additionally, when testing the program, make sure to only have the classes, inte
 Then run the RunLocalTest File.
 
 TESTING INSTRUCTION
+
 To set up the testing environment, first run the Server.java class.
 Now that the server is running, Clients will be able to connect to the server, and the RunLocalTestPhase2 can be run.
 To run the test cases for phase to, run the server, then run the RunLcoalTestPhase2.java file.
