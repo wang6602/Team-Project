@@ -1,22 +1,21 @@
 /**
  * ClientHandler Class
- *
+ * <p>
  * This Client Handler class performs all the processing from the server side of our application
- *
+ * <p>
  * We created an instance of the DatabaseManager class to use its methods according to the inputs from
  * the user.
- *
+ * <p>
  * We used if-statements to find a "key word" from the Client input, then performed the operation
  * based off the "key word" accordingly.
- *
+ * <p>
  * If the method is not void, we used a PrintWriter to return the data back to the Client class.
- *
+ * <p>
  * The processing itself is carried out in the ClientHandler class
  *
  * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project</p>
  *
  * @authors Alan Wang, Rohit Sattuluri, Sophia Zakar, Tatjana Trajkovic, BLK
- *
  * @version November 16, 2024
  */
 
@@ -31,15 +30,17 @@ public class ClientHandler implements Runnable {
     PrintWriter out;
     Socket clientSocket;
     DatabaseManager databaseManager = new DatabaseManager();
+
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
+
     public void run() {
         try {
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             String message = in.readLine();
-            while(message != null) {
+            while (message != null) {
 
                 String request = message.split(":")[0];
 
@@ -99,26 +100,26 @@ public class ClientHandler implements Runnable {
                     databaseManager.deleteText(temp[1], Integer.parseInt(temp[2]));
                 }
 
-                if(request.equals("CREATECHAT")) {
+                if (request.equals("CREATECHAT")) {
                     String[] temp = message.split(":");
                     String[] userID = temp[1].split(",");
                     String newChat = databaseManager.createChat(userID);
                     out.println(newChat);
                 }
 
-                if(request.equals("CREATEUSER")) {
+                if (request.equals("CREATEUSER")) {
                     String[] temp = message.split(":");
                     boolean output = databaseManager.createUser(temp[1], temp[2]);
                     out.println(output);
                 }
 
-                if(request.equals("REMOVEUSER")) {
+                if (request.equals("REMOVEUSER")) {
                     String[] temp = message.split(":");
                     boolean output = databaseManager.removeUser(temp[1]);
                     out.println(output);
                 }
 
-                if(request.equals("REMOVEUSERFROMCHAT")) {
+                if (request.equals("REMOVEUSERFROMCHAT")) {
                     String[] temp = message.split(":");
                     boolean output = databaseManager.removeUserFromChat(temp[1], temp[2]);
                     out.println(output);
@@ -172,13 +173,12 @@ public class ClientHandler implements Runnable {
                 }
 
 
-
                 message = in.readLine();
 
             }
 
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

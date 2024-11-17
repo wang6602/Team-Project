@@ -1,6 +1,6 @@
 /**
  * DatabaseManagerInterface Class
- *
+ * <p>
  * - This class is used for interacting with the various databases, like messaging and the
  * users database
  * It will store the users in usersDatabase and chats in their own text files.

@@ -1,6 +1,6 @@
 /**
  * ClientInterface Interface
- *
+ * <p>
  * Client Class/Interface
  * This will be running on each individual user.
  * It will make a connection to the Client Handler class to connect to the network
@@ -9,8 +9,8 @@
  *
  * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
  *
- * @authors Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
  * @version November 3, 2024
+ * @authors Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
  */
 
 public interface ClientHandlerInterface {

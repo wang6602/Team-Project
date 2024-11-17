@@ -1,3 +1,8 @@
+
+
+
+import java.io.*;
+import java.util.*;
 /**
  * DatabaseManager Class
  *
@@ -13,11 +18,6 @@
  * @authors Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
  * @version November 3, 2024
  */
-
-
-
-import java.io.*;
-import java.util.*;
 
 //  is only temporary
 public class DatabaseManager implements DatabaseManagerInterface {

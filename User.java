@@ -1,6 +1,11 @@
+
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  * User Class
- *
+ * <p>
  * User Class/Interface
  * - This class is used for storing each individual users' information.
  * This class stores things related to users such as username, userID, password,
@@ -11,14 +16,10 @@
  *
  * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
  *
- * @authors Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
  * @version November 3, 2024
+ * @authors Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
  */
 
-
-
-import java.io.Serializable;
-import java.util.ArrayList;
 
 public class User implements Serializable, UserInterface {
     private String username;
