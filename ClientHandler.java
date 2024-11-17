@@ -1,19 +1,30 @@
+/**
+ * ClientHandler Class
+ *
+ * This Client Handler class performs all the processing from the server side of our application
+ *
+ * We created an instance of the DatabaseManager class to use its methods according to the inputs from
+ * the user.
+ *
+ * We used if-statements to find a "key word" from the Client input, then performed the operation
+ * based off the "key word" accordingly.
+ *
+ * If the method is not void, we used a PrintWriter to return the data back to the Client class.
+ *
+ * The processing itself is carried out in the ClientHandler class
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project</p>
+ *
+ * @authors Alan Wang, Rohit Sattuluri, Sophia Zakar, Tatjana Trajkovic, BLK
+ *
+ * @version November 16, 2024
+ */
+
 import java.io.*;
 import java.net.*;
 import java.sql.Array;
 import java.util.ArrayList;
 
-/*
-This Client Handler class performs all the processing from the server side of our application
-
-We created an instance of the DatabaseManager class to use its methods according to the inputs from
-the user.
-
-We used if-statements to find a "key word" from the Client input, then performed the operation
-based off the "key word" accordingly.
-
-If the method is not void, we used a PrintWriter to return the data back to the Client class.
- */
 public class ClientHandler implements Runnable {
 
     BufferedReader in;
