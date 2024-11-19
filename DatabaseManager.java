@@ -160,6 +160,65 @@ public class DatabaseManager implements DatabaseManagerInterface {
                 if (f.exists() == false) {
                     f.createNewFile();
                 }
+
+                //NEW CODE STARTS HERE TO CHECK IF CURRENT USER HAS ADDED THEM AS FRIENDS
+
+                boolean areFriends = true;
+
+                String[] peopleInChat = new String[0];
+                BufferedReader bfr = new BufferedReader(new FileReader("chatIDs.txt"));
+                String currentLine = bfr.readLine();
+                while ((currentLine) != null) {
+                    if (currentLine.contains(chatID)) {
+                        peopleInChat = currentLine.split(",");
+                    }
+                }
+
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userDatabase.txt"));
+                ArrayList<User> users = (ArrayList<User>) ois.readObject();
+                for(User user : users) {
+                    if(user.getUserID().equals(currentUserID)) {
+                        ArrayList<User> currentUserFriends = user.getFriends();
+                        for(String person : peopleInChat){
+                            boolean personIsFriend = false;
+                            for(User userFriend : currentUserFriends) {
+                                if(userFriend.getUserID().equals(person)) {
+                                    personIsFriend = true;
+                                }
+                            }
+                            if(!personIsFriend) {
+                                areFriends = false;
+                                //return false;
+                            }
+
+                        }
+                    }
+                }
+
+
+                //NEW CODE HERE FOR IF OTHER FREINDS BLOCKED CURRENT USER
+
+                boolean isBlocked = false;
+                for(int i =1; i< peopleInChat.length; i++){
+                    for(int j = 0; j < users.size(); j++){
+                        if(peopleInChat[i].equals(users.get(j).getUserID())) {
+                            ArrayList<User> userBlocked = users.get(j).getBlocked();
+                            for(User blocked: userBlocked) {
+                                if(blocked.getUserID().equals(currentUserID)) {
+                                    isBlocked = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                /*
+
+                if(!(areFreinds && !isBlocked)){
+                    return false;
+                }
+                 */
+
                 FileOutputStream fos = new FileOutputStream(f, true); // Append mode
                 pw = new PrintWriter(fos);
                 pw.println(currentUserID + "," + message);
