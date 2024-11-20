@@ -30,7 +30,7 @@ public interface DatabaseManagerInterface {
 
     String createChat(String[] userID);
 
-    void newText(String currentUserID, String chatID, String message);
+    boolean newText(String currentUserID, String chatID, String message);
 
     // User methods
     boolean createUser(String username, String password);

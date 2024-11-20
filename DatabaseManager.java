@@ -144,7 +144,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public void newText(String currentUserID, String chatID, String message) {
+    public boolean newText(String currentUserID, String chatID, String message) {
         /*
          * Makes a connection to the given chatID, then adds a new line to the database
          * of UserID,message
@@ -170,9 +170,12 @@ public class DatabaseManager implements DatabaseManagerInterface {
                 String currentLine = bfr.readLine();
                 while ((currentLine) != null) {
                     if (currentLine.contains(chatID)) {
-                        peopleInChat = currentLine.split(",");
+                        peopleInChat = currentLine.substring(currentLine.indexOf(",")+1).split(",");
                     }
+                    currentLine = bfr.readLine();
                 }
+
+
 
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userDatabase.txt"));
                 ArrayList<User> users = (ArrayList<User>) ois.readObject();
@@ -184,14 +187,20 @@ public class DatabaseManager implements DatabaseManagerInterface {
                             for(User userFriend : currentUserFriends) {
                                 if(userFriend.getUserID().equals(person)) {
                                     personIsFriend = true;
+                                    break;
+                                }
+                                if(person.equals(currentUserID)){
+                                    personIsFriend = true;
+                                    break;
                                 }
                             }
                             if(!personIsFriend) {
                                 areFriends = false;
-                                //return false;
+                                return false;
                             }
 
                         }
+                        break;
                     }
                 }
 
@@ -199,9 +208,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
                 //NEW CODE HERE FOR IF OTHER FREINDS BLOCKED CURRENT USER
 
                 boolean isBlocked = false;
-                for(int i =1; i< peopleInChat.length; i++){
+                for(int i =0; i< peopleInChat.length; i++){
                     for(int j = 0; j < users.size(); j++){
-                        if(peopleInChat[i].equals(users.get(j).getUserID())) {
+                        if(peopleInChat[i].equals(users.get(j).getUserID()) && !peopleInChat[i].equals(currentUserID)) {
                             ArrayList<User> userBlocked = users.get(j).getBlocked();
                             for(User blocked: userBlocked) {
                                 if(blocked.getUserID().equals(currentUserID)) {
@@ -212,23 +221,27 @@ public class DatabaseManager implements DatabaseManagerInterface {
                     }
                 }
 
-                /*
 
-                if(!(areFreinds && !isBlocked)){
+
+                if(!(areFriends && !isBlocked)){
                     return false;
                 }
-                 */
+
 
                 FileOutputStream fos = new FileOutputStream(f, true); // Append mode
                 pw = new PrintWriter(fos);
                 pw.println(currentUserID + "," + message);
                 pw.close();
+                return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
+
         } finally {
             if (pw != null)
                 pw.close();
+            return false;
         }
 
     }
