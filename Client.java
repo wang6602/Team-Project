@@ -1,6 +1,9 @@
 import java.io.*;
 import java.net.*;
 
+
+
+
 /**
  * <p>
  * Client Class
@@ -26,6 +29,11 @@ public class Client implements ClientInterface {
     private String password;
     private String userID;
 
+
+
+
+
+
     public Client() {
         try {
             socket = new Socket("localhost", 4242);
@@ -36,6 +44,8 @@ public class Client implements ClientInterface {
             e.printStackTrace();
         }
     }
+
+
 
     public void setUserIDandUsername(String currentuserID) {
         this.userID = currentuserID;
@@ -86,14 +96,16 @@ public class Client implements ClientInterface {
         }
     }
 
-    public void newText(String chatID, String message) {
+    public boolean newText(String chatID, String message) {
         try {
             out.println("POSTTEXT:" + userID + ":" + chatID + ":" + message);
+            return Boolean.parseBoolean(in.readLine());
 
 
         } catch (Exception e) {
 
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -247,7 +259,7 @@ public class Client implements ClientInterface {
 
     public static void main(String[] args) {
         Client client = new Client();
-        client.sendMessage();
+
     }
 
 }

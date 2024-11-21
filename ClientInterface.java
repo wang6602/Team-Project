@@ -20,7 +20,7 @@ public interface ClientInterface {
 
     String[] readChat(String chatID);
 
-    void newText(String chatID, String message);
+    boolean newText(String chatID, String message);
 
     void deleteText(String chatID, int index);
 

@@ -75,7 +75,8 @@ public class ClientHandler implements Runnable, ClientHandlerInterface {
                 }
                 if (request.equals("POSTTEXT")) {
                     String[] temp = message.split(":");
-                    databaseManager.newText(temp[1], temp[2], temp[3]);
+                    boolean output = databaseManager.newText(temp[1], temp[2], temp[3]);
+                    out.println(output);
                 }
                 if (request.equals("GETUSERPROFILEPICTURE")) {
                     String[] temp = message.split(":");
