@@ -45,6 +45,10 @@ public class Client implements ClientInterface {
         }
     }
 
+    public String getUsername() {
+        return username;
+    }
+
 
 
     public void setUserIDandUsername(String currentuserID) {

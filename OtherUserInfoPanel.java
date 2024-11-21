@@ -8,7 +8,7 @@ public class OtherUserInfoPanel extends JPanel {
     public OtherUserInfoPanel(JFrame jframe, Client client){
         setLayout(new GridBagLayout());
         this.client = client;
-        JLabel label = new JLabel("Login");
+        JLabel label = new JLabel("otheruserpanel");
         add(label);
     }
 }

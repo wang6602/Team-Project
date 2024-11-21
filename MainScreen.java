@@ -10,6 +10,8 @@ public class MainScreen {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 Client client = new Client();
+                //delete this line later - just for testing, userID should be set in login page
+                client.setUserIDandUsername("user1");
                 JFrame frame = new JFrame("Main Screen");
                 frame.setSize(600,500);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -28,7 +30,7 @@ public class MainScreen {
                 cardPanel.add(otherUserInfo, "otherUserInfo");
 
                 CardLayout cl = (CardLayout) cardPanel.getLayout();
-                cl.show(cardPanel, "otherUserInfo");
+                cl.show(cardPanel, "chat");
 
                 frame.add(cardPanel);
 
