@@ -223,7 +223,8 @@ public class DatabaseManager implements DatabaseManagerInterface {
 
 
 
-                if(!(areFriends && !isBlocked)){
+                System.out.println("Friend " + areFriends + " is blocked" + isBlocked);
+                if(!areFriends || isBlocked) {
                     return false;
                 }
 
@@ -236,13 +237,12 @@ public class DatabaseManager implements DatabaseManagerInterface {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
 
         } finally {
             if (pw != null)
                 pw.close();
-            return false;
         }
+        return true;
 
     }
 

@@ -103,13 +103,15 @@ public class Client implements ClientInterface {
     public boolean newText(String chatID, String message) {
         try {
             out.println("POSTTEXT:" + userID + ":" + chatID + ":" + message);
-            return Boolean.parseBoolean(in.readLine());
+            boolean input = Boolean.parseBoolean(in.readLine());
+            return input;
 
 
         } catch (Exception e) {
 
             e.printStackTrace();
-            return false;
+            System.out.print("someerror coccured");
+            return true;
         }
     }
 
