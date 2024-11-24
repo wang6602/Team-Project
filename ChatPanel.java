@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 
@@ -18,9 +19,11 @@ public class ChatPanel extends JPanel {
     HashMap<String,String> chatIDAndUsers = new HashMap<>();
     JPanel messagelabel = new JPanel();
     JPanel viewChat = new JPanel();
+    JFrame jframe;
 
 
     public ChatPanel(JFrame jframe, Client client){
+        this.jframe = jframe;
         setLayout(new BorderLayout());
         this.client = client;
         this.displaychatnamesandchats();
@@ -207,13 +210,53 @@ public class ChatPanel extends JPanel {
 
 
     private void topBarTools(){
-        JPanel topBar = new JPanel();
+        JMenuBar topBar = new JMenuBar();
         topBar.setLayout(new FlowLayout());
 
+        JMenu newChat = new JMenu("New Chat");
+        newChat.setLayout(new FlowLayout());
 
-        JButton reload = new JButton("Reload");
+        String[] friends = client.getFriends(client.getUsername());
+        ArrayList<String> selectedFriends = new ArrayList<>();
+
+        for (String friend : friends) {
+            JCheckBoxMenuItem newChatMenuItem = new JCheckBoxMenuItem(friend);
+            newChat.add(newChatMenuItem);
+
+
+            newChatMenuItem.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    if (newChatMenuItem.isSelected()) {
+                        // Add friend to selected list
+                        selectedFriends.add(friend);
+                    } else {
+                        // Remove friend if unchecked
+                        selectedFriends.remove(friend);
+                    }
+                    newChat.getPopupMenu().setVisible(true);
+                }
+            });
+        }
+        JButton createChat = new JButton("Create");
+        newChat.add(createChat);
+        createChat.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(selectedFriends.toString());
+                String[] selected = new String[selectedFriends.size()+1];
+                selected[0] = client.getUsername();
+                for(int i = 0; i < selectedFriends.size(); i++){
+                    selected[i+1] = selectedFriends.get(i);
+                }
+                client.createChat(selected);
+            }
+        });
+
+
+
+        JMenuItem reload = new JMenuItem("Reload");
         reload.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                messagelabel.removeAll();
                 messagelabel.revalidate();
                 messagelabel.repaint();
                 viewChat.removeAll();
@@ -221,6 +264,7 @@ public class ChatPanel extends JPanel {
                 viewChat.repaint();
             }
         });
+        topBar.add(newChat);
 
         topBar.add(reload);
 
