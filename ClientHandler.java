@@ -88,6 +88,11 @@ public class ClientHandler implements Runnable, ClientHandlerInterface {
                     boolean output = databaseManager.clearUserProfilePicture(temp[1]);
                     out.println(output);
                 }
+                if (request.equals("GETFRIENDS")) {
+                    String[] temp = message.split(":");
+                    String output = databaseManager.getFriends(temp[1]);
+                    out.println(output);
+                }
                 if (request.equals("ADDFRIEND")) {
                     String[] temp = message.split(":");
                     boolean output = databaseManager.addFriend(temp[1], temp[2]);

@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
@@ -6,12 +7,17 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.util.Base64;
 import java.util.HashMap;
 
 public class ChatPanel extends JPanel {
     Client client;
     String currentChat;
     HashMap<String,String> chatIDAndUsers = new HashMap<>();
+    JPanel messagelabel = new JPanel();
+    JPanel viewChat = new JPanel();
 
 
     public ChatPanel(JFrame jframe, Client client){
@@ -19,35 +25,28 @@ public class ChatPanel extends JPanel {
         this.client = client;
         this.displaychatnamesandchats();
         this.sendMessageandNavigation();
-
-
-
-
-
+        this.topBarTools();
     }
     private void displaychatnamesandchats(){
-        JPanel messagelabel = new JPanel();
+
         messagelabel.setLayout(new BoxLayout(messagelabel, BoxLayout.Y_AXIS));
         add(messagelabel, BorderLayout.WEST);
 
-        JPanel viewChat = new JPanel();
+
         viewChat.setLayout(new BoxLayout(viewChat, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel("Your groupchats");
-
-        JButton chatButton = new JButton("Chat");
-        chatButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Chat button clicked");
-            }
-        });
         messagelabel.add(title);
-        messagelabel.add(chatButton);
+
         String[] chats = client.getChatIDs();
+
+        ButtonGroup chatGroup = new ButtonGroup();
+
         for(String chat : chats){
             String usersInChat = (String)client.getUsersInChat(chat);
             chatIDAndUsers.put(usersInChat,chat);
-            JButton chatButton2 = new JButton(usersInChat);
+            JToggleButton chatButton2 = new JToggleButton(usersInChat);
+            chatGroup.add(chatButton2);
             chatButton2.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     System.out.println(chatButton2.toString() + " clicked");
@@ -67,6 +66,11 @@ public class ChatPanel extends JPanel {
 
                             //This is more powerful than Jtextarea
                             JTextPane textPane = new JTextPane();
+                            textPane.setPreferredSize(new Dimension(300,300));
+                            JScrollPane scrollPane = new JScrollPane(textPane);
+                            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+                            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
                             textPane.setEditable(false);
                             //This is for formatting
                             StyledDocument doc = textPane.getStyledDocument();
@@ -93,6 +97,8 @@ public class ChatPanel extends JPanel {
                                         doc.insertString(doc.getLength(), message + "\n\n", null);
                                     }
 
+                                    textPane.setCaretPosition(doc.getLength());
+
 
                                 }
                             } catch (BadLocationException ex) {
@@ -101,7 +107,9 @@ public class ChatPanel extends JPanel {
 
                             viewChat.add(title);
                             viewChat.add(text);
-                            viewChat.add(textPane);
+                            viewChat.add(textPane, BorderLayout.CENTER);
+                            viewChat.add(scrollPane, BorderLayout.EAST);
+
                             add(viewChat, BorderLayout.CENTER);
                             revalidate();
                             repaint();
@@ -150,6 +158,7 @@ public class ChatPanel extends JPanel {
                     newMessageField.setText("");
                 } if(currentChat == null){
                     JOptionPane.showMessageDialog(newmessage, "Please select a chat first", "Error", JOptionPane.ERROR_MESSAGE);
+                    newMessageField.setText("");
                 } else{
                     boolean result = client.newText(currentChat, input);
 
@@ -157,7 +166,7 @@ public class ChatPanel extends JPanel {
                         JOptionPane.showMessageDialog(newmessage, "Follow these individuals before sending a message or You may have been blocked", "Error", JOptionPane.ERROR_MESSAGE);
                         newMessageField.setText("");
                     } else{
-                        JOptionPane.showMessageDialog(newmessage, "You have been sent a message", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(newmessage, "You have been sent a message - reload the page", "Success", JOptionPane.INFORMATION_MESSAGE);
                         newMessageField.setText("");
                     }
 
@@ -177,6 +186,46 @@ public class ChatPanel extends JPanel {
 
 
 
+    }
+
+    private JLabel createImage(String base64){
+        try{
+            byte[] bytes = Base64.getDecoder().decode(base64);
+            ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+            BufferedImage bufferedImage = ImageIO.read(bais);
+
+            ImageIcon icon = new ImageIcon(bufferedImage);
+            JLabel label = new JLabel(icon);
+            return label;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+    private void topBarTools(){
+        JPanel topBar = new JPanel();
+        topBar.setLayout(new FlowLayout());
+
+
+        JButton reload = new JButton("Reload");
+        reload.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                messagelabel.revalidate();
+                messagelabel.repaint();
+                viewChat.removeAll();
+                viewChat.revalidate();
+                viewChat.repaint();
+            }
+        });
+
+        topBar.add(reload);
+
+
+        add(topBar, BorderLayout.NORTH);
     }
 
 }

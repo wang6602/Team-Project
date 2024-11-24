@@ -850,6 +850,27 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
+    public String getFriends(String userID){
+        try{
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userDatabase.txt"));
+            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+            String ans = "";
+            for(User user : users){
+                if(user.getUsername().equals(userID)){
+                    ArrayList<User> freinds = user.getFriends();
+                    for(User u : freinds){
+                        ans += u.getUsername() + ",";
+                    }
+                }
+            }
+            return ans.substring(0, ans.length() - 1);
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public boolean updateUserProfilePicture(String userID, String base64) {
         /*
          * Extra credit option

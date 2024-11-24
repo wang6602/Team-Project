@@ -233,6 +233,15 @@ public class Client implements ClientInterface {
             return null;
         }
     }
+    public String[] getFriends(String currentuserID) {
+        try{
+            out.println("GETFRIENDS:" + currentuserID);
+            return in.readLine().split(",");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public String[] userViewer() {
         try {
