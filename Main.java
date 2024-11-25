@@ -7,7 +7,10 @@ public class Main {
 
         Client user1 = new Client();
         user1.setUserIDandUsername("user1");
-        user1.newText("hello", "hi");
+        String chat = user1.createChat(new String[]{"user1","user2", "user3"});
+        String chat2 = user1.createChat(new String[]{"user1","user2"});
+        user1.newText(chat, "hello");
+        user1.newText(chat2, "world");
 
 
 

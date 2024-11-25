@@ -1,9 +1,0 @@
-user1,hello ther3
-user, whatsup myboi
-user1,hi
-user1,hi
-user1,hi
-user1,hi
-user1,new
-user1,u
-user1,h

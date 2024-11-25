@@ -34,6 +34,12 @@ public class ChatPanel extends JPanel {
 
         messagelabel.setLayout(new BoxLayout(messagelabel, BoxLayout.Y_AXIS));
         add(messagelabel, BorderLayout.WEST);
+        messagelabel.removeAll();
+        messagelabel.revalidate();
+        messagelabel.repaint();
+        viewChat.removeAll();
+        viewChat.revalidate();
+        viewChat.repaint();
 
 
         viewChat.setLayout(new BoxLayout(viewChat, BoxLayout.Y_AXIS));
@@ -256,13 +262,7 @@ public class ChatPanel extends JPanel {
         JMenuItem reload = new JMenuItem("Reload");
         reload.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                messagelabel.removeAll();
-                messagelabel.revalidate();
-                messagelabel.repaint();
-
-                viewChat.removeAll();
-                viewChat.revalidate();
-                viewChat.repaint();
+                displaychatnamesandchats();
             }
         });
         topBar.add(newChat);
