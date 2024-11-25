@@ -259,6 +259,7 @@ public class ChatPanel extends JPanel {
                 messagelabel.removeAll();
                 messagelabel.revalidate();
                 messagelabel.repaint();
+
                 viewChat.removeAll();
                 viewChat.revalidate();
                 viewChat.repaint();
