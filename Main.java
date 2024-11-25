@@ -4,13 +4,16 @@ public class Main {
         db.createUser("user1", "user1");
         db.createUser("user2", "user2");
         db.createUser("user3", "user3");
+        String newcht = db.createChat(new String[]{"user1", "user2", "user3"});
+        db.readChat(newcht);
 
-        Client user1 = new Client();
-        user1.setUserIDandUsername("user1");
-        String chat = user1.createChat(new String[]{"user1","user2", "user3"});
-        String chat2 = user1.createChat(new String[]{"user1","user2"});
-        user1.newText(chat, "hello");
-        user1.newText(chat2, "world");
+
+//        Client user1 = new Client();
+//        user1.setUserIDandUsername("user1");
+//        String chat = user1.createChat(new String[]{"user1","user2", "user3"});
+//        String chat2 = user1.createChat(new String[]{"user1","user2"});
+//        user1.newText(chat, "hello");
+//        user1.newText(chat2, "world");
 
 
 

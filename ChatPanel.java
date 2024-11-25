@@ -62,8 +62,8 @@ public class ChatPanel extends JPanel {
                     currentChat = chatIDAndUsers.get(chatButton2.getText());
 
                     viewChat.removeAll();
-                    revalidate();
-                    repaint();
+                    viewChat.revalidate();
+                    viewChat.repaint();
 
                     new Thread(() -> {
                         String[] chatContents = client.readChat(chat);
@@ -71,7 +71,12 @@ public class ChatPanel extends JPanel {
                         SwingUtilities.invokeLater(() -> {
 
                             JLabel title = new JLabel("Your chat");
-                            JLabel text = new JLabel(chatContents[1]);
+                            if(chatContents == null){
+                                JLabel empty = new JLabel("No chat history");
+                                add(empty);
+                                return;
+                            }
+                            //JLabel text = new JLabel(chatContents[1]);
 
                             //This is more powerful than Jtextarea
                             JTextPane textPane = new JTextPane();
@@ -115,7 +120,7 @@ public class ChatPanel extends JPanel {
                             }
 
                             viewChat.add(title);
-                            viewChat.add(text);
+                            //viewChat.add(text);
                             viewChat.add(textPane, BorderLayout.CENTER);
                             viewChat.add(scrollPane, BorderLayout.EAST);
 
@@ -162,25 +167,43 @@ public class ChatPanel extends JPanel {
         send.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String input = newMessageField.getText();
-                if(input.contains(",") || input.contains(":")){
-                    JOptionPane.showMessageDialog(newmessage, "Please make sure that messages do not contain commas or Colons", "Error", JOptionPane.ERROR_MESSAGE);
-                    newMessageField.setText("");
-                } if(currentChat == null){
-                    JOptionPane.showMessageDialog(newmessage, "Please select a chat first", "Error", JOptionPane.ERROR_MESSAGE);
-                    newMessageField.setText("");
-                } else{
-                    boolean result = client.newText(currentChat, input);
 
-                    if(!result){
-                        JOptionPane.showMessageDialog(newmessage, "Follow these individuals before sending a message or You may have been blocked", "Error", JOptionPane.ERROR_MESSAGE);
-                        newMessageField.setText("");
-                    } else{
-                        JOptionPane.showMessageDialog(newmessage, "You have been sent a message - reload the page", "Success", JOptionPane.INFORMATION_MESSAGE);
-                        newMessageField.setText("");
-                    }
-
+                if (input.contains(",") || input.contains(":")) {
+                    JOptionPane.showMessageDialog(newmessage,
+                            "Please make sure that messages do not contain commas or colons",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    newMessageField.setText("");
+                    return;
                 }
 
+                if (currentChat == null) {
+                    JOptionPane.showMessageDialog(newmessage,
+                            "Please select a chat first",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    newMessageField.setText("");
+                    return;
+                }
+
+                // Run client.newText in a separate thread
+                new Thread(() -> {
+                    boolean result = client.newText(currentChat, input);
+
+                    // Update GUI on the EDT
+                    SwingUtilities.invokeLater(() -> {
+                        if (!result) {
+                            JOptionPane.showMessageDialog(newmessage,
+                                    "Follow these individuals before sending a message or you may have been blocked",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(newmessage,
+                                    "Your message has been sent - reload the page",
+                                    "Success", JOptionPane.INFORMATION_MESSAGE);
+                        }
+
+                        // Clear the message field regardless of the result
+                        newMessageField.setText("");
+                    });
+                }).start();
             }
         });
 
@@ -243,7 +266,14 @@ public class ChatPanel extends JPanel {
                 }
             });
         }
+
+        JLabel firstmessage = new JLabel("First Message");
+        JTextField firstMessageField = new JTextField(10);
+
+
         JButton createChat = new JButton("Create");
+        newChat.add(firstmessage);
+        newChat.add(firstMessageField);
         newChat.add(createChat);
         createChat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -253,7 +283,22 @@ public class ChatPanel extends JPanel {
                 for(int i = 0; i < selectedFriends.size(); i++){
                     selected[i+1] = selectedFriends.get(i);
                 }
-                client.createChat(selected);
+                String compare = "";
+                for(String str : selected){
+                    compare += str+",";
+                }
+                String duplicate = chatIDAndUsers.get(compare);
+                if(duplicate == null){
+                    JOptionPane.showMessageDialog(newChat,
+                            "This chat already exists",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    firstMessageField.setText("");
+
+                    return;
+                }
+
+                String newChat = client.createChat(selected);
+                client.newText(newChat, firstMessageField.getText());
             }
         });
 

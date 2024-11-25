@@ -67,10 +67,15 @@ public class ClientHandler implements Runnable, ClientHandlerInterface {
                     String[] temp = message.split(":");
                     String ans = "";
                     ArrayList<String> result = databaseManager.readChat(temp[1]);
+
                     for (String s : result) {
                         ans += s + ",";
                     }
-                    out.println(ans.substring(0, ans.length() - 1));
+                    if(result == null){
+                        out.println("null");
+                    } else {
+                        out.println(ans.substring(0, ans.length() - 1));
+                    }
 
                 }
                 if (request.equals("POSTTEXT")) {

@@ -130,7 +130,9 @@ public class DatabaseManager implements DatabaseManagerInterface {
                 }
                 bfr.close();
             }
-
+            if(texts.size() == 0){
+                return null;
+            }
             return texts;
         } catch (Exception e) {
             e.printStackTrace();

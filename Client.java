@@ -91,8 +91,14 @@ public class Client implements ClientInterface {
     public String[] readChat(String chatID) {
         try {
             out.println("READCHAT:" + chatID);
-            String[] result = in.readLine().split(",");
-            return result;
+            String response = in.readLine();
+            if(response == null) {
+                return null;
+            } else{
+                String[] result = response.split(",");
+                return result;
+            }
+
 
         } catch (Exception e) {
             e.printStackTrace();
