@@ -145,17 +145,18 @@ public class ChatPanel extends JPanel {
                                 add(empty);
                                 return;
                             }
-                            //JLabel text = new JLabel(chatContents[1]);
 
-                            //This is more powerful than Jtextarea
+
                             JTextPane textPane = new JTextPane();
-                            textPane.setPreferredSize(new Dimension(300,300));
-                            JScrollPane scrollPane = new JScrollPane(textPane);
-                            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-                            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
+                            textPane.setPreferredSize(new Dimension(300, 300));
                             textPane.setEditable(false);
-                            //This is for formatting
+
+
+                            JScrollPane scrollPane = new JScrollPane(textPane);
+                            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+// This is for formatting
                             StyledDocument doc = textPane.getStyledDocument();
 
                             Style leftAlign = textPane.addStyle("Left", null);
@@ -170,31 +171,26 @@ public class ChatPanel extends JPanel {
                                     String username = chatContents[i];
                                     String message = chatContents[i + 1];
 
-
                                     if (username.equals(client.getUsername())) {
                                         doc.setParagraphAttributes(doc.getLength(), message.length(), rightAlign, true);
-                                        doc.insertString(doc.getLength(), index+1 + ". You:\n", null);
+                                        doc.insertString(doc.getLength(), index + 1 + ". You:\n", null);
                                         doc.insertString(doc.getLength(), message + "\n\n", null);
                                     } else {
                                         doc.setParagraphAttributes(doc.getLength(), message.length(), leftAlign, true);
-                                        doc.insertString(doc.getLength(), index+1 + ". " + username + ":\n", null);
+                                        doc.insertString(doc.getLength(), index + 1 + ". " + username + ":\n", null);
                                         doc.insertString(doc.getLength(), message + "\n\n", null);
                                     }
                                     index++;
 
                                     textPane.setCaretPosition(doc.getLength());
-
-
                                 }
                             } catch (BadLocationException ex) {
                                 ex.printStackTrace();
                             }
 
                             viewChat.add(chatTools, BorderLayout.NORTH);
+                            viewChat.add(scrollPane, BorderLayout.CENTER);
 
-
-                            viewChat.add(textPane, BorderLayout.CENTER);
-                            viewChat.add(scrollPane, BorderLayout.EAST);
 
                             add(viewChat, BorderLayout.CENTER);
                             revalidate();
