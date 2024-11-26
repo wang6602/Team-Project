@@ -94,8 +94,52 @@ public class ChatPanel extends JPanel {
                             });
 
                             JMenu addUser = new JMenu("Add User");
+                            JTextField addUsername = new JTextField(2);
+                            addUser.add(addUsername);
 
 
+                            JButton addUserButton = new JButton("Add User");
+                            addUser.add(addUserButton);
+                            addUserButton.addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent e) {
+                                    try {
+                                        boolean result = client.addUserToChat(addUsername.getText(), currentChat);
+                                        if(result){
+                                            JOptionPane.showMessageDialog(viewChat, "User has been added to the chat");
+                                        } else{
+                                            JOptionPane.showMessageDialog(viewChat, "User could not be added to the chat");
+                                        }
+                                    } catch (NumberFormatException e1) {
+                                        JOptionPane.showMessageDialog(viewChat, "please enter a valid integer associated with the specific text", "Error", JOptionPane.ERROR_MESSAGE);
+                                        deleteTextIndex.setText("");
+                                    }
+                                }
+                            });
+
+                            JMenu removeUser = new JMenu("Remove User");
+                            String possibleRemove = client.getUsersInChat(currentChat);
+                            String[] usersToRemove = possibleRemove.split(",");
+                            JTextField removeUserIndex = new JTextField(2);
+                            removeUser.add(removeUserIndex);
+                            JButton removeUserButton = new JButton("Remove User");
+                            removeUser.add(removeUserButton);
+                            removeUserButton.addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent e) {
+
+                                        boolean result = client.removeUserFromChat(removeUserIndex.getText(), currentChat);
+                                        if(result){
+                                            JOptionPane.showMessageDialog(viewChat, "User has been removed from the chat");
+                                        } else{
+                                            JOptionPane.showMessageDialog(viewChat, "User could not be removed from the chat");
+                                        }
+
+                                }
+                            });
+
+                            chatTools.add(removeUser);
+
+
+                            chatTools.add(addUser);
                             if(chatContents == null){
                                 JLabel empty = new JLabel("No chat history");
                                 add(empty);
