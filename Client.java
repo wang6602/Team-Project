@@ -132,6 +132,17 @@ public class Client implements ClientInterface {
         }
     }
 
+    public boolean updateUserProfilePicture(String currentuserID, String base64) {
+        try {
+            out.println("UPDATEUSERPROFILEPICTURE:" + currentuserID + ":" + base64);
+            return Boolean.parseBoolean((in.readLine()));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean clearUserProfilePicture(String currentuserID) {
         try {
             out.println("CLEARUSERPROFILEPICTURE:" + currentuserID);

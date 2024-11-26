@@ -88,6 +88,11 @@ public class ClientHandler implements Runnable, ClientHandlerInterface {
                     String output = databaseManager.getUserProfilePicture(temp[1]);
                     out.println(output);
                 }
+                if (request.equals("UPDATEUSERPROFILEPICTURE")) {
+                    String[] temp = message.split(":");
+                    boolean output = databaseManager.updateUserProfilePicture(temp[1],temp[2]);
+                    out.println(output);
+                }
                 if (request.equals("CLEARUSERPROFILEPICTURE")) {
                     String[] temp = message.split(":");
                     boolean output = databaseManager.clearUserProfilePicture(temp[1]);

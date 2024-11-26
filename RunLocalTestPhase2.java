@@ -113,6 +113,12 @@ public class RunLocalTestPhase2 {
         }
 
         @Test
+        public void testUpdateUserProfilePicture() {
+            boolean ans = client.updateUserProfilePicture("user1", "newprofilepicbase64");
+            Assert.assertTrue(ans == true);
+        }
+
+        @Test
         public void testClearUserProfilePicture() {
             boolean ans = client.clearUserProfilePicture("user1");
             Assert.assertTrue(ans == true);
