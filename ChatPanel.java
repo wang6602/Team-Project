@@ -69,8 +69,33 @@ public class ChatPanel extends JPanel {
                         String[] chatContents = client.readChat(chat);
 
                         SwingUtilities.invokeLater(() -> {
+                            JMenuBar chatTools = new JMenuBar();
+                            chatTools.setLayout(new FlowLayout());
 
-                            JLabel title = new JLabel("Your chat");
+                            JLabel title = new JLabel("Your chat: ");
+
+                            JMenu deleteTextMenu = new JMenu("Delete Text");
+                            JTextField deleteTextIndex = new JTextField(2);
+                            JButton deleteButton = new JButton("Delete");
+
+                            chatTools.add(title);
+                            chatTools.add(deleteTextMenu);
+                            deleteTextMenu.add(deleteTextIndex);
+                            deleteTextMenu.add(deleteButton);
+                            deleteButton.addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent e) {
+                                    try {
+                                        client.deleteText(chat, Integer.parseInt(deleteTextIndex.getText()) - 1);
+                                    } catch (NumberFormatException e1) {
+                                        JOptionPane.showMessageDialog(viewChat, "please enter a valid integer associated with the specific text", "Error", JOptionPane.ERROR_MESSAGE);
+                                        deleteTextIndex.setText("");
+                                    }
+                                }
+                            });
+
+                            JMenu addUser = new JMenu("Add User");
+
+
                             if(chatContents == null){
                                 JLabel empty = new JLabel("No chat history");
                                 add(empty);
@@ -96,6 +121,7 @@ public class ChatPanel extends JPanel {
                             StyleConstants.setAlignment(rightAlign, StyleConstants.ALIGN_RIGHT);
 
                             try {
+                                int index = 0;
                                 for (int i = 0; i < chatContents.length - 1; i += 2) {
                                     String username = chatContents[i];
                                     String message = chatContents[i + 1];
@@ -103,13 +129,14 @@ public class ChatPanel extends JPanel {
 
                                     if (username.equals(client.getUsername())) {
                                         doc.setParagraphAttributes(doc.getLength(), message.length(), rightAlign, true);
-                                        doc.insertString(doc.getLength(), "You:\n", null);
+                                        doc.insertString(doc.getLength(), index+1 + ". You:\n", null);
                                         doc.insertString(doc.getLength(), message + "\n\n", null);
                                     } else {
                                         doc.setParagraphAttributes(doc.getLength(), message.length(), leftAlign, true);
-                                        doc.insertString(doc.getLength(), username + ":\n", null);
+                                        doc.insertString(doc.getLength(), index+1 + ". " + username + ":\n", null);
                                         doc.insertString(doc.getLength(), message + "\n\n", null);
                                     }
+                                    index++;
 
                                     textPane.setCaretPosition(doc.getLength());
 
@@ -119,8 +146,9 @@ public class ChatPanel extends JPanel {
                                 ex.printStackTrace();
                             }
 
-                            viewChat.add(title);
-                            //viewChat.add(text);
+                            viewChat.add(chatTools, BorderLayout.NORTH);
+
+
                             viewChat.add(textPane, BorderLayout.CENTER);
                             viewChat.add(scrollPane, BorderLayout.EAST);
 
@@ -310,7 +338,16 @@ public class ChatPanel extends JPanel {
                 displaychatnamesandchats();
             }
         });
+
+        JMenuItem logout = new JMenuItem("Logout");
+        logout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Logout");
+            }
+        });
+
         topBar.add(newChat);
+        topBar.add(logout);
 
         topBar.add(reload);
 
