@@ -40,7 +40,7 @@ public class LoginPanel extends JPanel {
                             "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                if (client.loginUser(username, password, userID)) {
+                if (client.loginUser(username, password, username)) {
                     JOptionPane.showMessageDialog(jframe,
                             "Welcome back, " + username,
                             "Login Successful", JOptionPane.INFORMATION_MESSAGE);

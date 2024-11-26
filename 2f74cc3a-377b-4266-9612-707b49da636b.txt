@@ -3,3 +3,5 @@ user1,hi
 user1,hi
 user1,yrer
 user1,yuir
+user1,new message
+user3,hi
