@@ -12,10 +12,15 @@ import java.util.Base64;
 
 public class UserInfoPanel extends JPanel {
     Client client;
+    JPanel cardPanel;
+    CardLayout cl;
 
-    public UserInfoPanel(JFrame jframe, Client client) {
+    public UserInfoPanel(JFrame jframe, Client client, JPanel cardPanel, CardLayout cl) {
         setLayout(new BorderLayout());
         this.client = client;
+        this.cardPanel = cardPanel;
+        this.cl = cl;
+
         // North Panel
         JLabel label = new JLabel("User Profile", JLabel.CENTER);
         add(label, BorderLayout.NORTH);
@@ -113,6 +118,7 @@ public class UserInfoPanel extends JPanel {
 
         String[] friendsData = client.getFriends(client.getUsername());
         JList<String> list1 = new JList<>(friendsData);
+        list1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollPane1 = new JScrollPane(list1);
         scrollPane1.setPreferredSize(new Dimension(150, 200));
         gbc.gridx = 0;
@@ -120,6 +126,16 @@ public class UserInfoPanel extends JPanel {
         gbc.weightx = 0.5;
         gbc.weighty = 1;
         dropdownsPanel.add(scrollPane1, gbc);
+
+        list1.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    String selectedFriend = list1.getSelectedValue();
+                    System.out.println("User wants to visit this friend page: " + selectedFriend);
+                    cl.show(cardPanel,"otherUserInfo");
+                }
+            }
+        });
 
         String[] userData = client.userViewer();
         JList<String> list2 = new JList<>(userData);
@@ -137,6 +153,7 @@ public class UserInfoPanel extends JPanel {
                 if (!e.getValueIsAdjusting()) {
                     String selectedUser = list2.getSelectedValue();
                     System.out.println("User wants to visit this user page: " + selectedUser);
+                    cl.show(cardPanel,"otherUserInfo");
                 }
             }
         });
@@ -160,6 +177,7 @@ public class UserInfoPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("user wants to go to chat page");
                 profileButton.setSelected(false);
+                cl.show(cardPanel,"chat");
             }
         });
 

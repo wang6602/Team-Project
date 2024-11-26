@@ -17,20 +17,22 @@ public class MainScreen {
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.setLocationRelativeTo(null);
 
+                JPanel cardPanel = new JPanel(new CardLayout());
+                CardLayout cl = (CardLayout) cardPanel.getLayout();
 
                 JPanel login = new LoginPanel(frame, client);
                 JPanel chat = new ChatPanel(frame, client);
-                JPanel userInfo = new UserInfoPanel(frame, client);
+                JPanel userInfo = new UserInfoPanel(frame, client, cardPanel, cl);
                 JPanel otherUserInfo = new OtherUserInfoPanel(frame, client);
 
-                JPanel cardPanel = new JPanel(new CardLayout());
+
                 cardPanel.add(login, "login");
                 cardPanel.add(chat, "chat");
                 cardPanel.add(userInfo, "userInfo");
                 cardPanel.add(otherUserInfo, "otherUserInfo");
 
-                CardLayout cl = (CardLayout) cardPanel.getLayout();
-                cl.show(cardPanel, "chat");
+
+                cl.show(cardPanel, "userInfo");
 
                 frame.add(cardPanel);
 
@@ -41,8 +43,7 @@ public class MainScreen {
 
             }
         });
+
     }
-
-
 
 }
