@@ -1,9 +1,14 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.Base64;
 
 public class UserInfoPanel extends JPanel {
     Client client;
@@ -24,8 +29,33 @@ public class UserInfoPanel extends JPanel {
         JPanel westPanel = new JPanel();
         westPanel.setLayout(new BorderLayout());
 
+        JPanel profilePanel = new JPanel();
+        profilePanel.setLayout(new BorderLayout());
+
+        // Base64 string of the profile picture (replace with your Base64 string)
+        String base64String = "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";
+
+        // Decode the Base64 string to a byte array
+        byte[] imageBytes = Base64.getDecoder().decode(base64String);
+        // Convert byte array to BufferedImage
+        BufferedImage bufferedImage = null;
+        try {
+            bufferedImage = ImageIO.read(new ByteArrayInputStream(imageBytes));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //Create the JLabel and set the image
+        if (bufferedImage != null) {
+            ImageIcon imageIcon = new ImageIcon(bufferedImage);
+            JLabel imageLabel = new JLabel(imageIcon);
+            imageLabel.setBorder(BorderFactory.createLineBorder(Color.black));
+            profilePanel.add(imageLabel, BorderLayout.NORTH);
+        }
+
         JButton changeProfileButton = new JButton("Change Profile");
-        westPanel.add(changeProfileButton, BorderLayout.NORTH);
+        profilePanel.add(changeProfileButton, BorderLayout.CENTER);
+
+        westPanel.add(profilePanel, BorderLayout.NORTH);
 
         JLabel usernameLabel = new JLabel("Username: " + client.getUsername(), JLabel.CENTER);
         westPanel.add(usernameLabel, BorderLayout.CENTER);
@@ -36,9 +66,15 @@ public class UserInfoPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String newPassword = JOptionPane.showInputDialog(null, "What would you like your new password to be?",
                         "Change Info ", JOptionPane.QUESTION_MESSAGE);
+                if (newPassword == null || newPassword.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Password change cancelled",
+                            "Information", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
                 if (newPassword.contains(",") || newPassword.contains(":")) {
                     JOptionPane.showMessageDialog(null, "Password cannot contain commas or colons",
                             "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
                 client.updateUser(client.getUsername(), newPassword);
             }
@@ -100,7 +136,7 @@ public class UserInfoPanel extends JPanel {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
                     String selectedUser = list2.getSelectedValue();
-                    System.out.println("User wants to visit this user page" + selectedUser);
+                    System.out.println("User wants to visit this user page: " + selectedUser);
                 }
             }
         });
