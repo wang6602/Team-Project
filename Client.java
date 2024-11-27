@@ -156,8 +156,19 @@ public class Client implements ClientInterface {
 
     public boolean addFriend(String currentuserID, String friendID) {
         try {
-            out.println("ADDFRIEND:" + currentuserID + ":" + friendID);
-            return Boolean.parseBoolean((in.readLine()));
+            String[] currentFriends = this.getFriends(currentuserID);
+            boolean friendExists=false;
+            for(String s : currentFriends) {
+                if(s.equals(friendID)) {
+                    friendExists = true;
+                }
+            }
+            if(!friendExists) {
+                out.println("ADDFRIEND:" + currentuserID + ":" + friendID);
+                return Boolean.parseBoolean((in.readLine()));
+            } else{
+                return false;
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
