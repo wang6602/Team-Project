@@ -39,8 +39,9 @@ public class UserInfoPanel extends JPanel {
         profilePanel.setLayout(new BorderLayout());
 
         // Base64 string of the profile picture (replace with your Base64 string)
-        String base64String = "";
-        if(client.getUserProfilePicture(client.getUsername()).equals("")) {
+        String base64String = client.getUserProfilePicture(client.getUsername());
+
+        if(client.getUserProfilePicture(client.getUsername()).equals("null") || client.getUserProfilePicture(client.getUsername()).equals("")) {
             client.updateUserProfilePicture(client.getUsername(), "/9j/4AAQSkZJRgABAQAAAQABAAD/" +
                     "2wCEAAkGBw8PDxANDg0NDxEODQ0PDw8PDRANDw4NFREWFhURFRUYHDQgGBolGxUVITEhJSkrLi4wGB8zODMt" +
                     "NygtLisBCgoKDg0OGhAQGi0lIB8tLS0tLS0tLSstLystLS0tLS0tLSstLS0tLS0tLS0tKy0tLS0tLS0rLS0tLS0" +
@@ -78,6 +79,7 @@ public class UserInfoPanel extends JPanel {
                     "07udX4TpH4aPF5NenLLLbtZPUgAAAAAAACNvL6DL/tX/J3i98fyiPcxMvchrEgAAAAAAAAAAAAAAADVcmvoP8Asv8AJ5HM/wDVmv7pWr" +
                     "MgAAAB/9k=");
             base64String = client.getUserProfilePicture(client.getUsername());
+            System.out.println(base64String);
         } else {
             base64String = client.getUserProfilePicture(client.getUsername());
         }
