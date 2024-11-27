@@ -21,7 +21,7 @@ public class MainScreen {
                 CardLayout cl = (CardLayout) cardPanel.getLayout();
 
                 JPanel login = new LoginPanel(frame, client);
-                JPanel chat = new ChatPanel(frame, client);
+                JPanel chat = new ChatPanel(frame, client, cardPanel, cl);
                 JPanel userInfo = new UserInfoPanel(frame, client, cardPanel, cl);
                 JPanel otherUserInfo = new OtherUserInfoPanel(frame, client);
 
