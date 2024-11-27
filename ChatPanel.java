@@ -20,15 +20,19 @@ public class ChatPanel extends JPanel {
     JPanel messagelabel = new JPanel();
     JPanel viewChat = new JPanel();
     JFrame jframe;
+    CardLayout cl;
+    JPanel cardPanel;
 
 
-    public ChatPanel(JFrame jframe, Client client){
+    public ChatPanel(JFrame jframe, Client client, JPanel cardPanel, CardLayout cl){
         this.jframe = jframe;
         setLayout(new BorderLayout());
         this.client = client;
         this.displaychatnamesandchats();
         this.sendMessageandNavigation();
         this.topBarTools();
+        this.cl = cl;
+        this.cardPanel = cardPanel;
     }
     private void displaychatnamesandchats(){
 
@@ -216,17 +220,21 @@ public class ChatPanel extends JPanel {
         sendMessage.setLayout(new FlowLayout());
 
 
-        JToggleButton userPage = new JToggleButton("UserProfilePage");
-        JToggleButton chatPage = new JToggleButton("ChatPage", true);
+        JToggleButton userPage = new JToggleButton("My Profile");
+        JToggleButton chatPage = new JToggleButton("Chats", true);
         userPage.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("user wants to go to profile page");
+
                 chatPage.setSelected(false);
+                cl.show(cardPanel, "userInfo");
             }
         });
 
+
         navigation.add(userPage);
         navigation.add(chatPage);
+
 
         JLabel newmessage = new JLabel("New message");
         JTextField newMessageField = new JTextField(10);
