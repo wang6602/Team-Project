@@ -13,6 +13,7 @@ public class MainScreen {
                 //delete this line later - just for testing, userID should be set in login page
                 client.setUserIDandUsername("user1");
                 JFrame frame = new JFrame("Main Screen");
+                String s = null;
                 frame.setSize(600,500);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.setLocationRelativeTo(null);
@@ -23,7 +24,7 @@ public class MainScreen {
                 JPanel login = new LoginPanel(frame, client);
                 JPanel chat = new ChatPanel(frame, client, cardPanel, cl);
                 JPanel userInfo = new UserInfoPanel(frame, client, cardPanel, cl);
-                JPanel otherUserInfo = new OtherUserInfoPanel(frame, client);
+                JPanel otherUserInfo = new OtherUserInfoPanel(client, cardPanel, cl, s);
 
 
                 cardPanel.add(login, "login");

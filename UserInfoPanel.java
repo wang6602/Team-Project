@@ -196,6 +196,8 @@ public class UserInfoPanel extends JPanel {
                 if (!e.getValueIsAdjusting()) {
                     String selectedFriend = list1.getSelectedValue();
                     System.out.println("User wants to visit this friend page: " + selectedFriend);
+                    JPanel newFriendProfile = new OtherUserInfoPanel(client, cardPanel, cl, selectedFriend);
+                    cardPanel.add(newFriendProfile, "otherUserInfo");
                     cl.show(cardPanel,"otherUserInfo");
                 }
             }
@@ -217,6 +219,9 @@ public class UserInfoPanel extends JPanel {
                 if (!e.getValueIsAdjusting()) {
                     String selectedUser = list2.getSelectedValue();
                     System.out.println("User wants to visit this user page: " + selectedUser);
+                    JPanel newUserProfile = new OtherUserInfoPanel(client, cardPanel, cl, selectedUser);
+                    cardPanel.add(newUserProfile, "otherUserInfo");
+                    cl.show(cardPanel,"otherUserInfo");
                     cl.show(cardPanel,"otherUserInfo");
                 }
             }
