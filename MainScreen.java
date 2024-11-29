@@ -21,7 +21,7 @@ public class MainScreen {
                 JPanel cardPanel = new JPanel(new CardLayout());
                 CardLayout cl = (CardLayout) cardPanel.getLayout();
 
-                JPanel login = new LoginPanel(frame, client);
+                JPanel login = new LoginPanel(frame, client, cardPanel, cl);
                 JPanel chat = new ChatPanel(frame, client, cardPanel, cl);
                 JPanel userInfo = new UserInfoPanel(frame, client, cardPanel, cl);
                 JPanel otherUserInfo = new OtherUserInfoPanel(client, cardPanel, cl, s);
@@ -33,7 +33,7 @@ public class MainScreen {
                 cardPanel.add(otherUserInfo, "otherUserInfo");
 
 
-                cl.show(cardPanel, "userInfo");
+                cl.show(cardPanel, "login");
 
                 frame.add(cardPanel);
 

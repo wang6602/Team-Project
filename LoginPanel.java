@@ -5,12 +5,16 @@ import java.awt.event.ActionListener;
 
 public class LoginPanel extends JPanel {
     Client client;
+    JPanel cardPanel;
+    CardLayout cardLayout;
 
-    public LoginPanel(JFrame jframe, Client client) {
+    public LoginPanel(JFrame jframe, Client client, JPanel cardPanel, CardLayout cl) {
         setLayout(new FlowLayout());
         this.client = client;
         JLabel label = new JLabel("Login");
         add(label);
+        this.cardPanel = cardPanel;
+        this.cardLayout = cl;
 
         JLabel usernameLabel = new JLabel("Username:");
         JTextField usernameField = new JTextField(15);
@@ -44,8 +48,8 @@ public class LoginPanel extends JPanel {
                     JOptionPane.showMessageDialog(jframe,
                             "Welcome back, " + username,
                             "Login Successful", JOptionPane.INFORMATION_MESSAGE);
-                    CardLayout cl = (CardLayout) jframe.getContentPane().getLayout();
-                    cl.show(jframe.getContentPane(), "chat");
+
+                    cardLayout.show(cardPanel, "chat");
                 } else {
                     JOptionPane.showMessageDialog(jframe,
                             "Invalid username or password",
