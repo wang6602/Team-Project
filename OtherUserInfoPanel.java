@@ -24,20 +24,25 @@ public class OtherUserInfoPanel extends JPanel {
         // North Panel
         JLabel label = new JLabel(s + "'s Profile", JLabel.CENTER);
         add(label, BorderLayout.NORTH);
-        /*String[] friends = client.getFriends(client.getUsername());
-        boolean foundFriend = false;
-        for(String friend : friends) {
-            if (s.equals(friend)) {
-                foundFriend = true;
-                break;
+        if (s != null) {
+            String[] friends = client.getFriends(client.getUsername());
+            boolean foundFriend = false;
+            if (friends == null) {
+                this.isUser();
+            } else {
+                for (String friend : friends) {
+                    if (this.s.equals(friend)) {
+                        foundFriend = true;
+                        break;
+                    }
+                }
+                if (!foundFriend) {
+                    this.isUser();
+                } else {
+                    this.isFriend();
+                }
             }
         }
-        if (!foundFriend) {
-            this.isUser();
-        } else {
-            this.isFriend();
-        }*/
-        this.isFriend();
     }
 
     private JLabel imageLabel = new JLabel();
