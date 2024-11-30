@@ -45,6 +45,7 @@ public class LoginPanel extends JPanel {
                     return;
                 }
                 if (client.loginUser(username, password, username)) {
+                    client.setUserIDandUsername(userID);
                     JOptionPane.showMessageDialog(jframe,
                             "Welcome back, " + username,
                             "Login Successful", JOptionPane.INFORMATION_MESSAGE);

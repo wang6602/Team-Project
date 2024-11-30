@@ -11,7 +11,7 @@ public class MainScreen {
             public void run() {
                 Client client = new Client();
                 //delete this line later - just for testing, userID should be set in login page
-                client.setUserIDandUsername("user1");
+                client.setUserIDandUsername("user2");
                 JFrame frame = new JFrame("Main Screen");
                 String s = null;
                 frame.setSize(600,500);
