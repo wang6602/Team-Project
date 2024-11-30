@@ -33,7 +33,7 @@ public class MainScreen {
                 cardPanel.add(otherUserInfo, "otherUserInfo");
 
 
-                cl.show(cardPanel, "login");
+                cl.show(cardPanel, "userInfo");
 
                 frame.add(cardPanel);
 
