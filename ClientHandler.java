@@ -54,7 +54,11 @@ public class ClientHandler implements Runnable, ClientHandlerInterface {
                     for (String s : result) {
                         output += s + ",";
                     }
-                    out.println(output.substring(0, output.length() - 1));
+                    if(output.length()== 0){
+                        out.println("null");
+                    } else {
+                        out.println(output.substring(0, output.length() - 1));
+                    }
                 }
 
                 if (request.equals("GETUSERINCHAT")) {
