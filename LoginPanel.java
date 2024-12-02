@@ -53,7 +53,7 @@ public class LoginPanel extends JPanel {
                     JPanel chat = new ChatPanel(jframe, client, cardPanel, cl);
                     JPanel userInfo = new UserInfoPanel(jframe, client, cardPanel, cl);
                     String s = null;
-                    JPanel otherUserInfo = new OtherUserInfoPanel(client, cardPanel, cl, s);
+                    JPanel otherUserInfo = new OtherUserInfoPanel(client, cardPanel, cl, s, jframe);
 
                     cardPanel.add(chat, "chat");
                     cardPanel.add(userInfo, "userInfo");

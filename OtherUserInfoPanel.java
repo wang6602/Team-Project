@@ -13,13 +13,15 @@ public class OtherUserInfoPanel extends JPanel {
     JPanel cardPanel;
     CardLayout cl;
     String s;
+    JFrame frame;
 
-    public OtherUserInfoPanel(Client client, JPanel cardPanel, CardLayout cardLayout, String s) {
+    public OtherUserInfoPanel(Client client, JPanel cardPanel, CardLayout cardLayout, String s, JFrame frame) {
         setLayout(new BorderLayout());
         this.client = client;
         this.cardPanel = cardPanel;
         this.cl = cardLayout;
         this.s = s;
+        this.frame = frame;
 
         // North Panel
         JLabel label = new JLabel(s + "'s Profile", JLabel.CENTER);
@@ -138,7 +140,9 @@ public class OtherUserInfoPanel extends JPanel {
         add(westPanel, BorderLayout.WEST);
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cl.show(cardPanel, "userInfo");
+                JPanel updatedUserInfo = new UserInfoPanel(frame, client, cardPanel,cl);
+                cardPanel.add(updatedUserInfo, "updatedUserInfo");
+                cl.show(cardPanel, "updatedUserInfo");
             }
         });
     }

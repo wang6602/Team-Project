@@ -14,12 +14,14 @@ public class UserInfoPanel extends JPanel {
     Client client;
     JPanel cardPanel;
     CardLayout cl;
+    JFrame frame;
 
     public UserInfoPanel(JFrame jframe, Client client, JPanel cardPanel, CardLayout cl) {
         setLayout(new BorderLayout());
         this.client = client;
         this.cardPanel = cardPanel;
         this.cl = cl;
+        this.frame = jframe;
 
         // North Panel
         JLabel label = new JLabel("User Profile", JLabel.CENTER);
@@ -196,7 +198,7 @@ public class UserInfoPanel extends JPanel {
                 if (!e.getValueIsAdjusting()) {
                     String selectedFriend = list1.getSelectedValue();
                     System.out.println("User wants to visit this friend page: " + selectedFriend);
-                    JPanel newFriendProfile = new OtherUserInfoPanel(client, cardPanel, cl, selectedFriend);
+                    JPanel newFriendProfile = new OtherUserInfoPanel(client, cardPanel, cl, selectedFriend, frame);
                     cardPanel.add(newFriendProfile, "otherUserInfo");
                     cl.show(cardPanel,"otherUserInfo");
                 }
@@ -219,7 +221,7 @@ public class UserInfoPanel extends JPanel {
                 if (!e.getValueIsAdjusting()) {
                     String selectedUser = list2.getSelectedValue();
                     System.out.println("User wants to visit this user page: " + selectedUser);
-                    JPanel newUserProfile = new OtherUserInfoPanel(client, cardPanel, cl, selectedUser);
+                    JPanel newUserProfile = new OtherUserInfoPanel(client, cardPanel, cl, selectedUser, frame);
                     cardPanel.add(newUserProfile, "otherUserInfo");
                     cl.show(cardPanel,"otherUserInfo");
                     cl.show(cardPanel,"otherUserInfo");
