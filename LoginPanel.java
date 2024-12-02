@@ -45,10 +45,19 @@ public class LoginPanel extends JPanel {
                     return;
                 }
                 if (client.loginUser(username, password, username)) {
-                    client.setUserIDandUsername(userID);
+                    client.setUserIDandUsername(username);
                     JOptionPane.showMessageDialog(jframe,
                             "Welcome back, " + username,
                             "Login Successful", JOptionPane.INFORMATION_MESSAGE);
+
+                    JPanel chat = new ChatPanel(jframe, client, cardPanel, cl);
+                    JPanel userInfo = new UserInfoPanel(jframe, client, cardPanel, cl);
+                    String s = null;
+                    JPanel otherUserInfo = new OtherUserInfoPanel(client, cardPanel, cl, s);
+
+                    cardPanel.add(chat, "chat");
+                    cardPanel.add(userInfo, "userInfo");
+                    cardPanel.add(otherUserInfo, "otherUserInfo");
 
                     cardLayout.show(cardPanel, "chat");
                 } else {
