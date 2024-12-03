@@ -120,7 +120,7 @@ public class OtherUserInfoPanel extends JPanel {
         JLabel usernameLabel = new JLabel(s, JLabel.CENTER);
         profilePanel.add(usernameLabel, BorderLayout.CENTER);
 
-        JButton addFriendButton = new JButton("Friend user");
+        JButton addFriendButton = new JButton("Follow user");
         addFriendButton.setPreferredSize(new Dimension(100, 30));
         profilePanel.add(addFriendButton, BorderLayout.SOUTH);
         addFriendButton.addActionListener(new ActionListener() {
@@ -249,7 +249,7 @@ public class OtherUserInfoPanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(2, 2, 2, 2);
         gbc.fill = GridBagConstraints.BOTH;
-        JLabel label1 = new JLabel("Friends:");
+        JLabel label1 = new JLabel("Following:");
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 0.5;

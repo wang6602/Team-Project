@@ -168,7 +168,7 @@ public class UserInfoPanel extends JPanel {
         gbc.insets = new Insets(2, 2, 2, 2);
         gbc.fill = GridBagConstraints.BOTH;
 
-        JLabel label1 = new JLabel("My Friends:");
+        JLabel label1 = new JLabel("My Followers:");
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 0.5;
