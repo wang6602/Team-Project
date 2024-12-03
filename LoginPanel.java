@@ -3,18 +3,60 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+class ImagePanel extends JPanel {
+    Image image;
+
+    public ImagePanel(Image image) {
+        this.image = image;
+    }
+
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        int panelWidth = getWidth();
+        int panelHeight = getHeight();
+
+        int imageWidth = image.getWidth(this);
+        int imageHeight = image.getHeight(this);
+
+        double panelAspect = (double) panelWidth / panelHeight;
+        double imageAspect = (double) imageWidth / imageHeight;
+
+        int drawWidth;
+        int drawHeight;
+
+        if (panelAspect > imageAspect) {
+            drawHeight = panelHeight;
+            drawWidth = (int) (imageAspect * drawHeight);
+        } else {
+            drawWidth = panelWidth;
+            drawHeight = (int) (drawWidth / imageAspect);
+        }
+
+        int x = (panelWidth - drawWidth) / 2;
+        int y = (panelHeight - drawHeight) / 2;
+
+        g.drawImage(image, x, y, drawWidth, drawHeight, this);
+    }
+}
+
 public class LoginPanel extends JPanel {
     Client client;
     JPanel cardPanel;
     CardLayout cardLayout;
 
     public LoginPanel(JFrame jframe, Client client, JPanel cardPanel, CardLayout cl) {
-        setLayout(new FlowLayout());
         this.client = client;
-        JLabel label = new JLabel("Login");
-        add(label);
         this.cardPanel = cardPanel;
         this.cardLayout = cl;
+
+        setLayout(new BorderLayout());
+
+        ImageIcon imageIcon = new ImageIcon("Star Chat.png");
+        Image image = imageIcon.getImage();
+
+        JPanel imagePanel = new ImagePanel(image);
+        add(imagePanel, BorderLayout.CENTER);
 
         JLabel usernameLabel = new JLabel("Username:");
         JTextField usernameField = new JTextField(15);
@@ -24,15 +66,26 @@ public class LoginPanel extends JPanel {
         JButton loginButton = new JButton("Login");
         JButton createUserButton = new JButton("Create User");
 
-        add(usernameLabel);
-        add(usernameField);
-        add(passwordLabel);
-        add(passwordField);
-        add(loginButton);
-        add(createUserButton);
+        JPanel formPanel = new JPanel();
+        formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
+
+        usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        usernameField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        passwordLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        passwordField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        createUserButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        formPanel.add(usernameLabel);
+        formPanel.add(usernameField);
+        formPanel.add(passwordLabel);
+        formPanel.add(passwordField);
+        formPanel.add(loginButton);
+        formPanel.add(createUserButton);
+
+        add(formPanel, BorderLayout.SOUTH);
 
         loginButton.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
@@ -69,7 +122,6 @@ public class LoginPanel extends JPanel {
         });
 
         createUserButton.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
