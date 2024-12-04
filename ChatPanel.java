@@ -33,6 +33,7 @@ public class ChatPanel extends JPanel {
         this.sendMessageandNavigation();
         this.topBarTools();
         this.cl = cl;
+        this.cardPanel = cardPanel;
 
 
         String[] chats = client.getChatIDs();
