@@ -488,6 +488,7 @@ public class ChatPanel extends JPanel {
         logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Logout");
+                cl.show(cardPanel, "login");
             }
         });
 
