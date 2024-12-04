@@ -168,7 +168,7 @@ public class UserInfoPanel extends JPanel {
         gbc.insets = new Insets(2, 2, 2, 2);
         gbc.fill = GridBagConstraints.BOTH;
 
-        JLabel label1 = new JLabel("My Followers:");
+        JLabel label1 = new JLabel("Following:");
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 0.5;
@@ -246,9 +246,11 @@ public class UserInfoPanel extends JPanel {
 
         chatButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("user wants to go to chat page");
+                JPanel updatedChatPage = new ChatPanel(frame,client, cardPanel, cl);
+                cardPanel.add(updatedChatPage, "updatedChatPage");
+                cl.show(cardPanel, "updatedChatPage");
                 profileButton.setSelected(false);
-                cl.show(cardPanel,"chat");
+
             }
         });
 

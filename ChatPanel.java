@@ -33,7 +33,17 @@ public class ChatPanel extends JPanel {
         this.sendMessageandNavigation();
         this.topBarTools();
         this.cl = cl;
-        this.cardPanel = cardPanel;
+
+
+        String[] chats = client.getChatIDs();
+
+        for(int i = 0; i < chats.length; i++){
+            chatIDAndUsers.put(client.getUsersInChat(chats[i]),chats[i]);
+        }
+        System.out.println(chatIDAndUsers);
+
+
+
     }
     private void displaychatnamesandchats(){
 
@@ -306,10 +316,9 @@ public class ChatPanel extends JPanel {
         JToggleButton chatPage = new JToggleButton("Chats", true);
         userPage.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("user wants to go to profile page");
-
-                chatPage.setSelected(false);
-                cl.show(cardPanel, "userInfo");
+                JPanel updatedUserProfile = new UserInfoPanel(jframe,client, cardPanel, cl);
+                cardPanel.add(updatedUserProfile, "updatedUserInfo");
+                cl.show(cardPanel, "updatedUserInfo");
             }
         });
 
@@ -436,6 +445,7 @@ public class ChatPanel extends JPanel {
         createChat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println(selectedFriends.toString());
+
                 String[] selected = new String[selectedFriends.size()+1];
                 selected[0] = client.getUsername();
                 for(int i = 0; i < selectedFriends.size(); i++){
@@ -445,8 +455,8 @@ public class ChatPanel extends JPanel {
                 for(String str : selected){
                     compare += str+",";
                 }
-                String duplicate = chatIDAndUsers.get(compare);
-                if(duplicate == null){
+
+                if(chatIDAndUsers.containsKey(compare)){
                     JOptionPane.showMessageDialog(newChat,
                             "This chat already exists",
                             "Error", JOptionPane.ERROR_MESSAGE);
