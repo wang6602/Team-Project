@@ -218,7 +218,6 @@ public class ChatPanel extends JPanel {
                                     e4.printStackTrace();
                                 }
 
-                                // Create a sub-panel for each user
                                 JPanel userPanel = new JPanel();
                                 userPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
                                 userPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, imageHeight + 10));
@@ -243,46 +242,49 @@ public class ChatPanel extends JPanel {
                             viewChat.add(profilePic);
 
 
-                            JTextPane textPane = new JTextPane();
-                            textPane.setPreferredSize(new Dimension(300, 300));
-                            textPane.setEditable(false);
+                            JPanel messagePanel = new JPanel();
+                            messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS));
+                            messagePanel.setBackground(Color.WHITE);
 
 
-                            JScrollPane scrollPane = new JScrollPane(textPane);
+                            JScrollPane scrollPane = new JScrollPane(messagePanel);
                             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
                             scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-// This is for formatting
-                            StyledDocument doc = textPane.getStyledDocument();
+                            int index = 0;
 
-                            Style leftAlign = textPane.addStyle("Left", null);
-                            StyleConstants.setAlignment(leftAlign, StyleConstants.ALIGN_LEFT);
 
-                            Style rightAlign = textPane.addStyle("Right", null);
-                            StyleConstants.setAlignment(rightAlign, StyleConstants.ALIGN_RIGHT);
+                            for (int i = 0; i < chatContents.length - 1; i += 2) {
+                                String username = chatContents[i];
+                                String message = chatContents[i + 1];
 
-                            try {
-                                int index = 0;
-                                for (int i = 0; i < chatContents.length - 1; i += 2) {
-                                    String username = chatContents[i];
-                                    String message = chatContents[i + 1];
+                                JLabel messageLabel = new JLabel("<html>" + index + ". " + username + "<br>" + message + "</html>");
 
-                                    if (username.equals(client.getUsername())) {
-                                        doc.setParagraphAttributes(doc.getLength(), message.length(), rightAlign, true);
-                                        doc.insertString(doc.getLength(), index + 1 + ". You:\n", null);
-                                        doc.insertString(doc.getLength(), message + "\n\n", null);
-                                    } else {
-                                        doc.setParagraphAttributes(doc.getLength(), message.length(), leftAlign, true);
-                                        doc.insertString(doc.getLength(), index + 1 + ". " + username + ":\n", null);
-                                        doc.insertString(doc.getLength(), message + "\n\n", null);
-                                    }
-                                    index++;
+                                messageLabel.setOpaque(true);
+                                messageLabel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
 
-                                    textPane.setCaretPosition(doc.getLength());
+
+                                if (username.equals(client.getUsername())) {
+                                    messageLabel.setBackground(new Color(240, 240, 240)); //grey
+                                    messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                    messageLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
+                                } else {
+
+                                    messageLabel.setBackground(new Color(139, 225, 255)); // Light blue
+                                    messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                    messageLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
                                 }
-                            } catch (BadLocationException ex) {
-                                ex.printStackTrace();
+
+                                // Add some margin between messages
+                                messageLabel.setMaximumSize(new Dimension(300, messageLabel.getPreferredSize().height));
+
+                                messagePanel.add(messageLabel);
+                                messagePanel.add(Box.createVerticalStrut(10));
+                                index ++;
                             }
+
+
 
                             viewChat.add(chatTools, BorderLayout.NORTH);
                             viewChat.add(scrollPane, BorderLayout.CENTER);
