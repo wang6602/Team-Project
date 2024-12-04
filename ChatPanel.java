@@ -252,26 +252,28 @@ public class ChatPanel extends JPanel {
                             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
                             scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-                            int index = 0;
+                            int index = 1;
 
 
                             for (int i = 0; i < chatContents.length - 1; i += 2) {
                                 String username = chatContents[i];
                                 String message = chatContents[i + 1];
-
-                                JLabel messageLabel = new JLabel("<html>" + index + ". " + username + "<br>" + message + "</html>");
-
-                                messageLabel.setOpaque(true);
-                                messageLabel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
-
+                                JLabel messageLabel;
 
                                 if (username.equals(client.getUsername())) {
+                                    messageLabel = new JLabel("<html>" + index + ". You" + "<br>" + message + "</html>");
+                                    messageLabel.setOpaque(true);
+                                    messageLabel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
+
 
                                     messageLabel.setBackground(new Color(139, 225, 255)); // Light blue
                                     messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
                                     messageLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
                                 } else {
+                                    messageLabel = new JLabel("<html>" + index + ". " + username + "<br>" + message + "</html>");
+                                    messageLabel.setOpaque(true);
+                                    messageLabel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
                                     messageLabel.setBackground(new Color(240, 240, 240)); //grey
                                     messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
                                     messageLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
