@@ -266,15 +266,17 @@ public class ChatPanel extends JPanel {
 
 
                                 if (username.equals(client.getUsername())) {
-                                    messageLabel.setBackground(new Color(240, 240, 240)); //grey
-                                    messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                                    messageLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-
-                                } else {
 
                                     messageLabel.setBackground(new Color(139, 225, 255)); // Light blue
                                     messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
                                     messageLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+                                } else {
+                                    messageLabel.setBackground(new Color(240, 240, 240)); //grey
+                                    messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                    messageLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
+
                                 }
 
                                 // Add some margin between messages
