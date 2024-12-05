@@ -71,10 +71,13 @@ public class ChatPanel extends JPanel {
 
         viewChat.setLayout(new BoxLayout(viewChat, BoxLayout.Y_AXIS));
 
-        JLabel title = new JLabel("Your groupchats");
+        JLabel title = new JLabel("Your groupchats:");
         messagelabel.add(title);
 
         String[] chats = client.getChatIDs();
+        if(chats[0].equals("null")){
+            return ;
+        }
 
         ButtonGroup chatGroup = new ButtonGroup();
 
