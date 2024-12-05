@@ -2,7 +2,7 @@
  * RunLocalTest Class
  *
  * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
- *
+ * <p>
  * RunLocalTest
  * -Implements JUnit test cases that were written to ensure that methods in User class
  * and DatabaseManager class work as intended
@@ -86,19 +86,20 @@ public class RunLocalTest {
         @Test
         public void testgetChatIDs() {
             ArrayList<String> result = dbManager.getChatIDs("user1");
-            Assert.assertTrue( "The ArrayList should contain at least one element.", result.size() > 0);
+            Assert.assertTrue("The ArrayList should contain at least one element.", result.size() > 0);
 
 
         }
+
         @Test
-        public void testUserinChat(){
+        public void testUserinChat() {
             String result = dbManager.getUsersinChat(user2chat);
-            Assert.assertTrue( result.equals("user2,user1,user3"));
+            Assert.assertTrue(result.equals("user2,user1,user3"));
         }
 
 
         @Test
-        public void testnewText(){
+        public void testnewText() {
             dbManager.newText("user1", user1chat, "hello");
             ArrayList<String> ans = dbManager.readChat(user1chat);
             Assert.assertTrue("The ArrayList should contain at least one element.", ans.size() == 1);
@@ -107,7 +108,7 @@ public class RunLocalTest {
 
 
         @Test
-        public void testdeleteText(){
+        public void testdeleteText() {
             dbManager.deleteText(user1chat, 0);
             ArrayList<String> ans = dbManager.readChat(user1chat);
             Assert.assertTrue("The ArrayList should be empty.", ans.size() == 0);
@@ -115,28 +116,30 @@ public class RunLocalTest {
 
 
         @Test
-        public void testcreateChat(){
+        public void testcreateChat() {
             dbManager.createUser("user5", "user5");
-            String newChat = dbManager.createChat(new String[]{"user1", "user2", "user5" });
-            Assert.assertTrue("The ArrayList should have a chatID.", newChat!=null);
+            String newChat = dbManager.createChat(new String[]{"user1", "user2", "user5"});
+            Assert.assertTrue("The ArrayList should have a chatID.", newChat != null);
         }
 
 
         @Test
-        public void testcreateuser(){
+        public void testcreateuser() {
             boolean result = dbManager.createUser("tstingcreateUser", "testingCreateUser");
             Assert.assertTrue("The ArrayList should have a userID.", result);
 
 
         }
+
         @Test
-        public void testRemoveUser(){
+        public void testRemoveUser() {
             boolean result = dbManager.removeUser("tstingcreateUser");
             Assert.assertTrue("The ArrayList should have a userID.", result);
         }
 
 
-        @Test public void testremoveuserfromchat(){
+        @Test
+        public void testremoveuserfromchat() {
             dbManager.createUser("temporrary", "temporrary");
             dbManager.addUserToChat("temporrary", user1chat);
             boolean result = dbManager.removeUserFromChat("temporrary", user1chat);
@@ -145,7 +148,7 @@ public class RunLocalTest {
 
 
         @Test
-        public void testreadChat(){
+        public void testreadChat() {
             dbManager.newText("user1", user1chat, "testing read chat");
             ArrayList<String> result = dbManager.readChat(user1chat);
             Assert.assertTrue("The ArrayList should contain at least one element.", result.size() > 0);
@@ -153,7 +156,7 @@ public class RunLocalTest {
 
 
         @Test
-        public void testUpdateUser(){
+        public void testUpdateUser() {
             User u = new User("user1", "updatedUser1password");
             dbManager.updateUser(u);
             ArrayList<User> users = dbManager.userLookup("user1");
@@ -162,31 +165,33 @@ public class RunLocalTest {
 
 
         @Test
-        public void testLoginUser(){
+        public void testLoginUser() {
             boolean result = dbManager.loginUser("user3", "user3", "user3");
             Assert.assertTrue(result);
         }
 
 
         @Test
-        public void testupdateprofilepic(){
+        public void testupdateprofilepic() {
             boolean result = dbManager.updateUserProfilePicture("user1", "New profile picture");
             Assert.assertTrue(result);
         }
+
         @Test
-        public void testgetUserProfilePicture(){
+        public void testgetUserProfilePicture() {
             String result = dbManager.getUserProfilePicture("user1");
-            Assert.assertTrue(result!=null);
+            Assert.assertTrue(result != null);
         }
+
         @Test
-        public void testclearprofilepic(){
+        public void testclearprofilepic() {
             boolean result = dbManager.clearUserProfilePicture("user1");
             Assert.assertTrue(result);
         }
 
 
         @Test
-        public void testaddfriend(){
+        public void testaddfriend() {
             dbManager.createUser("friend1", "friend1");
             dbManager.createUser("friend2", "friend2");
             boolean result = dbManager.addFriend("friend1", "friend2");
@@ -195,7 +200,7 @@ public class RunLocalTest {
 
 
         @Test
-        public void testblockfriend(){
+        public void testblockfriend() {
             dbManager.createUser("friendblock1", "friend1");
             dbManager.createUser("friendblock2", "friend2");
             boolean result = dbManager.blockFriend("friendblock1", "friendblock2");
@@ -203,11 +208,14 @@ public class RunLocalTest {
         }
 
 
-        @Test public void testuserviewer(){
+        @Test
+        public void testuserviewer() {
             ArrayList<String> users = dbManager.userViewer();
-            Assert.assertTrue(users.size()>0);
+            Assert.assertTrue(users.size() > 0);
         }
-        @Test public void testuserlookup(){
+
+        @Test
+        public void testuserlookup() {
             ArrayList<User> users = dbManager.userLookup("user1");
             Assert.assertTrue(users.get(0).getUsername().equals("user1"));
         }
@@ -218,6 +226,7 @@ public class RunLocalTest {
             User obj = new User("username", "password");
             Assert.assertTrue(obj instanceof UserInterface);
         }
+
         //Test for DatabaseManagerInterface implementation
         @Test
         public void testDatabaseManagerInterfaceImplementation() {

@@ -13,8 +13,8 @@ import java.util.*;
  *
  * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
  *
- * @version November 3, 2024
  * @author Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
+ * @version November 3, 2024
  */
 
 //  is only temporary
@@ -130,7 +130,7 @@ public class DatabaseManager implements DatabaseManagerInterface {
                 }
                 bfr.close();
             }
-            if(texts.size() == 0){
+            if (texts.size() == 0) {
                 return null;
             }
             return texts;
@@ -172,31 +172,30 @@ public class DatabaseManager implements DatabaseManagerInterface {
                 String currentLine = bfr.readLine();
                 while ((currentLine) != null) {
                     if (currentLine.contains(chatID)) {
-                        peopleInChat = currentLine.substring(currentLine.indexOf(",")+1).split(",");
+                        peopleInChat = currentLine.substring(currentLine.indexOf(",") + 1).split(",");
                     }
                     currentLine = bfr.readLine();
                 }
 
 
-
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userDatabase.txt"));
                 ArrayList<User> users = (ArrayList<User>) ois.readObject();
-                for(User user : users) {
-                    if(user.getUserID().equals(currentUserID)) {
+                for (User user : users) {
+                    if (user.getUserID().equals(currentUserID)) {
                         ArrayList<User> currentUserFriends = user.getFriends();
-                        for(String person : peopleInChat){
+                        for (String person : peopleInChat) {
                             boolean personIsFriend = false;
-                            for(User userFriend : currentUserFriends) {
-                                if(userFriend.getUserID().equals(person)) {
+                            for (User userFriend : currentUserFriends) {
+                                if (userFriend.getUserID().equals(person)) {
                                     personIsFriend = true;
                                     break;
                                 }
-                                if(person.equals(currentUserID)){
+                                if (person.equals(currentUserID)) {
                                     personIsFriend = true;
                                     break;
                                 }
                             }
-                            if(!personIsFriend) {
+                            if (!personIsFriend) {
                                 areFriends = false;
                                 return false;
                             }
@@ -210,12 +209,12 @@ public class DatabaseManager implements DatabaseManagerInterface {
                 //NEW CODE HERE FOR IF OTHER FREINDS BLOCKED CURRENT USER
 
                 boolean isBlocked = false;
-                for(int i =0; i< peopleInChat.length; i++){
-                    for(int j = 0; j < users.size(); j++){
-                        if(peopleInChat[i].equals(users.get(j).getUserID()) && !peopleInChat[i].equals(currentUserID)) {
+                for (int i = 0; i < peopleInChat.length; i++) {
+                    for (int j = 0; j < users.size(); j++) {
+                        if (peopleInChat[i].equals(users.get(j).getUserID()) && !peopleInChat[i].equals(currentUserID)) {
                             ArrayList<User> userBlocked = users.get(j).getBlocked();
-                            for(User blocked: userBlocked) {
-                                if(blocked.getUserID().equals(currentUserID)) {
+                            for (User blocked : userBlocked) {
+                                if (blocked.getUserID().equals(currentUserID)) {
                                     isBlocked = true;
                                 }
                             }
@@ -224,9 +223,8 @@ public class DatabaseManager implements DatabaseManagerInterface {
                 }
 
 
-
                 System.out.println("Friend " + areFriends + " is blocked" + isBlocked);
-                if(!areFriends || isBlocked) {
+                if (!areFriends || isBlocked) {
                     return false;
                 }
 
@@ -852,22 +850,22 @@ public class DatabaseManager implements DatabaseManagerInterface {
         }
     }
 
-    public String getFriends(String userID){
-        try{
+    public String getFriends(String userID) {
+        try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userDatabase.txt"));
             ArrayList<User> users = (ArrayList<User>) ois.readObject();
             String ans = "";
-            for(User user : users){
-                if(user.getUsername().equals(userID)){
+            for (User user : users) {
+                if (user.getUsername().equals(userID)) {
                     ArrayList<User> freinds = user.getFriends();
-                    for(User u : freinds){
+                    for (User u : freinds) {
                         ans += u.getUsername() + ",";
                     }
                 }
             }
             return ans.substring(0, ans.length() - 1);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

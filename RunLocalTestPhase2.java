@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
@@ -18,9 +19,9 @@ import java.util.ArrayList;
  *
  * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
  *
- * @version November 3, 2024
  * @author Tatjana Trajkovic, Rohit Sattuluri,
- *         Sophia Zakar, Alan Wang, BLK
+ * Sophia Zakar, Alan Wang, BLK
+ * @version November 3, 2024
  */
 
 public class RunLocalTestPhase2 {
@@ -44,9 +45,9 @@ public class RunLocalTestPhase2 {
      *
      * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
      *
-     * @version November 3, 2024
      * @author Tatjana Trajkovic, Rohit Sattuluri,
-     *         Sophia Zakar, Alan Wang, BLK
+     * Sophia Zakar, Alan Wang, BLK
+     * @version November 3, 2024
      */
 
     public static class TestCase {

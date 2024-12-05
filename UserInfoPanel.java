@@ -9,7 +9,17 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Base64;
-
+/**
+ * <p>
+ * UserInfo Panel is the GUI for seeing your user info
+ * <p>
+ *
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
+ *
+ * @version November 3, 2024
+ * @author Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
+ */
 public class UserInfoPanel extends JPanel {
     Client client;
     JPanel cardPanel;

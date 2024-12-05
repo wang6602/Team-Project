@@ -7,8 +7,5 @@ public class Main {
         System.out.println(user1.addFriend("user1", "user4"));
 
 
-
-
-
     }
 }

@@ -2,7 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * <p>
+ * These classes are for the login page and for showing an image to the screen.
+ * <p>
+ *
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
+ *
+ * @version November 3, 2024
+ * @author Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
+ */
 class ImagePanel extends JPanel {
     Image image;
 

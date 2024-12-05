@@ -14,10 +14,21 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 
+/**
+ * <p>
+ * ChatPanel holds gui for the chats screen
+ * <p>
+ *
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
+ *
+ * @author Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
+ * @version November 3, 2024
+ */
 public class ChatPanel extends JPanel {
     Client client;
     String currentChat;
-    HashMap<String,String> chatIDAndUsers = new HashMap<>();
+    HashMap<String, String> chatIDAndUsers = new HashMap<>();
     JPanel messagelabel = new JPanel();
     JPanel viewChat = new JPanel();
     JFrame jframe;
@@ -25,7 +36,7 @@ public class ChatPanel extends JPanel {
     JPanel cardPanel;
 
 
-    public ChatPanel(JFrame jframe, Client client, JPanel cardPanel, CardLayout cl){
+    public ChatPanel(JFrame jframe, Client client, JPanel cardPanel, CardLayout cl) {
         this.jframe = jframe;
         setLayout(new BorderLayout());
         this.client = client;
@@ -38,15 +49,15 @@ public class ChatPanel extends JPanel {
 
         String[] chats = client.getChatIDs();
 
-        for(int i = 0; i < chats.length; i++){
-            chatIDAndUsers.put(client.getUsersInChat(chats[i]),chats[i]);
+        for (int i = 0; i < chats.length; i++) {
+            chatIDAndUsers.put(client.getUsersInChat(chats[i]), chats[i]);
         }
         System.out.println(chatIDAndUsers);
 
 
-
     }
-    private void displaychatnamesandchats(){
+
+    private void displaychatnamesandchats() {
 
         messagelabel.setLayout(new BoxLayout(messagelabel, BoxLayout.Y_AXIS));
         add(messagelabel, BorderLayout.WEST);
@@ -67,9 +78,9 @@ public class ChatPanel extends JPanel {
 
         ButtonGroup chatGroup = new ButtonGroup();
 
-        for(String chat : chats){
-            String usersInChat = (String)client.getUsersInChat(chat);
-            chatIDAndUsers.put(usersInChat,chat);
+        for (String chat : chats) {
+            String usersInChat = (String) client.getUsersInChat(chat);
+            chatIDAndUsers.put(usersInChat, chat);
             JToggleButton chatButton2 = new JToggleButton(usersInChat);
             chatGroup.add(chatButton2);
             chatButton2.addActionListener(new ActionListener() {
@@ -120,9 +131,9 @@ public class ChatPanel extends JPanel {
                                 public void actionPerformed(ActionEvent e) {
                                     try {
                                         boolean result = client.addUserToChat(addUsername.getText(), currentChat);
-                                        if(result){
+                                        if (result) {
                                             JOptionPane.showMessageDialog(viewChat, "User has been added to the chat");
-                                        } else{
+                                        } else {
                                             JOptionPane.showMessageDialog(viewChat, "User could not be added to the chat");
                                         }
                                     } catch (NumberFormatException e1) {
@@ -142,12 +153,12 @@ public class ChatPanel extends JPanel {
                             removeUserButton.addActionListener(new ActionListener() {
                                 public void actionPerformed(ActionEvent e) {
 
-                                        boolean result = client.removeUserFromChat(removeUserIndex.getText(), currentChat);
-                                        if(result){
-                                            JOptionPane.showMessageDialog(viewChat, "User has been removed from the chat");
-                                        } else{
-                                            JOptionPane.showMessageDialog(viewChat, "User could not be removed from the chat");
-                                        }
+                                    boolean result = client.removeUserFromChat(removeUserIndex.getText(), currentChat);
+                                    if (result) {
+                                        JOptionPane.showMessageDialog(viewChat, "User has been removed from the chat");
+                                    } else {
+                                        JOptionPane.showMessageDialog(viewChat, "User could not be removed from the chat");
+                                    }
 
                                 }
                             });
@@ -156,7 +167,7 @@ public class ChatPanel extends JPanel {
 
 
                             chatTools.add(addUser);
-                            if(chatContents == null){
+                            if (chatContents == null) {
                                 JLabel empty = new JLabel("No chat history");
                                 add(empty);
                                 return;
@@ -172,7 +183,7 @@ public class ChatPanel extends JPanel {
 
                             String[] users = usersInChat.split(",");
                             for (String user : users) {
-                                if(client.getUserProfilePicture(user).equals("null") || client.getUserProfilePicture(user).equals("")) {
+                                if (client.getUserProfilePicture(user).equals("null") || client.getUserProfilePicture(user).equals("")) {
                                     client.updateUserProfilePicture(user, "/9j/4AAQSkZJRgABAQAAAQABAAD/" +
                                             "2wCEAAkGBw8PDxANDg0NDxEODQ0PDw8PDRANDw4NFREWFhURFRUYHDQgGBolGxUVITEhJSkrLi4wGB8zODMt" +
                                             "NygtLisBCgoKDg0OGhAQGi0lIB8tLS0tLS0tLSstLystLS0tLS0tLSstLS0tLS0tLS0tKy0tLS0tLS0rLS0tLS0" +
@@ -286,9 +297,8 @@ public class ChatPanel extends JPanel {
 
                                 messagePanel.add(messageLabel);
                                 messagePanel.add(Box.createVerticalStrut(10));
-                                index ++;
+                                index++;
                             }
-
 
 
                             viewChat.add(chatTools, BorderLayout.NORTH);
@@ -308,7 +318,7 @@ public class ChatPanel extends JPanel {
     }
 
 
-    private void sendMessageandNavigation(){
+    private void sendMessageandNavigation() {
         JPanel messageAndNavigation = new JPanel();
         messageAndNavigation.setLayout(new FlowLayout());
 
@@ -323,7 +333,7 @@ public class ChatPanel extends JPanel {
         JToggleButton chatPage = new JToggleButton("Chats", true);
         userPage.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JPanel updatedUserProfile = new UserInfoPanel(jframe,client, cardPanel, cl);
+                JPanel updatedUserProfile = new UserInfoPanel(jframe, client, cardPanel, cl);
                 cardPanel.add(updatedUserProfile, "updatedUserInfo");
                 cl.show(cardPanel, "updatedUserInfo");
             }
@@ -336,7 +346,7 @@ public class ChatPanel extends JPanel {
 
         JLabel newmessage = new JLabel("New message");
         JTextField newMessageField = new JTextField(10);
-        JButton send =  new JButton("Send");
+        JButton send = new JButton("Send");
 
         send.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -391,11 +401,10 @@ public class ChatPanel extends JPanel {
         add(messageAndNavigation, BorderLayout.SOUTH);
 
 
-
     }
 
-    private JLabel createImage(String base64){
-        try{
+    private JLabel createImage(String base64) {
+        try {
             byte[] bytes = Base64.getDecoder().decode(base64);
             ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
             BufferedImage bufferedImage = ImageIO.read(bais);
@@ -411,8 +420,7 @@ public class ChatPanel extends JPanel {
     }
 
 
-
-    private void topBarTools(){
+    private void topBarTools() {
         JMenuBar topBar = new JMenuBar();
         topBar.setLayout(new FlowLayout());
 
@@ -453,17 +461,17 @@ public class ChatPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println(selectedFriends.toString());
 
-                String[] selected = new String[selectedFriends.size()+1];
+                String[] selected = new String[selectedFriends.size() + 1];
                 selected[0] = client.getUsername();
-                for(int i = 0; i < selectedFriends.size(); i++){
-                    selected[i+1] = selectedFriends.get(i);
+                for (int i = 0; i < selectedFriends.size(); i++) {
+                    selected[i + 1] = selectedFriends.get(i);
                 }
                 String compare = "";
-                for(String str : selected){
-                    compare += str+",";
+                for (String str : selected) {
+                    compare += str + ",";
                 }
 
-                if(chatIDAndUsers.containsKey(compare)){
+                if (chatIDAndUsers.containsKey(compare)) {
                     JOptionPane.showMessageDialog(newChat,
                             "This chat already exists",
                             "Error", JOptionPane.ERROR_MESSAGE);
@@ -476,7 +484,6 @@ public class ChatPanel extends JPanel {
                 client.newText(newChat, firstMessageField.getText());
             }
         });
-
 
 
         JMenuItem reload = new JMenuItem("Reload");

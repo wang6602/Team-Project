@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class MainScreen {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 Client client = new Client();
@@ -14,7 +14,7 @@ public class MainScreen {
                 //client.setUserIDandUsername("user1");
                 JFrame frame = new JFrame("Main Screen");
 
-                frame.setSize(600,500);
+                frame.setSize(600, 500);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.setLocationRelativeTo(null);
 
@@ -27,14 +27,11 @@ public class MainScreen {
                 cardPanel.add(login, "login");
 
 
-
                 cl.show(cardPanel, "login");
 
                 frame.add(cardPanel);
 
                 frame.setVisible(true);
-
-
 
 
             }

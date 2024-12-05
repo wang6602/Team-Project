@@ -2,8 +2,6 @@ import java.io.*;
 import java.net.*;
 
 
-
-
 /**
  * <p>
  * Client Class
@@ -16,8 +14,8 @@ import java.net.*;
  *
  * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
  *
- * @version November 3, 2024
  * @author Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
+ * @version November 3, 2024
  */
 
 public class Client implements ClientInterface {
@@ -28,10 +26,6 @@ public class Client implements ClientInterface {
     private String username;
     private String password;
     private String userID;
-
-
-
-
 
 
     public Client() {
@@ -48,7 +42,6 @@ public class Client implements ClientInterface {
     public String getUsername() {
         return username;
     }
-
 
 
     public void setUserIDandUsername(String currentuserID) {
@@ -92,9 +85,9 @@ public class Client implements ClientInterface {
         try {
             out.println("READCHAT:" + chatID);
             String response = in.readLine();
-            if(response == null) {
+            if (response == null) {
                 return null;
-            } else{
+            } else {
                 String[] result = response.split(",");
                 return result;
             }
@@ -157,16 +150,16 @@ public class Client implements ClientInterface {
     public boolean addFriend(String currentuserID, String friendID) {
         try {
             String[] currentFriends = this.getFriends(currentuserID);
-            boolean friendExists=false;
-            for(String s : currentFriends) {
-                if(s.equals(friendID)) {
+            boolean friendExists = false;
+            for (String s : currentFriends) {
+                if (s.equals(friendID)) {
                     friendExists = true;
                 }
             }
-            if(!friendExists) {
+            if (!friendExists) {
                 out.println("ADDFRIEND:" + currentuserID + ":" + friendID);
                 return Boolean.parseBoolean((in.readLine()));
-            } else{
+            } else {
                 return false;
             }
 
@@ -261,8 +254,9 @@ public class Client implements ClientInterface {
             return null;
         }
     }
+
     public String[] getFriends(String currentuserID) {
-        try{
+        try {
             out.println("GETFRIENDS:" + currentuserID);
             return in.readLine().split(",");
         } catch (Exception e) {

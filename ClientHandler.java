@@ -26,7 +26,6 @@ import java.util.ArrayList;
  */
 
 
-
 public class ClientHandler implements Runnable, ClientHandlerInterface {
 
     BufferedReader in;
@@ -54,7 +53,7 @@ public class ClientHandler implements Runnable, ClientHandlerInterface {
                     for (String s : result) {
                         output += s + ",";
                     }
-                    if(output.length()== 0){
+                    if (output.length() == 0) {
                         out.println("null");
                     } else {
                         out.println(output.substring(0, output.length() - 1));
@@ -75,7 +74,7 @@ public class ClientHandler implements Runnable, ClientHandlerInterface {
                     for (String s : result) {
                         ans += s + ",";
                     }
-                    if(result == null){
+                    if (result == null) {
                         out.println("null");
                     } else {
                         out.println(ans.substring(0, ans.length() - 1));
@@ -94,7 +93,7 @@ public class ClientHandler implements Runnable, ClientHandlerInterface {
                 }
                 if (request.equals("UPDATEUSERPROFILEPICTURE")) {
                     String[] temp = message.split(":");
-                    boolean output = databaseManager.updateUserProfilePicture(temp[1],temp[2]);
+                    boolean output = databaseManager.updateUserProfilePicture(temp[1], temp[2]);
                     out.println(output);
                 }
                 if (request.equals("CLEARUSERPROFILEPICTURE")) {
