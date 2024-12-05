@@ -89,8 +89,7 @@ public class LoginPanel extends JPanel {
                 if (username.contains(",") || username.contains(":") || password.contains(",") || password.contains(":")) {
                     JOptionPane.showMessageDialog(jframe, "Username and password cannot contain commas or colons", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
-                }
-                if (client.loginUser(username, password, username)) {
+                } else if (client.loginUser(username, password, username)) {
                     client.setUserIDandUsername(username);
                     JOptionPane.showMessageDialog(jframe, "Welcome back, " + username, "Login Successful", JOptionPane.INFORMATION_MESSAGE);
                     JPanel chat = new ChatPanel(jframe, client, cardPanel, cl);

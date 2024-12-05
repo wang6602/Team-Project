@@ -264,6 +264,15 @@ public class UserInfoPanel extends JPanel {
             }
         });
 
+        JButton removeUser = new JButton("Remove User");
+        bottomPanel.add(removeUser);
+        removeUser.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cl.show(cardPanel, "login");
+                client.removeUser(client.getUsername());
+            }
+        });
+
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
