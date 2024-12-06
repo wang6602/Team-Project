@@ -57,12 +57,17 @@ public class LoginPanel extends JPanel {
         Image image = imageIcon.getImage();
         JPanel imagePanel = new ImagePanel(image);
         add(imagePanel, BorderLayout.CENTER);
+
+
+
         JLabel usernameLabel = new JLabel("Username:");
         JTextField usernameField = new JTextField(14);
         JLabel passwordLabel = new JLabel("Password:");
         JPasswordField passwordField = new JPasswordField(14);
         JButton loginButton = new JButton("Login");
         JButton createUserButton = new JButton("Create User");
+
+
         JPanel formPanel = new JPanel();
         formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
         usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -73,12 +78,15 @@ public class LoginPanel extends JPanel {
         createUserButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         usernameField.setMaximumSize(usernameField.getPreferredSize());
         passwordField.setMaximumSize(passwordField.getPreferredSize());
+
+
         formPanel.add(usernameLabel);
         formPanel.add(usernameField);
         formPanel.add(passwordLabel);
         formPanel.add(passwordField);
         formPanel.add(loginButton);
         formPanel.add(createUserButton);
+
         add(formPanel, BorderLayout.SOUTH);
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

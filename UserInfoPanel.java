@@ -33,7 +33,7 @@ public class UserInfoPanel extends JPanel {
         this.cl = cl;
         this.frame = jframe;
 
-        // North Panel
+
         JLabel label = new JLabel("User Profile", JLabel.CENTER);
         add(label, BorderLayout.NORTH);
         this.dispayUserInfoAndButtons();
@@ -41,7 +41,7 @@ public class UserInfoPanel extends JPanel {
         this.dispayToggleButtons();
     }
 
-    // West Panel for Username
+
     private JLabel imageLabel = new JLabel();
     private void dispayUserInfoAndButtons() {
         JPanel westPanel = new JPanel();
@@ -50,7 +50,7 @@ public class UserInfoPanel extends JPanel {
         JPanel profilePanel = new JPanel();
         profilePanel.setLayout(new BorderLayout());
 
-        // Base64 string of the profile picture (replace with your Base64 string)
+
         String base64String = client.getUserProfilePicture(client.getUsername());
 
         if(client.getUserProfilePicture(client.getUsername()).equals("null") || client.getUserProfilePicture(client.getUsername()).equals("")) {
@@ -166,7 +166,7 @@ public class UserInfoPanel extends JPanel {
         add(westPanel, BorderLayout.WEST);
     }
 
-    // East Panel for Scrolling Panes
+
     private void displayScollingPanes() {
 
         JPanel eastPanel = new JPanel();
@@ -243,7 +243,7 @@ public class UserInfoPanel extends JPanel {
         add(eastPanel, BorderLayout.EAST);
     }
 
-    // South Panel for Toggle Buttons
+
     public void dispayToggleButtons() {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER));

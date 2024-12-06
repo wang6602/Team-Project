@@ -240,7 +240,6 @@ public class ChatPanel extends JPanel {
                                 if (bufferedImage != null) {
                                     Image scaledImage = bufferedImage.getScaledInstance(imageWidth, imageHeight, Image.SCALE_SMOOTH);
                                     ImageIcon imageIcon = new ImageIcon(scaledImage);
-
                                     JLabel imageLabel = new JLabel(imageIcon);
                                     imageLabel.setBorder(BorderFactory.createLineBorder(Color.black));
                                     userPanel.add(imageLabel);
@@ -248,7 +247,7 @@ public class ChatPanel extends JPanel {
 
 
                                 JLabel nameLabel = new JLabel(user);
-                                nameLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0)); // Add spacing between image and name
+                                nameLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
                                 userPanel.add(nameLabel);
 
 
@@ -295,7 +294,7 @@ public class ChatPanel extends JPanel {
 
                                 }
 
-                                // Add some margin between messages
+
                                 messageLabel.setMaximumSize(new Dimension(300, messageLabel.getPreferredSize().height));
 
                                 messagePanel.add(messageLabel);
@@ -371,11 +370,10 @@ public class ChatPanel extends JPanel {
                     return;
                 }
 
-                // Run client.newText in a separate thread
                 new Thread(() -> {
                     boolean result = client.newText(currentChat, input);
 
-                    // Update GUI on the EDT
+
                     SwingUtilities.invokeLater(() -> {
                         if (!result) {
                             JOptionPane.showMessageDialog(newmessage,
@@ -387,7 +385,7 @@ public class ChatPanel extends JPanel {
                                     "Success", JOptionPane.INFORMATION_MESSAGE);
                         }
 
-                        // Clear the message field regardless of the result
+
                         newMessageField.setText("");
                     });
                 }).start();
@@ -442,10 +440,8 @@ public class ChatPanel extends JPanel {
                 newChatMenuItem.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         if (newChatMenuItem.isSelected()) {
-                            // Add friend to selected list
                             selectedFriends.add(friend);
                         } else {
-                            // Remove friend if unchecked
                             selectedFriends.remove(friend);
                         }
                         newChat.getPopupMenu().setVisible(true);

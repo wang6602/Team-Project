@@ -60,7 +60,7 @@ public class OtherUserInfoPanel extends JPanel {
     private JLabel imageLabel = new JLabel();
 
     public void isUser() {
-        // Center panel
+
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
@@ -142,7 +142,7 @@ public class OtherUserInfoPanel extends JPanel {
         centerPanel.add(profilePanel, BorderLayout.CENTER);
         add(centerPanel, BorderLayout.CENTER);
 
-        // West panel for back button at top-left corner
+
         JPanel westPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton backButton = new JButton("<--");
         backButton.setPreferredSize(new Dimension(80, 30));
@@ -158,7 +158,7 @@ public class OtherUserInfoPanel extends JPanel {
     }
 
     public void isFriend() {
-        // Center panel
+
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
@@ -240,7 +240,7 @@ public class OtherUserInfoPanel extends JPanel {
         centerPanel.add(profilePanel, BorderLayout.CENTER);
         add(centerPanel, BorderLayout.CENTER);
 
-        // West panel for back button at top-left corner
+
         JPanel westPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton backButton = new JButton("<--");
         backButton.setPreferredSize(new Dimension(80, 30));
@@ -252,7 +252,7 @@ public class OtherUserInfoPanel extends JPanel {
             }
         });
 
-        //east panel for friend pane
+
         JPanel eastPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JPanel dropdownsPanel = new JPanel();
         dropdownsPanel.setLayout(new GridBagLayout());
