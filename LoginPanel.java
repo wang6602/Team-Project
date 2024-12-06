@@ -114,7 +114,7 @@ public class LoginPanel extends JPanel {
                 if (username.contains(",") || username.contains(":") || password.contains(",") || password.contains(":")) {
                     JOptionPane.showMessageDialog(jframe, "Username and password cannot contain commas or colons", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
-                } else if(username.equals("") || password.equals("")) {
+                } else if (username.equals("") || password.equals("")) {
                     JOptionPane.showMessageDialog(jframe, "Username and password cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
                     return ;
                 }

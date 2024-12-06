@@ -137,7 +137,7 @@ public class ChatPanel extends JPanel {
                                         if (result) {
                                             JOptionPane.showMessageDialog(viewChat, "User has been added to the chat");
                                         } else {
-                                            JOptionPane.showMessageDialog(viewChat, "User could not be added to the chat");
+                                            JOptionPane.showMessageDialog(viewChat, "User could not be added to the chat", "Error", JOptionPane.ERROR_MESSAGE);
                                         }
                                     } catch (NumberFormatException e1) {
                                         JOptionPane.showMessageDialog(viewChat, "please enter a valid integer associated with the specific text", "Error", JOptionPane.ERROR_MESSAGE);
@@ -160,7 +160,7 @@ public class ChatPanel extends JPanel {
                                     if (result) {
                                         JOptionPane.showMessageDialog(viewChat, "User has been removed from the chat");
                                     } else {
-                                        JOptionPane.showMessageDialog(viewChat, "User could not be removed from the chat");
+                                        JOptionPane.showMessageDialog(viewChat, "User could not be added to the chat", "Error", JOptionPane.ERROR_MESSAGE);
                                     }
 
                                 }
@@ -474,6 +474,19 @@ public class ChatPanel extends JPanel {
                     compare += str + ",";
                 }
 
+                if (selected.length <= 1) {
+                    JOptionPane.showMessageDialog(newChat,
+                            "Select a user to send a chat to",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return ;
+                } else if(firstMessageField.getText().equals("")){
+                    JOptionPane.showMessageDialog(newChat,
+                            "Make sure your first message is not blank",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return ;
+                }
+                compare = compare.substring(0, compare.length() - 1);
+
                 if (chatIDAndUsers.containsKey(compare)) {
                     JOptionPane.showMessageDialog(newChat,
                             "This chat already exists",
@@ -485,6 +498,7 @@ public class ChatPanel extends JPanel {
 
                 String newChat = client.createChat(selected);
                 client.newText(newChat, firstMessageField.getText());
+                JOptionPane.showMessageDialog(viewChat, "chat Succesfully Created - reload the page", "Success", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
