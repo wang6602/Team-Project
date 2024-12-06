@@ -434,22 +434,24 @@ public class ChatPanel extends JPanel {
         ArrayList<String> selectedFriends = new ArrayList<>();
 
         for (String friend : friends) {
-            JCheckBoxMenuItem newChatMenuItem = new JCheckBoxMenuItem(friend);
-            newChat.add(newChatMenuItem);
+            if (!(friends[0].equals("null"))) {
+                JCheckBoxMenuItem newChatMenuItem = new JCheckBoxMenuItem(friend);
+                newChat.add(newChatMenuItem);
 
 
-            newChatMenuItem.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (newChatMenuItem.isSelected()) {
-                        // Add friend to selected list
-                        selectedFriends.add(friend);
-                    } else {
-                        // Remove friend if unchecked
-                        selectedFriends.remove(friend);
+                newChatMenuItem.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (newChatMenuItem.isSelected()) {
+                            // Add friend to selected list
+                            selectedFriends.add(friend);
+                        } else {
+                            // Remove friend if unchecked
+                            selectedFriends.remove(friend);
+                        }
+                        newChat.getPopupMenu().setVisible(true);
                     }
-                    newChat.getPopupMenu().setVisible(true);
-                }
-            });
+                });
+            }
         }
 
         JLabel firstmessage = new JLabel("First Message");
