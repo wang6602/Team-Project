@@ -135,7 +135,7 @@ public class UserInfoPanel extends JPanel {
 
                     ImageIcon imageIcon = new ImageIcon(updatedBufferedImage);
                     imageLabel.setIcon(imageIcon);
-                }  catch(Exception ex) {
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Base 64 is invalid", "error", JOptionPane.ERROR_MESSAGE);
                 }
 

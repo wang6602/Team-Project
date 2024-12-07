@@ -88,8 +88,8 @@ public class ChatPanel extends JPanel {
             String usersInChat = (String) client.getUsersInChat(chat);
             chatIDAndUsers.put(usersInChat, chat);
             JToggleButton chatButton2;
-            if(usersInChat.length()> 16){
-                 chatButton2 = new JToggleButton(usersInChat.substring(0,13)+"...");
+            if (usersInChat.length() > 16) {
+                chatButton2 = new JToggleButton(usersInChat.substring(0, 13) + "...");
             } else {
                 chatButton2 = new JToggleButton(usersInChat);
             }
@@ -265,7 +265,6 @@ public class ChatPanel extends JPanel {
                             JScrollPane profilePicScroll = new JScrollPane(profilePic);
                             profilePicScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
                             viewChat.add(profilePicScroll);
-
 
 
                             JPanel messagePanel = new JPanel();
