@@ -106,7 +106,7 @@ public class UserInfoPanel extends JPanel {
         }
 
         if (bufferedImage != null) {
-            ImageIcon imageIcon = new ImageIcon(bufferedImage);
+            ImageIcon imageIcon = new ImageIcon(bufferedImage.getScaledInstance(250, 250, Image.SCALE_SMOOTH));
             imageLabel = new JLabel(imageIcon);
             imageLabel.setBorder(BorderFactory.createLineBorder(Color.black));
             profilePanel.add(imageLabel, BorderLayout.NORTH);
