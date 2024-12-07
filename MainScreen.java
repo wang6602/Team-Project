@@ -14,7 +14,7 @@ public class MainScreen {
                 //client.setUserIDandUsername("user1");
                 JFrame frame = new JFrame("Main Screen");
 
-                frame.setSize(1000, 900);
+                frame.setSize(600, 500);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.setLocationRelativeTo(null);
 

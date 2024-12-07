@@ -60,6 +60,8 @@ public class ChatPanel extends JPanel {
     private void displaychatnamesandchats() {
 
         messagelabel.setLayout(new BoxLayout(messagelabel, BoxLayout.Y_AXIS));
+        messagelabel.setPreferredSize(new Dimension(180, messagelabel.getPreferredSize().height));
+
         add(messagelabel, BorderLayout.WEST);
         messagelabel.removeAll();
         messagelabel.revalidate();
