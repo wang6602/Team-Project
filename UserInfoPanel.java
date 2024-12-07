@@ -116,24 +116,28 @@ public class UserInfoPanel extends JPanel {
         profilePanel.add(changeProfileButton, BorderLayout.CENTER);
         changeProfileButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String newPic = JOptionPane.showInputDialog(null, "Please enter the Base64 of your image",
-                        "Change Info ", JOptionPane.QUESTION_MESSAGE);
-                if (newPic == null || newPic.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Profile Picture change cancelled",
-                            "Information", JOptionPane.INFORMATION_MESSAGE);
-                    return;
-                }
-                client.updateUserProfilePicture(client.getUsername(), newPic);
-                byte[] updatedImageBytes = Base64.getDecoder().decode(newPic);
-                BufferedImage updatedBufferedImage = null;
                 try {
-                    updatedBufferedImage = ImageIO.read(new ByteArrayInputStream(updatedImageBytes));
-                } catch (IOException f) {
-                    f.printStackTrace();
-                }
+                    String newPic = JOptionPane.showInputDialog(null, "Please enter the Base64 of your image",
+                            "Change Info ", JOptionPane.QUESTION_MESSAGE);
+                    if (newPic == null || newPic.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Profile Picture change cancelled",
+                                "Information", JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                    }
+                    client.updateUserProfilePicture(client.getUsername(), newPic);
+                    byte[] updatedImageBytes = Base64.getDecoder().decode(newPic);
+                    BufferedImage updatedBufferedImage = null;
+                    try {
+                        updatedBufferedImage = ImageIO.read(new ByteArrayInputStream(updatedImageBytes));
+                    } catch (IOException f) {
+                        f.printStackTrace();
+                    }
 
-                ImageIcon imageIcon = new ImageIcon(updatedBufferedImage);
-                imageLabel.setIcon(imageIcon);
+                    ImageIcon imageIcon = new ImageIcon(updatedBufferedImage);
+                    imageLabel.setIcon(imageIcon);
+                }  catch(Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Base 64 is invalid", "error", JOptionPane.ERROR_MESSAGE);
+                }
 
             }
         });
