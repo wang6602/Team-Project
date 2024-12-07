@@ -18,6 +18,11 @@ For testing test cases
 - Clients will be able to connect to the server, and the RunLocalTestPhase2 can be run.
 - To run the test cases for phase 2, run the server, then run the RunLcoalTestPhase2.java file.
 
+SUBMISSIONS
+- Rohit Sattuluri submitted the project presentation on Brightspace
+- Tatjana Trajkovic submitted the project report on Brightspace
+- Rohit Sattuluri submitted on Vocareum workspace
+
 ABOUT THE CLASSES
 
 User Class/Interface
