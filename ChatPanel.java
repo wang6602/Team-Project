@@ -88,11 +88,8 @@ public class ChatPanel extends JPanel {
             String usersInChat = (String) client.getUsersInChat(chat);
             chatIDAndUsers.put(usersInChat, chat);
             JToggleButton chatButton2;
-            if (usersInChat.length() > 16) {
-                chatButton2 = new JToggleButton(usersInChat.substring(0, 13) + "...");
-            } else {
-                chatButton2 = new JToggleButton(usersInChat);
-            }
+            chatButton2 = new JToggleButton(usersInChat);
+
             chatGroup.add(chatButton2);
             chatButton2.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
