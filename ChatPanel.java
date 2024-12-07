@@ -80,11 +80,19 @@ public class ChatPanel extends JPanel {
         }
 
         ButtonGroup chatGroup = new ButtonGroup();
+        JPanel chatButtonPanel = new JPanel();
+        chatButtonPanel.setLayout(new BoxLayout(chatButtonPanel, BoxLayout.Y_AXIS));
+
 
         for (String chat : chats) {
             String usersInChat = (String) client.getUsersInChat(chat);
             chatIDAndUsers.put(usersInChat, chat);
-            JToggleButton chatButton2 = new JToggleButton(usersInChat);
+            JToggleButton chatButton2;
+            if(usersInChat.length()> 16){
+                 chatButton2 = new JToggleButton(usersInChat.substring(0,13)+"...");
+            } else {
+                chatButton2 = new JToggleButton(usersInChat);
+            }
             chatGroup.add(chatButton2);
             chatButton2.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -178,7 +186,7 @@ public class ChatPanel extends JPanel {
 
 
                             JPanel profilePic = new JPanel();
-                            profilePic.setLayout(new FlowLayout());
+                            profilePic.setLayout(new BoxLayout(profilePic, BoxLayout.Y_AXIS));
 
 // Maxi
                             int imageWidth = 40;
@@ -253,7 +261,11 @@ public class ChatPanel extends JPanel {
 
                                 profilePic.add(userPanel);
                             }
-                            viewChat.add(profilePic);
+                            //viewChat.add(profilePic);
+                            JScrollPane profilePicScroll = new JScrollPane(profilePic);
+                            profilePicScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                            viewChat.add(profilePicScroll);
+
 
 
                             JPanel messagePanel = new JPanel();
@@ -315,8 +327,14 @@ public class ChatPanel extends JPanel {
                 }
             });
 
-            messagelabel.add(chatButton2);
+            chatButtonPanel.add(chatButton2);
+
         }
+        JScrollPane chatScrollPane = new JScrollPane(chatButtonPanel);
+        chatScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        chatScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        messagelabel.add(chatScrollPane);
+
     }
 
 
