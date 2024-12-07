@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Base64;
+
 /**
  * <p>
  * This class is to see another users information in the GUI
@@ -15,8 +16,8 @@ import java.util.Base64;
  *
  * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
  *
- * @version November 3, 2024
  * @author Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
+ * @version November 3, 2024
  */
 public class OtherUserInfoPanel extends JPanel {
     Client client;

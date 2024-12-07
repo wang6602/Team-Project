@@ -45,8 +45,8 @@ public class DatabaseManager implements DatabaseManagerInterface {
                 while ((currentLine = bfr.readLine()) != null) {
                     String[] users = currentLine.split(",");
                     String selected = users[0];
-                    for(String user : users) {
-                        if(userID.equals(user)) {
+                    for (String user : users) {
+                        if (userID.equals(user)) {
                             chatIDs.add(selected);
                         }
                     }

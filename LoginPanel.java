@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 /**
  * <p>
  * These classes are for the login page and for showing an image to the screen.
@@ -10,8 +11,8 @@ import java.awt.event.ActionListener;
  *
  * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
  *
- * @version November 3, 2024
  * @author Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
+ * @version November 3, 2024
  */
 class ImagePanel extends JPanel {
     Image image;
@@ -59,7 +60,6 @@ public class LoginPanel extends JPanel {
         add(imagePanel, BorderLayout.CENTER);
 
 
-
         JLabel usernameLabel = new JLabel("Username:");
         JTextField usernameField = new JTextField(14);
         JLabel passwordLabel = new JLabel("Password:");
@@ -97,7 +97,7 @@ public class LoginPanel extends JPanel {
                 if (username.contains(",") || username.contains(":") || password.contains(",") || password.contains(":")) {
                     JOptionPane.showMessageDialog(jframe, "Username and password cannot contain commas or colons", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
-                } else if(username.equals("") || password.equals("")) {
+                } else if (username.equals("") || password.equals("")) {
                     JOptionPane.showMessageDialog(jframe, "Username and password cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
                 } else if (client.loginUser(username, password, username)) {
                     client.setUserIDandUsername(username);
@@ -124,7 +124,7 @@ public class LoginPanel extends JPanel {
                     return;
                 } else if (username.equals("") || password.equals("")) {
                     JOptionPane.showMessageDialog(jframe, "Username and password cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
-                    return ;
+                    return;
                 }
                 if (password.length() < 8) {
                     JOptionPane.showMessageDialog(jframe, "Password must be at least 8 characters long", "Error", JOptionPane.ERROR_MESSAGE);

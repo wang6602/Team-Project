@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Base64;
+
 /**
  * <p>
  * UserInfo Panel is the GUI for seeing your user info
@@ -17,8 +18,8 @@ import java.util.Base64;
  *
  * <p>Purdue University -- CS18000 -- Fall 2024 -- Team Project -- DatabaseManager -- L14, Team 4</p>
  *
- * @version November 3, 2024
  * @author Tatjana Trajkovic, Rohit Sattuluri, Sophia Zakar, Alan Wang, BLK
+ * @version November 3, 2024
  */
 public class UserInfoPanel extends JPanel {
     Client client;
@@ -43,6 +44,7 @@ public class UserInfoPanel extends JPanel {
 
 
     private JLabel imageLabel = new JLabel();
+
     private void dispayUserInfoAndButtons() {
         JPanel westPanel = new JPanel();
         westPanel.setLayout(new BorderLayout());
@@ -53,7 +55,7 @@ public class UserInfoPanel extends JPanel {
 
         String base64String = client.getUserProfilePicture(client.getUsername());
 
-        if(client.getUserProfilePicture(client.getUsername()).equals("null") || client.getUserProfilePicture(client.getUsername()).equals("")) {
+        if (client.getUserProfilePicture(client.getUsername()).equals("null") || client.getUserProfilePicture(client.getUsername()).equals("")) {
             client.updateUserProfilePicture(client.getUsername(), "/9j/4AAQSkZJRgABAQAAAQABAAD/" +
                     "2wCEAAkGBw8PDxANDg0NDxEODQ0PDw8PDRANDw4NFREWFhURFRUYHDQgGBolGxUVITEhJSkrLi4wGB8zODMt" +
                     "NygtLisBCgoKDg0OGhAQGi0lIB8tLS0tLS0tLSstLystLS0tLS0tLSstLS0tLS0tLS0tKy0tLS0tLS0rLS0tLS0" +
@@ -125,13 +127,13 @@ public class UserInfoPanel extends JPanel {
                 byte[] updatedImageBytes = Base64.getDecoder().decode(newPic);
                 BufferedImage updatedBufferedImage = null;
                 try {
-                     updatedBufferedImage = ImageIO.read(new ByteArrayInputStream(updatedImageBytes));
+                    updatedBufferedImage = ImageIO.read(new ByteArrayInputStream(updatedImageBytes));
                 } catch (IOException f) {
                     f.printStackTrace();
                 }
 
-                    ImageIcon imageIcon = new ImageIcon(updatedBufferedImage);
-                    imageLabel.setIcon(imageIcon);
+                ImageIcon imageIcon = new ImageIcon(updatedBufferedImage);
+                imageLabel.setIcon(imageIcon);
 
             }
         });
@@ -160,7 +162,6 @@ public class UserInfoPanel extends JPanel {
                 client.updateUser(client.getUsername(), newPassword);
             }
         });
-
 
 
         add(westPanel, BorderLayout.WEST);
@@ -210,7 +211,7 @@ public class UserInfoPanel extends JPanel {
                     System.out.println("User wants to visit this friend page: " + selectedFriend);
                     JPanel newFriendProfile = new OtherUserInfoPanel(client, cardPanel, cl, selectedFriend, frame);
                     cardPanel.add(newFriendProfile, "otherUserInfo");
-                    cl.show(cardPanel,"otherUserInfo");
+                    cl.show(cardPanel, "otherUserInfo");
                 }
             }
         });
@@ -233,8 +234,8 @@ public class UserInfoPanel extends JPanel {
                     System.out.println("User wants to visit this user page: " + selectedUser);
                     JPanel newUserProfile = new OtherUserInfoPanel(client, cardPanel, cl, selectedUser, frame);
                     cardPanel.add(newUserProfile, "otherUserInfo");
-                    cl.show(cardPanel,"otherUserInfo");
-                    cl.show(cardPanel,"otherUserInfo");
+                    cl.show(cardPanel, "otherUserInfo");
+                    cl.show(cardPanel, "otherUserInfo");
                 }
             }
         });
@@ -248,7 +249,7 @@ public class UserInfoPanel extends JPanel {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        JToggleButton profileButton = new JToggleButton("My Profile",true);
+        JToggleButton profileButton = new JToggleButton("My Profile", true);
         bottomPanel.add(profileButton);
 
         JToggleButton chatButton = new JToggleButton("Chats");
@@ -256,7 +257,7 @@ public class UserInfoPanel extends JPanel {
 
         chatButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JPanel updatedChatPage = new ChatPanel(frame,client, cardPanel, cl);
+                JPanel updatedChatPage = new ChatPanel(frame, client, cardPanel, cl);
                 cardPanel.add(updatedChatPage, "updatedChatPage");
                 cl.show(cardPanel, "updatedChatPage");
                 profileButton.setSelected(false);

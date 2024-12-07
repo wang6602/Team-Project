@@ -75,8 +75,8 @@ public class ChatPanel extends JPanel {
         messagelabel.add(title);
 
         String[] chats = client.getChatIDs();
-        if(chats[0].equals("null")){
-            return ;
+        if (chats[0].equals("null")) {
+            return;
         }
 
         ButtonGroup chatGroup = new ButtonGroup();
@@ -476,12 +476,12 @@ public class ChatPanel extends JPanel {
                     JOptionPane.showMessageDialog(newChat,
                             "Select a user to send a chat to",
                             "Error", JOptionPane.ERROR_MESSAGE);
-                    return ;
-                } else if(firstMessageField.getText().equals("")){
+                    return;
+                } else if (firstMessageField.getText().equals("")) {
                     JOptionPane.showMessageDialog(newChat,
                             "Make sure your first message is not blank",
                             "Error", JOptionPane.ERROR_MESSAGE);
-                    return ;
+                    return;
                 }
                 compare = compare.substring(0, compare.length() - 1);
 
